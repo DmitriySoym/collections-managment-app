@@ -16,6 +16,7 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.0.*",
         "symfony/runtime": "7.0.*",
+        "symfony/security-bundle": "7.0.*",
         "symfony/twig-bundle": "7.0.*",
         "symfony/webpack-encore-bundle": "^2.1",
         "symfony/yaml": "7.0.*"
@@ -69,6 +70,7 @@
     },
     "require-dev": {
         "fzaninotto/faker": "^1.5",
-        "symfony/maker-bundle": "^1.59"
+        "symfony/maker-bundle": "^1.59",
+        "symfony/web-profiler-bundle": "7.0.*"
     }
 }
