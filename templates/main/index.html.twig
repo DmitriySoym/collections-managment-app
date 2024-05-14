@@ -8,5 +8,10 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-    <div id="main-page"></div>
+    {# <div id="main-page"></div> #}
+    <div class="container">
+        <h1>Welcom to collection managment app</h1>
+        <a href="/login" class="btn btn-success">Sign in</a>
+        <a href="/register" class="btn btn-success">Sign up</a>
+    </div>
 {% endblock %}

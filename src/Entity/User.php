@@ -44,6 +44,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $email = null;
 
+    #[ORM\OneToOne(mappedBy: 'userName', cascade: ['persist', 'remove'])]
+    private ?UsersCollection $usersCollection = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +153,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getUsersCollection(): ?UsersCollection
+    {
+        return $this->usersCollection;
+    }
+
+    public function setUsersCollection(UsersCollection $usersCollection): static
+    {
+        // set the owning side of the relation if necessary
+        if ($usersCollection->getUserName() !== $this) {
+            $usersCollection->setUserName($this);
+        }
+
+        $this->usersCollection = $usersCollection;
 
         return $this;
     }
