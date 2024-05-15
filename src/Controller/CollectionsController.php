@@ -13,7 +13,12 @@ class CollectionsController extends AbstractController
     #[Route('/collections', name: 'app_collections')]
     public function index(): Response
     {
-        $username = $this->getUser()->getUsername();
+        if($this->getUser()) {
+            $username = $this->getUser()->getUsername();
+        } else {
+            $username = 'Guest';
+        }
+        // $username = $this->getUser()->getUsername();
         // dd($username);
         return $this->render('collections/index.html.twig', [
             'username' => $username,

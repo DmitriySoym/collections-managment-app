@@ -20,6 +20,12 @@ class ItemCollection
     #[ORM\JoinColumn(nullable: false)]
     private ?UsersCollection $collectionName = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column]
+    private ?int $likes = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +51,30 @@ class ItemCollection
     public function setCollectionName(?UsersCollection $collectionName): static
     {
         $this->collectionName = $collectionName;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLikes(): ?int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(int $likes): static
+    {
+        $this->likes = $likes;
 
         return $this;
     }
