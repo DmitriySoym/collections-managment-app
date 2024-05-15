@@ -3,22 +3,21 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="container pt-5 col-md-4">
-        <h1>Register</h1>
-
-        {{ form_errors(registrationForm) }}
-
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.username) }}
-            {{ form_row(registrationForm.email, {'label_attr': {'class': ' mb-3'}, 'attr' : {'class' : 'form-control mb-3'} }) }}
-            {{ form_row(registrationForm.plainPassword, {
-                label: 'Password'
-            }) }}
-            {{ form_row(registrationForm.agreeTerms) }}
-
-            <button type="submit" class="btn btn-success">Register</button>
-        {{ form_end(registrationForm) }}
-    
+    <div class="container login sign-up">
+        <a class="btn btn-success login__back" href="/">Back to main page</a>
+        <div class="container pt-5 col-md-4 login__form">
+            <h1>Register</h1>
+            {{ form_errors(registrationForm) }}
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.username, {'attr' : {'class' : 'form-control mb-3'} }) }}
+                {{ form_row(registrationForm.email, {'attr' : {'class' : 'form-control mb-3'} }) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password', 'attr' : {'class' : 'form-control mb-3'} 
+                }) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+                <button type="submit" class="btn btn-lg btn-primary">Register</button>
+            {{ form_end(registrationForm) }}
+        
+        </div>
     </div>
-
 {% endblock %}

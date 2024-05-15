@@ -3,8 +3,9 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<div class="container">
-    <form method="post" class="container pt-5 col-md-4">
+<div class="container login">
+    <a class="btn btn-success login__back" href="/">Back to main page</a>
+    <form method="post" class="container pt-5 login__form">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
