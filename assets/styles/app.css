@@ -102,6 +102,12 @@ body {
     }
 }
 
+@media screen and (max-width: 768px) {
+    .main {
+        background-size: contain;
+    }
+}
+
 /* preloader */
 .preloader {
     position: fixed;
