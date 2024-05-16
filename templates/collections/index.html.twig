@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My collections{% endblock %}
+{% block title %}Categories{% endblock %}
 
 {% block body %}
 <div class="container pt-5">
     {% if username == 'Guest' %}
-        <a class="btn btn-danger" href="/">back to main</a>
+        {# <a class="btn btn-success login__back" href="/">back to main</a> #}
+        <div class="d-flex justify-content-end gap-3">
+            <a href="/" class="btn btn-success nav-btn">back to main</a>
+            <a href="/collections/create" class="btn btn-primary nav-btn">Create category</a>
+        </div>
     {% else %}
-        <a class="btn btn-danger" href="/logout">logout</a>
+        <div class="d-flex justify-content-end gap-3">
+            <a href="/" class="btn btn-success nav-btn">back to main</a>
+            <a href="/collections/create" class="btn btn-primary nav-btn">Create collection</a>
+            <a class="btn btn-danger nav-btn" href="/logout">logout</a>
+        </div>
     {%  endif %}
     <h1>Hello {{ username }}!</h1>
 </div>

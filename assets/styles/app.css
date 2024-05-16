@@ -6,6 +6,11 @@ body {
     font-size: 14px;
 }
 
+h1,
+h2 {
+    text-align: center;
+}
+
 body {
     height: 100%;
     background-color: #f6f8fe;
@@ -19,7 +24,7 @@ body {
     background-position-y: 50%;
 }
 
-.main .btn {
+.nav-btn {
     font-size: 1.2rem;
     font-weight: 600;
 }
@@ -49,6 +54,30 @@ body {
     border: 1px solid rgba(141, 153, 174, 0.4);
     background: #fff;
     box-shadow: 0 0 40px #8d99ae0d;
+}
+
+.create__form {
+    display: flex;
+    padding: 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    max-width: 300px;
+    margin: 0 auto;
+    border-radius: 40px;
+    border: 1px solid rgba(141, 153, 174, 0.4);
+    background: #fff;
+    box-shadow: 0 0 40px #8d99ae0d;
+    text-align: center;
+}
+
+.create__form input {
+    border-radius: 8px;
+    font-size: 1.5rem;
+    color: #2b2d42;
+    border: 1px solid rgba(141, 153, 174, 0.4);
+    background: #edf2f466;
 }
 
 .login__back {
