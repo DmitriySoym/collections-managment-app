@@ -44,8 +44,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $email = null;
 
-    #[ORM\OneToOne(mappedBy: 'userName', cascade: ['persist', 'remove'])]
-    private ?UsersCollection $usersCollection = null;
+    #[ORM\OneToOne(mappedBy: 'userId', cascade: ['persist', 'remove'])]
+    private ?CategoryCollection $categoryCollection = null;
 
     public function getId(): ?int
     {
@@ -157,19 +157,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUsersCollection(): ?UsersCollection
+    public function getCategoryCollection(): ?CategoryCollection
     {
-        return $this->usersCollection;
+        return $this->categoryCollection;
     }
 
-    public function setUsersCollection(UsersCollection $usersCollection): static
+    public function setCategoryCollection(CategoryCollection $categoryCollection): static
     {
         // set the owning side of the relation if necessary
-        if ($usersCollection->getUserName() !== $this) {
-            $usersCollection->setUserName($this);
+        if ($categoryCollection->getUserId() !== $this) {
+            $categoryCollection->setUserId($this);
         }
 
-        $this->usersCollection = $usersCollection;
+        $this->categoryCollection = $categoryCollection;
 
         return $this;
     }
