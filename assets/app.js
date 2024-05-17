@@ -9,14 +9,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/app.css";
 
-// import "bootstrap/dist/js/bootstrap.min.js";
-
-// import { createApp } from "vue";
-// import App from "./App.vue";
-
-// const app = createApp(App);
-// app.mount("#main-page");
-
 window.onload = function () {
     document.body.classList.add("loaded_hiding");
     window.setTimeout(function () {

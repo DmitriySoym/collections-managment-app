@@ -7,21 +7,33 @@
     {% if username == 'Guest' %}
         <div class="d-flex justify-content-end gap-3">
             <a href="/" class="btn btn-success nav-btn">back to main</a>
-            <a href="/collections/create" class="btn btn-primary nav-btn">Create category</a>
+            <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
         </div>
     {% else %}
         <div class="d-flex justify-content-end gap-3">
-            <a href="/" class="btn btn-success nav-btn">back to main</a>
-            <a href="/collections/create" class="btn btn-primary nav-btn">Create collection</a>
-            <a class="btn btn-danger nav-btn" href="/logout">logout</a>
+            <a href="/" class="btn btn-success nav-btn">Main page</a>
+            <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
+            <a class="btn btn-danger nav-btn" href="/logout">Logout</a>
         </div>
     {%  endif %}
-    <h2 class="collections__title">Hello {{ username }}!</h2>
+    <h2 class="collections__title">Hello {{ username }}! Amount categories: {{categoryAmount}}</h2>
     <p class="collections__text">Here you can see collections, wich you can use to create your own items for this collections:</p>
     <ul class="collections">
         {% for collection in categories %}
-            <li class="collections__item"><a href="collections/edit/{{collection.id}}">{{collection.name}}</a></li>
+            <li class="collections__item"><a href="/collection/edit/{{collection.id}}">{{collection.name}}</a></li>
         {% endfor %}
     </ul>
+
+    <nav aria-label="Page navigation example" class="app-pagination">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+            {% for i in 1..categoryAmount %}
+                {% if categoryAmount %}
+                    <li class="page-item"><a class="page-link" href="/collections/{{i}}">{{i}}</a></li>
+                {% endif %}
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+        </ul>
+    </nav>
 </div>
 {% endblock %}

@@ -130,7 +130,12 @@ body {
 }
 
 .collections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex-wrap: wrap;
     padding: 0;
+    height: calc(100vh - 233px);
 }
 
 .collections__item {
@@ -138,6 +143,11 @@ body {
     font-size: calc(1.325rem + 0.5vw);
     list-style: none;
     color: #2b2d42;
+}
+
+.app-pagination {
+    display: flex;
+    justify-content: center;
 }
 
 @media screen and (max-width: 1200px) {
