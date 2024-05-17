@@ -120,6 +120,26 @@ body {
     margin-right: 5px;
 }
 
+.collections__title {
+    text-align: left;
+}
+
+.collections__text {
+    font-size: calc(1.325rem + 0.5vw);
+    margin: 0.5rem 0;
+}
+
+.collections {
+    padding: 0;
+}
+
+.collections__item {
+    font-weight: 400;
+    font-size: calc(1.325rem + 0.5vw);
+    list-style: none;
+    color: #2b2d42;
+}
+
 @media screen and (max-width: 1200px) {
     .login {
         background-image: none;

@@ -5,7 +5,6 @@
 {% block body %}
 <div class="container pt-5">
     {% if username == 'Guest' %}
-        {# <a class="btn btn-success login__back" href="/">back to main</a> #}
         <div class="d-flex justify-content-end gap-3">
             <a href="/" class="btn btn-success nav-btn">back to main</a>
             <a href="/collections/create" class="btn btn-primary nav-btn">Create category</a>
@@ -17,6 +16,12 @@
             <a class="btn btn-danger nav-btn" href="/logout">logout</a>
         </div>
     {%  endif %}
-    <h1>Hello {{ username }}!</h1>
+    <h2 class="collections__title">Hello {{ username }}!</h2>
+    <p class="collections__text">Here you can see collections, wich you can use to create your own items for this collections:</p>
+    <ul class="collections">
+        {% for collection in categories %}
+            <li class="collections__item"><a href="collections/edit/{{collection.id}}">{{collection.name}}</a></li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}

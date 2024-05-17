@@ -8,6 +8,7 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/app.css";
+require("bootstrap");
 // import "bootstrap/dist/js/bootstrap.min.js";
 
 // import { createApp } from "vue";
@@ -23,3 +24,18 @@ window.onload = function () {
         document.body.classList.remove("loaded_hiding");
     }, 500);
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+    const formCreate = document.getElementById("btn-create-category");
+    const createInput = document.getElementById("category_name");
+
+    // if (formCreate && createInput) {
+    //     console.log(formCreate);
+    //     console.log(createInput.innerText);
+    //     createInput.innerText = "";
+    //     formCreate.addEventListener("click", () => {
+    //         console.log(createInput);
+    //         createInput.innerText = "";
+    //     });
+    // }
+});

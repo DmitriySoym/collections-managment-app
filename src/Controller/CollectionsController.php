@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,16 +19,18 @@ class CollectionsController extends AbstractController
         ) {}
 
     #[Route('/collections', name: 'app_collections')]
-    public function index(): Response
+    public function index(CategoryRepository $categoryRepository): Response
     {
         if($this->getUser()) {
             $username = $this->getUser()->getUserIdentifier();
         } else {
             $username = 'Guest';
         }
+        $categories = $categoryRepository->findAll();
         // dd($username);
         return $this->render('collections/index.html.twig', [
             'username' => $username,
+            'categories' => $categories
         ]);
     }
 
@@ -43,13 +46,22 @@ class CollectionsController extends AbstractController
             //saving data
             $this->em->persist($category);
             $this->em->flush();
+            $categoryName = $category->getName();
 
-            $this->addFlash('success', 'Collection created successfully');
+            $this->addFlash('success', "Collection $categoryName created successfully");
         }
 
         return $this->render('collections/create.html.twig', [
             'action' => 'Create category',
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/collections/edit/{id}', name: 'app_collections_edit')]
+    public function edit(Request $request, int $id): Response
+    {
+        return $this->render('collections/edit.html.twig', [
+            'action' => 'Edit category',
         ]);
     }
 }
