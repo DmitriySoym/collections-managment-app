@@ -8,7 +8,7 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/app.css";
-require("bootstrap");
+
 // import "bootstrap/dist/js/bootstrap.min.js";
 
 // import { createApp } from "vue";
