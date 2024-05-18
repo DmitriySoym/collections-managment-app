@@ -16,6 +16,12 @@ body {
     background-color: #f6f8fe;
 }
 
+.active__user {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+}
+
 .main {
     height: 100%;
     background-image: url(../images/form-bg.png);
@@ -88,6 +94,12 @@ body {
     font-weight: 600;
 }
 
+.btn__login {
+    position: absolute;
+    right: 14rem;
+    top: 2rem;
+}
+
 .login__form input {
     border-radius: 8px;
     font-size: 1.5rem;
@@ -148,6 +160,10 @@ body {
 .app-pagination {
     display: flex;
     justify-content: center;
+}
+
+.activepage .page-link {
+    background-color: #ced4da;
 }
 
 @media screen and (max-width: 1200px) {

@@ -19,6 +19,13 @@ class CollectionCreateController extends AbstractController
     #[Route('/collection/create', name: 'app_collection_create')]
     public function index(Request $request): Response
     {
+        if(!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('danger', "Only admin have access to this page");
+            return $this->redirectToRoute('app_collections');
+
+            // return new Response('You don\'t have access to this page');
+        }
+
         $category = new Category();
 
         $form = $this->createForm(CategoryType::class, $category);

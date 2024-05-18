@@ -30,4 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
     //         createInput.innerText = "";
     //     });
     // }
+
+    let pageNumbers = document.querySelectorAll(".page-item");
+    const activePage = location.href.split("/").slice(-1)[0];
+
+    for (const item of pageNumbers) {
+        if (item.innerText == activePage) {
+            item.classList.add("activepage");
+        }
+        if (activePage == "collections") {
+            pageNumbers[0].classList.add("activepage");
+        }
+    }
 });
