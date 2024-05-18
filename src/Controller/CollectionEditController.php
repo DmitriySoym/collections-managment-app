@@ -23,4 +23,13 @@ class CollectionEditController extends AbstractController
             'category' => $category
         ]);
     }
+
+    #[Route('/collection/remove/{id}', name: 'app_category_remove')]
+    public function remove(CategoryRepository $categoryRepository, int $id): Response
+    {
+        $category = $categoryRepository->find($id);
+        $this->em->remove($category);
+        $this->em->flush();
+        return $this->redirectToRoute('app_category_list');
+    }
 }

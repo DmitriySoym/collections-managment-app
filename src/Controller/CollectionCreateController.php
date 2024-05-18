@@ -38,6 +38,8 @@ class CollectionCreateController extends AbstractController
             $categoryName = $category->getName();
 
             $this->addFlash('success', "Collection $categoryName created successfully");
+
+            return $this->redirectToRoute('app_collections');
         }
         return $this->render('collection_create/index.html.twig', [
             'action' => 'Create category',

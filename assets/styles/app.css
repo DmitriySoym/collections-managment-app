@@ -181,6 +181,10 @@ body {
     .main {
         background-size: contain;
     }
+
+    .desctop__btn {
+        display: none;
+    }
 }
 
 /* preloader */
