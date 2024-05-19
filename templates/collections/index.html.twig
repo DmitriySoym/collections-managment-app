@@ -11,29 +11,32 @@
             <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
         </div>
     {% else %}
-        <div class="d-flex justify-content-end gap-3">
+        <div class="d-flex justify-content-end flex-wrap gap-3">
+            <form class="d-flex" method="get">
+                <input class="form-control me-2" type="search" name="searchfor" placeholder="Search" aria-label="Search" value="{{searchfor}}"/>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
             <a href="/" class="btn btn-success nav-btn">Main page</a>
             <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
-            <a class="btn btn-danger nav-btn" href="/logout">Logout</a>
         </div>
     {%  endif %}
-    <h2 class="collections__title">Amount categories: {{categoryAmount}}</h2>
-    <p class="collections__text">Here you can see collections, wich you can use to create your own items for this collections:</p>
-    <ul class="collections">
-        {% for collection in categories %}
-            <li class="collections__item"><a href="/collection/edit/{{collection.id}}">{{collection.name}}</a></li>
-        {% endfor %}
-    </ul>
+    <p class="collections__text">Here you can see collections, wich you can use to create your own items for this collections.</p>
+    {% if searchfor != '' %}
+        <p class="collections__text">Search result for <b>{{searchfor}}</b></p>
+    {% endif %}
+        <ul class="collections">
+            {% for collection in categories %}
+                <li class="collections__item"><a href="/collection/edit/{{collection.id}}">{{collection.name}}</a></li>
+            {% endfor %}
+        </ul>
 
     <nav aria-label="Page navigation example" class="app-pagination">
         <ul class="pagination">
-            {# <li class="page-item prev-page"><a class="page-link" href="#">&laquo;</a></li> #}
-            {% for i in 1..categoryAmount %}
-                {% if categoryAmount %}
-                    <li class="page-item"><a class="page-link" href="/collections/{{i}}">{{i}}</a></li>
-                {% endif %}
-            {% endfor %}
-            {# <li class="page-item next-page"><a class="page-link" href="#">&raquo;</a></li> #}
+            {% if searchfor == '' %}
+                {% for i in 1..categoryAmount %}
+                        <li class="page-item"><a class="page-link" href="/collections/{{i}}">{{i}}</a></li>
+                {% endfor %}
+            {% endif %}
         </ul>
     </nav>
 </div>

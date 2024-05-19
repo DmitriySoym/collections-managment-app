@@ -16,9 +16,22 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    public function paginatedCategories(int $page, int $limit): array
+    // public function paginatedCategories(string $searchfor): array
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->andWhere('LOWER(c.name) LIKE :val')
+    //         ->setParameter('val', '%'.$searchfor.'%')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+
+    // example with query builder pagination
+    public function paginatedCategories(int $page, int $limit, string $searchfor): array
     {
         return $this->createQueryBuilder('c')
+            ->andWhere('LOWER(c.name) LIKE :val')
+            ->setParameter('val', '%'.$searchfor.'%')
             ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit)
             ->getQuery()

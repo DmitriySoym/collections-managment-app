@@ -43,4 +43,71 @@ document.addEventListener("DOMContentLoaded", () => {
             pageNumbers[0].classList.add("activepage");
         }
     }
+
+    // edit collection title
+    const collectionEditBtn = document.querySelector(".collection__btn-edit");
+    const inputCollectionTitleEdit = document.querySelector(".collection__title-edit");
+    const collectionTitleValue = document.querySelector(".collection__title-value");
+    const collectionDeleteBtn = document.querySelector(".collection__btn-delete");
+
+    function toggleClassToEditCollectionTitle() {
+        inputCollectionTitleEdit.classList.toggle("active");
+        collectionTitleValue.classList.toggle("active");
+    }
+
+    function deleteCollection() {
+        let id = location.href.split("/").slice(-1)[0];
+
+        fetch(`/collection/remove/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((response) => {
+            if (response.ok) {
+                console.log("Collection was deleted");
+            } else {
+                console.log("Collection wasn't deleted");
+            }
+        });
+    }
+
+    function updateCollectionTitle() {
+        let id = location.href.split("/").slice(-1)[0];
+        // let newTitle = inputCollectionTitleEdit.value;
+        // fetch(`/collection/update/${id}`, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     // body: JSON.stringify({ newTitle }),
+        // }).then((response) => {
+        //     if (response.ok) {
+        //         console.log("Collection was updated");
+        //     } else {
+        //         console.log("Collection wasn't updated");
+        //     }
+        // });
+    }
+
+    if (collectionEditBtn && inputCollectionTitleEdit && collectionTitleValue) {
+        collectionEditBtn.addEventListener("click", () => {
+            toggleClassToEditCollectionTitle();
+            collectionEditBtn.setAttribute("disabled", "");
+        });
+
+        inputCollectionTitleEdit.addEventListener("blur", () => {
+            toggleClassToEditCollectionTitle();
+            collectionEditBtn.removeAttribute("disabled");
+
+            updateCollectionTitle();
+        });
+    }
+
+    if (collectionDeleteBtn) {
+        collectionDeleteBtn.addEventListener("click", () => {
+            deleteCollection();
+            // location.href = "/collections";
+        });
+    }
 });

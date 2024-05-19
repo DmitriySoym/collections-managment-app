@@ -12,18 +12,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CollectionsController extends AbstractController
 {
-
     #[Route('/collections/{page}', name: 'app_collections')]
-    public function index(CategoryRepository $categoryRepository, int $page = 1, int $limit = 15): Response
+    public function index(CategoryRepository $categoryRepository, int $page = 1, int $limit = 15, ?Request $request=null): Response
     {
         $this->getUser() ? $username = $this->getUser()->getUserIdentifier() : $username = 'Guest';
-        $categoryAmount = ceil($categoryRepository->count([]) / $limit);
-        $categories = $categoryRepository->paginatedCategories($page, $limit);
+        $searchfor = $request->query->get('searchfor') ?? '';
+        $categories = $categoryRepository->paginatedCategories($page, $limit, $searchfor);
+        $categoryAmount = ceil($categoryRepository->count() / $limit);
+        $test = count($categoryRepository->findAll());
 
         return $this->render('collections/index.html.twig', [
             'username' => $username,
             'categories' => $categories,
             'categoryAmount' => $categoryAmount,
+            'searchfor' => $searchfor,
+            'limit' => $limit,
+            'test' => $test
         ]);
     }
 }
