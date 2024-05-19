@@ -22,16 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const formCreate = document.getElementById("btn-create-category");
     const createInput = document.getElementById("category_name");
 
-    // if (formCreate && createInput) {
-    //     console.log(formCreate);
-    //     console.log(createInput.innerText);
-    //     createInput.innerText = "";
-    //     formCreate.addEventListener("click", () => {
-    //         console.log(createInput);
-    //         createInput.innerText = "";
-    //     });
-    // }
-
     let pageNumbers = document.querySelectorAll(".page-item");
     const activePage = location.href.split("/").slice(-1)[0];
 
@@ -47,6 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // edit collection title
     const collectionEditBtn = document.querySelector(".collection__btn-edit");
     const inputCollectionTitleEdit = document.querySelector(".collection__title-edit");
+    const inputCollectionTitleCancelEdit = document.querySelector(".cancel-edit");
+
     const collectionTitleValue = document.querySelector(".collection__title-value");
     const collectionDeleteBtn = document.querySelector(".collection__btn-delete");
 
@@ -57,9 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function deleteCollection() {
         let id = location.href.split("/").slice(-1)[0];
+        console.log(id);
 
-        fetch(`/collection/remove/${id}`, {
-            method: "POST",
+        fetch(`/collection/delete/${id}`, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -72,42 +65,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function updateCollectionTitle() {
-        let id = location.href.split("/").slice(-1)[0];
-        // let newTitle = inputCollectionTitleEdit.value;
-        // fetch(`/collection/update/${id}`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     // body: JSON.stringify({ newTitle }),
-        // }).then((response) => {
-        //     if (response.ok) {
-        //         console.log("Collection was updated");
-        //     } else {
-        //         console.log("Collection wasn't updated");
-        //     }
-        // });
-    }
-
-    if (collectionEditBtn && inputCollectionTitleEdit && collectionTitleValue) {
-        collectionEditBtn.addEventListener("click", () => {
-            toggleClassToEditCollectionTitle();
-            collectionEditBtn.setAttribute("disabled", "");
-        });
-
-        inputCollectionTitleEdit.addEventListener("blur", () => {
+    if (inputCollectionTitleCancelEdit) {
+        inputCollectionTitleCancelEdit.addEventListener("click", (e) => {
+            e.preventDefault();
             toggleClassToEditCollectionTitle();
             collectionEditBtn.removeAttribute("disabled");
+        });
+    }
 
-            updateCollectionTitle();
+    if (collectionEditBtn) {
+        collectionEditBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            toggleClassToEditCollectionTitle();
+            collectionEditBtn.setAttribute("disabled", "");
         });
     }
 
     if (collectionDeleteBtn) {
         collectionDeleteBtn.addEventListener("click", () => {
             deleteCollection();
-            // location.href = "/collections";
+            location.href = "/collections";
         });
     }
 });

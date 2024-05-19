@@ -74,7 +74,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    max-width: 300px;
+    max-width: 400px;
     margin: 0 auto;
     border-radius: 40px;
     border: 1px solid rgba(141, 153, 174, 0.4);
@@ -174,11 +174,17 @@ body {
     font-size: 2rem;
 }
 
-.collection__title-edit {
+.collection__title-edit.active {
+    display: flex;
+    gap: 1rem;
+}
+
+.collection__title-edit input {
+    width: 80%;
     height: 32px;
 }
 
-.collection__title-edit::placeholder {
+.collection__title-edit input::placeholder {
     font-size: 1rem;
     align-self: center;
 }
@@ -188,8 +194,7 @@ body {
     display: none;
 }
 
-.collection__title-value.active,
-.collection__title-edit.active {
+.collection__title-value.active {
     display: block;
     font-size: 1.5rem;
 }

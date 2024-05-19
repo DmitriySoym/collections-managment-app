@@ -9,15 +9,19 @@
             <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
         </div>
         
-        <h2>You can {{ action }} here.</h2>
-        <h2>You choose collection:</h2>
+        <h2>You can {{ action }} here. You choose collection:</h2>
+
         <form method="post" class="category__form">
             <div class="collection__title">
-                <p class="collection__title-value active">Collection name: <b>{{ category.name }}</b></p>
-                <input name="collectionname" value={{category.name}} class="collection__title-edit" type="text" placeholder="enter new collection name"/>
+                <p class="collection__title-value active"><b>{{ category.name }}</b></p>
+                <div class="collection__title-edit">
+                    <input name="collectionnewname" value={{category.name}} class="" type="text" placeholder="enter new collection name"/>
+                    <button class="btn btn-success" type="submit"><i class="fa-solid fa-check"></i></button>
+                    <button class="btn btn-danger cancel-edit"><i class="fa-solid fa-xmark"></i></button>
+                </div>
             </div>
             <div class="d-flex gap-3">
-                <button type="submit" class="btn btn-danger collection__btn-delete">Delete <i class="fa-solid fa-trash-can"></i></button>
+                <a class="btn btn-danger collection__btn-delete" href="javascript:void(0);">Delete <i class="fa-solid fa-trash-can"></i></a>
                 <button class="btn btn-success collection__btn-edit">Edit <i class="fa-solid fa-pen-to-square"></i></button>
             </div>
         </form>

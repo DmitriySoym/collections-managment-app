@@ -17,7 +17,7 @@ class CollectionEditController extends AbstractController
         private CategoryRepository $categoryRepository
     ) {}
 
-    #[Route('/collection/edit/{id}', name: 'app_category_edit')]
+    #[Route('/collection/edit/{id}', name: 'app_category_edit', methods: ['GET'])]
     public function index(int $id): Response
     {
         $category = $this->categoryRepository->find($id);
@@ -27,42 +27,33 @@ class CollectionEditController extends AbstractController
         ]);
     }
 
-    #[Route('/collection/remove/{id}', name: 'app_category_remove')]
-    public function remove(int $id): Response
+    #[Route('/collection/edit/{id}', name: 'app_category_edit_save', methods: ['POST'])]
+    public function update(int $id, ?Request $request)
     {
         $category = $this->categoryRepository->find($id);
-        $categoryName = $category->getName();
-        // $this->em->remove($category);
-        // $this->em->flush();
-        $this->addFlash('success', "Collection $categoryName deleted successfully");
-
-        return $this->redirectToRoute('app_collections');
-    }
-
-    #[Route('/collection/update/{id}', name: 'app_category_edit_save', methods: ['POST'])]
-    // public function update(CategoryRepository $categoryRepository, int $id): void
-    // {
-    //     $category = $categoryRepository->find($id);
-    //     // $newCategoryName = $category->getName();
-    //     $newCategoryName = 'New name';
-    //     $category->setName($newCategoryName);
-    //     $this->em->persist($category);
-    //     $this->em->flush();
-
-    // }
-    public function update(int $id, Request $request)
-    {
-        $category = $this->categoryRepository->find($id);
-        $category->setName('New collection name!');
+        $newCategoryName = $request->get('collectionnewname');
+        $category->setName($newCategoryName);
         $this->em->flush();
 
-        // $category->setName('New collection name!');
-        // $this->em->persist($category);
-        // $this->em->flush();
+        $this->addFlash('success', "Collection $newCategoryName updated successfully");
 
-        // return $this->redirectToRoute('app_category_edit', [
-        //     'action' => 'Edit collection',
-        //     'category' => $category
-        // ]);
+        return $this->render('collection_edit/index.html.twig', [
+            'action' => 'Edit collection',
+            'category' => $category,
+        ]);
+    }
+
+    
+    #[Route('/collection/delete/{id}', name: 'app_category_remove', methods: ['GET'])]
+    public function remove(int $id)
+    {
+
+        $category = $this->categoryRepository->findOneBy(['id' => $id]);
+        $categoryName = $category->getName();
+        $this->em->remove($category);
+        $this->em->flush();
+        $this->addFlash('success', "Collection $categoryName deleted successfully");
+
+        return $this->redirect('/collections');
     }
 }
