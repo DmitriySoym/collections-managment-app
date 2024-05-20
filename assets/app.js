@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function deleteCollection() {
         let id = location.href.split("/").slice(-1)[0];
-        console.log(id);
 
         fetch(`/collection/delete/${id}`, {
             method: "GET",
@@ -85,6 +84,78 @@ document.addEventListener("DOMContentLoaded", () => {
         collectionDeleteBtn.addEventListener("click", () => {
             deleteCollection();
             location.href = "/collections";
+        });
+    }
+
+    // user management
+    function selectAllUsers() {
+        const checkboxes = document.querySelectorAll('input[name="selectedUser"]');
+
+        checkboxes.forEach((checkbox) => (checkbox.checked = document.getElementById("select-all").checked));
+    }
+
+    const signedInUser = document.querySelector(".active-user");
+    const selectAllUsersCheckbox = document.getElementById("select-all");
+
+    if (selectAllUsersCheckbox) {
+        selectAllUsersCheckbox.addEventListener("click", (e) => {
+            selectAllUsers();
+        });
+    }
+
+    const deleteUser = document.getElementById("delete-user");
+    if (deleteUser) {
+        deleteUser.addEventListener("click", (e) => {
+            updateUserStatus("deleted");
+        });
+    }
+
+    const makeUserAdmin = document.getElementById("make-user-admin");
+    if (makeUserAdmin) {
+        makeUserAdmin.addEventListener("click", (e) => {
+            updateUserStatus("make-admin");
+        });
+    }
+
+    const makeNotUserAdmin = document.getElementById("make-user-notadmin");
+    if (makeNotUserAdmin) {
+        makeNotUserAdmin.addEventListener("click", (e) => {
+            updateUserStatus("make-user-notadmin");
+        });
+    }
+
+    const blockeUser = document.getElementById("block-user");
+    if (blockeUser) {
+        blockeUser.addEventListener("click", (e) => {
+            updateUserStatus("block");
+        });
+    }
+
+    const unBlockeUser = document.getElementById("unblock-user");
+    if (unBlockeUser) {
+        unBlockeUser.addEventListener("click", (e) => {
+            updateUserStatus("unblock");
+        });
+    }
+
+    function updateUserStatus(userStatus) {
+        const selectedIds = Array.from(document.querySelectorAll(".user-checkbox:checked")).map((item) => item.value);
+
+        fetch("/user/managment/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ids: selectedIds, status: userStatus }),
+        }).then((response) => {
+            if (response.ok) {
+                window.location.reload();
+                if (selectedIds.includes(signedInUser.dataset.isAutheuser)) {
+                    window.location.href = "/logout";
+                }
+            } else {
+                alert("Error update");
+            }
         });
     }
 });

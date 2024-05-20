@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -33,6 +34,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function changeStatus(string $status, User $user, EntityManagerInterface $em): void
+    {
+        if ($status === 'deleted') {
+                $em->remove($user);
+                $em->flush();
+            } else if($status === 'make-admin') {
+                $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+                $em->flush();
+            } else if($status === 'block') {
+                $user->setRoles(['ROLE_BLOCKED']);
+                $em->flush();
+            } else if($status === 'unblock') {
+                $user->setRoles(['ROLE_USER']);
+                $em->flush();
+            } else if($status === 'make-user-notadmin') {
+                $user->setRoles(['ROLE_USER']);
+                $em->flush();
+            }
+    }
 
 //    /**
 //     * @return User[] Returns an array of User objects

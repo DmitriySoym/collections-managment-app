@@ -7,6 +7,11 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserManagmentController extends AbstractController
 {
@@ -23,5 +28,21 @@ class UserManagmentController extends AbstractController
         return $this->render('user_managment/index.html.twig', [
             'users' => $users,
         ]);
+    }
+
+    #[Route('/user/managment/update', name: 'app_user_managment_update', methods: ['POST'])]
+    public function updateUsersStatus(Request $request, EntityManagerInterface $em, UserRepository $ur): JsonResponse
+    {
+
+        $data = json_decode($request->getContent(), true);
+        $userIds = $data['ids'];
+        $status = $data['status'];
+        $users = $em->getRepository(User::class)->findBy(['id' => $userIds]);
+        foreach ($users as $user) {
+            $ur->changeStatus($status, $user, $em);
+        }
+        $em->flush();
+
+        return new JsonResponse('ok');
     }
 }
