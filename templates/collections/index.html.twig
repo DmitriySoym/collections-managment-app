@@ -22,7 +22,7 @@
     {%  endif %}
     <p class="collections__text">Here you can see collections, wich you can use to create your own items for this collections.</p>
     {% if searchfor != '' %}
-        <p class="collections__text">Search result for <b>{{searchfor}}</b></p>
+        <p class="collections__text">Search result for <b>"{{searchfor}}"</b></p>
     {% endif %}
         <ul class="collections">
             {% for collection in categories %}
@@ -32,7 +32,7 @@
 
     <nav aria-label="Page navigation example" class="app-pagination">
         <ul class="pagination">
-            {% if searchfor == '' %}
+            {% if searchfor == '' and categoryAmount > 0 %}
                 {% for i in 1..categoryAmount %}
                         <li class="page-item"><a class="page-link" href="/collections/{{i}}">{{i}}</a></li>
                 {% endfor %}
