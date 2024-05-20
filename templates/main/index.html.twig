@@ -4,14 +4,13 @@
 
 {% block body %}
     <div class="container main pt-5">
-    {% if app.user == '' %}
-        <div class="d-flex justify-content-end gap-3">
+        <div class="d-flex justify-content-end flex-wrap gap-3 mt-3">
+            <a href="/collections/1" class="btn btn-success nav-btn">Open collections list</a>
+            <a href="/user/managment" class="btn btn-success nav-btn">Users</a>
+        {% if app.user == '' %}
             <a href="/login" class="btn btn-success nav-btn"><span class="desctop__btn">Sign in </span><i class="fa-solid fa-right-to-bracket"></i></a>
             <a href="/register" class="btn btn-primary nav-btn"><span class="desctop__btn">Sign up</span> <i class="fa-solid fa-user-plus"></i></a>
-        </div>
-    {% endif %}
-        <div class="d-flex justify-content-end gap-3 mt-3">
-            <a href="/collections/1" class="btn btn-success nav-btn">Open collections list</a>
+        {% endif %}
         </div>
         <h1 class="text-center">Welcom to collections managment app</h1>
     </div>

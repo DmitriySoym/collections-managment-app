@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserManagmentController!{% endblock %}
+
+{% block body %}
+<div class="container pt-5">
+    <div class="d-flex justify-content-end gap-3 mt-3">
+        <a href="/collections/1" class="btn btn-success nav-btn">Open collections list</a>
+        <a href="/" class="btn btn-success nav-btn">Main page</a>
+    </div>
+    <h1>Hello {{ app.user.userIdentifier }}! ✅</h1>
+
+    <ul>
+    {% for user in users %}
+        <li>{{user.username}}</li>
+    {% endfor %}
+    </ul>
+
+    <table class="table table-bordered container">
+            <thead class="thead-dark">
+            <tr>
+                <th><input id="select-all" type="checkbox" onclick="selectAllUsers()"></th>
+                {# <th>User Id</th> #}
+                <th>User name</th>
+                <th>User email</th>
+                <th>Registration Date</th>
+                <th>Last Login Date</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td><input type="checkbox" name="selectedUser" class="user-checkbox" value="{{ user.id }}"></td>
+                    {# <td>{{ user.getId }}</td> #}
+                    <td>{{ user.getUsername }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.getRegistrationDate|date('d M Y H:i:s') }}</td>
+                    <td>{{ user.getLastLogin|date('d M Y H:i:s') }}</td>
+                    {# <td>
+                        {% if user.status == 'active' %}
+                            <span style="color: green"><b>active</b></span>
+                        {% else %}
+                            <span style="color: blue"><b>blocked</b></span>
+                        {% endif %}
+                    </td> #}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+</div>
+{% endblock %}

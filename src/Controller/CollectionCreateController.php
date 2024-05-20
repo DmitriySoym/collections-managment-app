@@ -22,8 +22,6 @@ class CollectionCreateController extends AbstractController
         if(!$this->isGranted('ROLE_ADMIN')) {
             $this->addFlash('danger', "Only admin have access to this page");
             return $this->redirectToRoute('app_collections');
-
-            // return new Response('You don\'t have access to this page');
         }
 
         $category = new Category();
