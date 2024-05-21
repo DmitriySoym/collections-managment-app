@@ -24,6 +24,10 @@ class Category
     #[ORM\OneToMany(targetEntity: CategoryCollection::class, mappedBy: 'categotyId', orphanRemoval: true)]
     private Collection $categoryCollections;
 
+    #[ORM\ManyToOne(inversedBy: 'categories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
+
     public function __construct()
     {
         $this->categoryCollections = new ArrayCollection();
@@ -72,6 +76,18 @@ class Category
                 $categoryCollection->setCategotyId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

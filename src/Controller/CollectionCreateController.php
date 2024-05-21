@@ -19,7 +19,7 @@ class CollectionCreateController extends AbstractController
     #[Route('/collection/create', name: 'app_collection_create')]
     public function index(Request $request): Response
     {
-        if(!$this->isGranted('ROLE_ADMIN')) {
+        if(!$this->isGranted('ROLE_USER')) {
             $this->addFlash('danger', "Only admin have access to this page");
             return $this->redirectToRoute('app_collections');
         }
@@ -31,6 +31,7 @@ class CollectionCreateController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //saving data
+            $category->setAuthor($this->getUser());
             $this->em->persist($category);
             $this->em->flush();
             $categoryName = $category->getName();
