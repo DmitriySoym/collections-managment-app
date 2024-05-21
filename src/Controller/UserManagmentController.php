@@ -9,8 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserManagmentController extends AbstractController
@@ -19,7 +17,7 @@ class UserManagmentController extends AbstractController
     public function index(UserRepository $ur): Response
     {
         if(!$this->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('danger', "Only admin have access to this page");
+            $this->addFlash('danger', "Only admins have access to this page");
             return $this->redirectToRoute('app_main');
         }
 
@@ -39,7 +37,7 @@ class UserManagmentController extends AbstractController
         $status = $data['status'];
         $users = $em->getRepository(User::class)->findBy(['id' => $userIds]);
         foreach ($users as $user) {
-            $ur->changeStatus($status, $user, $em);
+            $ur->changeStatus($status, $user);
         }
         $em->flush();
 

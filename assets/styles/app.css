@@ -158,6 +158,11 @@ body {
     color: #2b2d42;
 }
 
+.collections__item-owner {
+    font-size: calc(1rem + 0.5vw);
+    align-content: end;
+}
+
 .app-pagination {
     display: flex;
     justify-content: center;

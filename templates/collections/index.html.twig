@@ -18,13 +18,16 @@
             <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
         {% endif %}
     </div>
-    <p class="collections__text">Here you can see collections, wich you can use to create your own items for this collections.</p>
+    <p class="collections__text">Here you can see collections list.</p>
     {% if searchfor != '' %}
         <p class="collections__text">Search result for <b>"{{searchfor}}"</b></p>
     {% endif %}
         <ul class="collections">
             {% for collection in categories %}
-                <li class="collections__item"><a href="/collection/edit/{{collection.id}}">{{collection.name}}</a></li>
+                <li class="collections__item d-flex flex-wrap gap-3">
+                    <a href="/collection/edit/{{collection.id}}">{{collection.name}}</a>
+                    <p class="collections__item-owner">collection owner: <b>{{collection.getAuthor.username}}</b></p>
+                </li>
             {% endfor %}
         </ul>
 
@@ -32,7 +35,7 @@
         <ul class="pagination">
             {% if searchfor == '' and categoryAmount > 0 %}
                 {% for i in 1..categoryAmount %}
-                        <li class="page-item"><a class="page-link" href="/collections/{{i}}">{{i}}</a></li>
+                    <li class="page-item"><a class="page-link" href="/collections/{{i}}">{{i}}</a></li>
                 {% endfor %}
             {% endif %}
         </ul>

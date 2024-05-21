@@ -40,28 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputCollectionTitleCancelEdit = document.querySelector(".cancel-edit");
 
     const collectionTitleValue = document.querySelector(".collection__title-value");
-    const collectionDeleteBtn = document.querySelector(".collection__btn-delete");
 
     function toggleClassToEditCollectionTitle() {
         inputCollectionTitleEdit.classList.toggle("active");
         collectionTitleValue.classList.toggle("active");
-    }
-
-    function deleteCollection() {
-        let id = location.href.split("/").slice(-1)[0];
-
-        fetch(`/collection/delete/${id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((response) => {
-            if (response.ok) {
-                console.log("Collection was deleted");
-            } else {
-                console.log("Collection wasn't deleted");
-            }
-        });
     }
 
     if (inputCollectionTitleCancelEdit) {
@@ -77,13 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             toggleClassToEditCollectionTitle();
             collectionEditBtn.setAttribute("disabled", "");
-        });
-    }
-
-    if (collectionDeleteBtn) {
-        collectionDeleteBtn.addEventListener("click", () => {
-            deleteCollection();
-            location.href = "/collections";
         });
     }
 

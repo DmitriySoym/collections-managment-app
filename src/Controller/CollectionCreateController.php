@@ -20,7 +20,7 @@ class CollectionCreateController extends AbstractController
     public function index(Request $request): Response
     {
         if(!$this->isGranted('ROLE_USER')) {
-            $this->addFlash('danger', "Only admin have access to this page");
+            $this->addFlash('danger', "Sign in to create a collection");
             return $this->redirectToRoute('app_collections');
         }
 

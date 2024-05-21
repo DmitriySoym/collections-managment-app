@@ -7,9 +7,13 @@
         <div class="d-flex justify-content-end gap-3">
             <a href="/collections" class="btn btn-success nav-btn">Back to collections</a>
             <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
+            {% if app.user == '' %}
+                <a href="/login" class="btn btn-success nav-btn"><span class="desctop__btn">Sign in </span><i class="fa-solid fa-right-to-bracket"></i></a>
+                <a href="/register" class="btn btn-primary nav-btn"><span class="desctop__btn">Sign up</span> <i class="fa-solid fa-user-plus"></i></a>
+            {% endif %}
         </div>
         
-        <h2>You can {{ action }} here. You choose collection:</h2>
+        <h2 class="pb-3 pt-3">Collection owner: <b>{{category.getAuthor.username}}</b></h2>
 
         <form method="post" class="category__form">
             <div class="collection__title">
@@ -20,10 +24,12 @@
                     <button class="btn btn-danger cancel-edit"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
-            <div class="d-flex gap-3">
-                <a class="btn btn-danger collection__btn-delete" href="javascript:void(0);">Delete <i class="fa-solid fa-trash-can"></i></a>
-                <button class="btn btn-success collection__btn-edit">Edit <i class="fa-solid fa-pen-to-square"></i></button>
-            </div>
+            {% if app.user %}
+                <div class="d-flex gap-3">
+                    <a class="btn btn-danger collection__btn-delete" href="/collection/delete/{{category.getId()}}">Delete <i class="fa-solid fa-trash-can"></i></a>
+                    <button class="btn btn-success collection__btn-edit">Edit <i class="fa-solid fa-pen-to-square"></i></button>
+                </div>
+            {% endif %}
         </form>
     </div>
 {% endblock %}

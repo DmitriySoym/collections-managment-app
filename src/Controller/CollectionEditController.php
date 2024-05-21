@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,13 +13,13 @@ class CollectionEditController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $em,
-        private CategoryRepository $categoryRepository
+        private CategoryRepository $cr
     ) {}
 
     #[Route('/collection/edit/{id}', name: 'app_category_edit', methods: ['GET'])]
     public function index(int $id): Response
     {
-        $category = $this->categoryRepository->find($id);
+        $category = $this->cr->find($id);
         return $this->render('collection_edit/index.html.twig', [
             'action' => 'Edit collection',
             'category' => $category,
@@ -30,16 +29,17 @@ class CollectionEditController extends AbstractController
     #[Route('/collection/edit/{id}', name: 'app_category_edit_save', methods: ['POST'])]
     public function update(int $id, ?Request $request)
     {
-        $category = $this->categoryRepository->find($id);
-        $newCategoryName = $request->get('collectionnewname');
-        $category->setName($newCategoryName);
-        $this->em->flush();
+        if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
+            $this->addFlash('danger', "Only admins and collection owner can edit collections");
+            return $this->redirectToRoute('app_category_edit', ['id' => $id]);
+        }
 
-        $this->addFlash('success', "Collection $newCategoryName updated successfully");
+        $oldCategoryName  = $this->cr->findOneBy(['id' => $id])->getName();
+        $this->cr->editCategoryName($id, $request, $this->em);
+        $this->addFlash('success', "Collection $oldCategoryName updated successfully");
 
         return $this->render('collection_edit/index.html.twig', [
-            'action' => 'Edit collection',
-            'category' => $category,
+            'category' => $this->cr->findOneBy(['id' => $id]),
         ]);
     }
 
@@ -48,11 +48,16 @@ class CollectionEditController extends AbstractController
     public function remove(int $id)
     {
 
-        $category = $this->categoryRepository->findOneBy(['id' => $id]);
-        $categoryName = $category->getName();
-        $this->em->remove($category);
-        $this->em->flush();
-        $this->addFlash('success', "Collection $categoryName deleted successfully");
+        if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
+            $this->addFlash('danger', "Only admins and collection owner can delete collections");
+            
+            return $this->redirectToRoute('app_category_edit', ['id' => $id]);
+        }
+
+        $deletedCategoryName  = $this->cr->findOneBy(['id' => $id])->getName();
+        $this->cr->deleteCategory($id);
+
+        $this->addFlash('success', "Collection $deletedCategoryName deleted successfully");
 
         return $this->redirect('/collections');
     }

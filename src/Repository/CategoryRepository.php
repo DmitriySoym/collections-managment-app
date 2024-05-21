@@ -5,13 +5,22 @@ namespace App\Repository;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+
+use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\User as AppUser;
 
 /**
  * @extends ServiceEntityRepository<Category>
  */
 class CategoryRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(
+        ManagerRegistry $registry,
+        private EntityManagerInterface $em,
+
+        )
     {
         parent::__construct($registry, Category::class);
     }
@@ -39,6 +48,28 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
 
+    public function editCategoryName(int $id, Request $request): void
+    {
+        $category = $this->find($id);
+        $newCategoryName = $request->get('collectionnewname');
+        $category->setName($newCategoryName);
+        $this->em->flush();
+    }
+
+    public function deleteCategory(int $id): void
+    {
+        $category = $this->find($id);
+        $this->em->remove($category);
+        $this->em->flush();
+    }
+
+    public function checkUserAccess(AppUser $user, int $id)
+    {
+        $category = $this->find($id);
+
+        return $category->getAuthor()->getId() === $user->getId();
+    }
+    
 //    /**
 //     * @return Category[] Returns an array of Category objects
 //     */

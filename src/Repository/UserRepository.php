@@ -15,7 +15,10 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(
+        private EntityManagerInterface $em,
+        ManagerRegistry $registry
+        )
     {
         parent::__construct($registry, User::class);
     }
@@ -34,23 +37,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    public function changeStatus(string $status, User $user, EntityManagerInterface $em): void
+    public function changeStatus(string $status, User $user): void
     {
         if ($status === 'deleted') {
-                $em->remove($user);
-                $em->flush();
+                $this->em->remove($user);
+                $this->em->flush();
             } else if($status === 'make-admin') {
                 $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
-                $em->flush();
+                $this->em->flush();
             } else if($status === 'block') {
                 $user->setRoles(['ROLE_BLOCKED']);
-                $em->flush();
+                $this->em->flush();
             } else if($status === 'unblock') {
                 $user->setRoles(['ROLE_USER']);
-                $em->flush();
+                $this->em->flush();
             } else if($status === 'make-user-notadmin') {
                 $user->setRoles(['ROLE_USER']);
-                $em->flush();
+                $this->em->flush();
             }
     }
 
