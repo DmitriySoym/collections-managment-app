@@ -46,8 +46,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $email = null;
 
-    #[ORM\OneToOne(mappedBy: 'userId', cascade: ['persist', 'remove'])]
-    private ?CategoryCollection $categoryCollection = null;
+    // #[ORM\OneToOne(mappedBy: 'userId', cascade: ['persist', 'remove'])]
+    // private ?CategoryCollection $categoryCollection = null;
 
     /**
      * @var Collection<int, Category>
@@ -170,22 +170,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCategoryCollection(): ?CategoryCollection
-    {
-        return $this->categoryCollection;
-    }
+    // public function getCategoryCollection(): ?CategoryCollection
+    // {
+    //     return $this->categoryCollection;
+    // }
 
-    public function setCategoryCollection(CategoryCollection $categoryCollection): static
-    {
-        // set the owning side of the relation if necessary
-        if ($categoryCollection->getUserId() !== $this) {
-            $categoryCollection->setUserId($this);
-        }
+    // public function setCategoryCollection(CategoryCollection $categoryCollection): static
+    // {
+    //     // set the owning side of the relation if necessary
+    //     if ($categoryCollection->getUserId() !== $this) {
+    //         $categoryCollection->setUserId($this);
+    //     }
 
-        $this->categoryCollection = $categoryCollection;
+    //     $this->categoryCollection = $categoryCollection;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Category>

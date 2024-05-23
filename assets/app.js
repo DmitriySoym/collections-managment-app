@@ -133,4 +133,48 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    //create collection item
+    const btnAddCustomAttribute = document.getElementById("add-custom-attribute");
+    if (btnAddCustomAttribute) {
+        btnAddCustomAttribute.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            addFormToCollection();
+        });
+    }
+
+    function addFormToCollection(e) {
+        const collectionHolder = document.querySelector("#custom-attributes-wrapper");
+
+        const item = document.createElement("div");
+        item.classList.add("form__custom-item");
+
+        item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
+
+        collectionHolder.appendChild(item);
+
+        collectionHolder.dataset.index++;
+
+        addRemoveAttributeBtn(item);
+    }
+
+    function addRemoveAttributeBtn(item) {
+        const removeFormButton = document.createElement("a");
+
+        removeFormButton.href = "javascript:void(0);";
+        removeFormButton.className = "btn btn-danger";
+        removeFormButton.innerHTML = `Delete attribute <i class="fa-solid fa-trash-can"></i>`;
+        item.append(removeFormButton);
+
+        removeFormButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            item.remove();
+        });
+    }
+
+    // document.querySelectorAll("#custom-attributes-wrapper div.form__custom-item").forEach((row) => {
+    //     console.log(row);
+    //     addRemoveAttributeBtn(row);
+    // });
 });

@@ -28,6 +28,7 @@
                 <div class="d-flex gap-3">
                     <a class="btn btn-danger collection__btn-delete" href="/collection/delete/{{category.getId()}}">Delete <i class="fa-solid fa-trash-can"></i></a>
                     <button class="btn btn-success collection__btn-edit">Edit <i class="fa-solid fa-pen-to-square"></i></button>
+                    <a href="/collection/{{category.getId()}}/item/create" class="btn btn-primary">Add item <i class="fa-solid fa-plus"></i></a>
                 </div>
             {% endif %}
         </form>
