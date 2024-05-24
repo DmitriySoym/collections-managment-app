@@ -31,14 +31,14 @@ class CategoryItemType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => false,
             ])
-            ->add('customItemAttributes', CollectionType::class, [
-                'entry_type' => CustomAttributeType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'label' => false,
-            ])
+            // ->add('customItemAttributes', CollectionType::class, [
+            //     'entry_type' => CustomAttributeType::class,
+            //     'entry_options' => ['label' => false],
+            //     'allow_add' => true,
+            //     'allow_delete' => true,
+            //     'by_reference' => false,
+            //     'label' => false,
+            // ])
             // ->add('created', null, [
             //     'widget' => 'single_text'
             // ])

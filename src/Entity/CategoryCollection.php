@@ -32,17 +32,6 @@ class CategoryCollection
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated = null;
 
-    /**
-     * @var Collection<int, CustomItemAttribute>
-     */
-    #[ORM\OneToMany(targetEntity: CustomItemAttribute::class, mappedBy: 'categoryCollection', orphanRemoval: true, cascade: ['persist'])]
-    private Collection $customItemAttributes;
-
-    public function __construct()
-    {
-        $this->customItemAttributes = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -104,36 +93,6 @@ class CategoryCollection
     public function setUpdated(?\DateTimeInterface $updated): static
     {
         $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, CustomItemAttribute>
-     */
-    public function getCustomItemAttributes(): Collection
-    {
-        return $this->customItemAttributes;
-    }
-
-    public function addCustomItemAttribute(CustomItemAttribute $customItemAttribute): static
-    {
-        if (!$this->customItemAttributes->contains($customItemAttribute)) {
-            $this->customItemAttributes->add($customItemAttribute);
-            $customItemAttribute->setCategoryCollection($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCustomItemAttribute(CustomItemAttribute $customItemAttribute): static
-    {
-        if ($this->customItemAttributes->removeElement($customItemAttribute)) {
-            // set the owning side to null (unless already changed)
-            if ($customItemAttribute->getCategoryCollection() === $this) {
-                $customItemAttribute->setCategoryCollection(null);
-            }
-        }
 
         return $this;
     }

@@ -38,9 +38,20 @@ class Category
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated = null;
 
+    #[ORM\ManyToOne(inversedBy: 'categoryitems')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CategoryType $catygoryType = null;
+
+    /**
+     * @var Collection<int, CustomAttribute>
+     */
+    #[ORM\OneToMany(targetEntity: CustomAttribute::class, mappedBy: 'category', orphanRemoval: true)]
+    private Collection $customAttributes;
+
     public function __construct()
     {
         $this->categoryCollections = new ArrayCollection();
+        $this->customAttributes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,6 +145,48 @@ class Category
     public function setUpdated(?\DateTimeInterface $updated): static
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getCatygoryType(): ?CategoryType
+    {
+        return $this->catygoryType;
+    }
+
+    public function setCatygoryType(?CategoryType $catygoryType): static
+    {
+        $this->catygoryType = $catygoryType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CustomAttribute>
+     */
+    public function getCustomAttributes(): Collection
+    {
+        return $this->customAttributes;
+    }
+
+    public function addCustomAttribute(CustomAttribute $customAttribute): static
+    {
+        if (!$this->customAttributes->contains($customAttribute)) {
+            $this->customAttributes->add($customAttribute);
+            $customAttribute->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomAttribute(CustomAttribute $customAttribute): static
+    {
+        if ($this->customAttributes->removeElement($customAttribute)) {
+            // set the owning side to null (unless already changed)
+            if ($customAttribute->getCategory() === $this) {
+                $customAttribute->setCategory(null);
+            }
+        }
 
         return $this;
     }
