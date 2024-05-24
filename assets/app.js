@@ -34,34 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // edit collection title
-    const collectionEditBtn = document.querySelector(".collection__btn-edit");
-    const inputCollectionTitleEdit = document.querySelector(".collection__title-edit");
-    const inputCollectionTitleCancelEdit = document.querySelector(".cancel-edit");
-
-    const collectionTitleValue = document.querySelector(".collection__title-value");
-
-    function toggleClassToEditCollectionTitle() {
-        inputCollectionTitleEdit.classList.toggle("active");
-        collectionTitleValue.classList.toggle("active");
-    }
-
-    if (inputCollectionTitleCancelEdit) {
-        inputCollectionTitleCancelEdit.addEventListener("click", (e) => {
-            e.preventDefault();
-            toggleClassToEditCollectionTitle();
-            collectionEditBtn.removeAttribute("disabled");
-        });
-    }
-
-    if (collectionEditBtn) {
-        collectionEditBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            toggleClassToEditCollectionTitle();
-            collectionEditBtn.setAttribute("disabled", "");
-        });
-    }
-
     // user management
     function selectAllUsers() {
         const checkboxes = document.querySelectorAll('input[name="selectedUser"]');

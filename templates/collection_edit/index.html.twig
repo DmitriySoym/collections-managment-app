@@ -5,32 +5,29 @@
 {% block body %}
     <div class="container pt-5">
         <div class="d-flex justify-content-end gap-3">
-            <a href="/collections" class="btn btn-success nav-btn">Back to collections</a>
+            <a href="/collection/info/{{category.getId()}}" class="btn btn-success nav-btn">Back to collection</a>
             <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
-            {% if app.user == '' %}
-                <a href="/login" class="btn btn-success nav-btn"><span class="desctop__btn">Sign in </span><i class="fa-solid fa-right-to-bracket"></i></a>
-                <a href="/register" class="btn btn-primary nav-btn"><span class="desctop__btn">Sign up</span> <i class="fa-solid fa-user-plus"></i></a>
-            {% endif %}
         </div>
         
         <h2 class="pb-3 pt-3">Collection owner: <b>{{category.getAuthor.username}}</b></h2>
 
         <form method="post" class="category__form">
             <div class="collection__title">
-                <p class="collection__title-value active"><b>{{ category.name }}</b></p>
                 <div class="collection__title-edit">
-                    <input name="collectionnewname" value={{category.name}} class="" type="text" placeholder="enter new collection name"/>
-                    <button class="btn btn-success" type="submit"><i class="fa-solid fa-check"></i></button>
-                    <button class="btn btn-danger cancel-edit"><i class="fa-solid fa-xmark"></i></button>
+                    <label>Collection name</label>
+                    <input name="collectionnewname" value="{{category.name}}" type="text" placeholder="enter new collection name"/>
+                    <label>Collection description</label>
+                    <textarea id="collectionnewdescription" name="collectionnewdescription" value="{{category.description}}" type="text"></textarea>
+                    <div class="collection__title-btn">
+                        <a class="btn btn-danger collection__btn-delete" href="/collection/delete/{{category.getId()}}">Delete <i class="fa-solid fa-trash-can"></i></a>
+                        <button class="btn btn-success" type="submit"><i class="fa-solid fa-check"></i></button>
+                        <a href="/collection/info/{{category.getId()}}" class="btn btn-danger cancel-edit"><i class="fa-solid fa-xmark"></i></a>
+                    </div>
                 </div>
             </div>
-            {% if app.user %}
-                <div class="d-flex gap-3">
-                    <a class="btn btn-danger collection__btn-delete" href="/collection/delete/{{category.getId()}}">Delete <i class="fa-solid fa-trash-can"></i></a>
-                    <button class="btn btn-success collection__btn-edit">Edit <i class="fa-solid fa-pen-to-square"></i></button>
-                    <a href="/collection/{{category.getId()}}/item/create" class="btn btn-primary">Add item <i class="fa-solid fa-plus"></i></a>
-                </div>
-            {% endif %}
         </form>
     </div>
+    <script>
+        const textarea = document.getElementById("collectionnewdescription").innerText = '{{category.description}}';
+    </script>
 {% endblock %}

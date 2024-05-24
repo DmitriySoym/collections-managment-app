@@ -19,7 +19,6 @@ class CollectionsController extends AbstractController
         $searchfor = $request->query->get('searchfor') ?? '';
         $categories = $cr->paginatedCategories($page, $limit, $searchfor);
         $categoryAmount = ceil($cr->count() / $limit);
-        $test = count($cr->findAll());
 
         return $this->render('collections/index.html.twig', [
             'username' => $username,

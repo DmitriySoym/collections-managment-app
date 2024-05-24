@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container pt-5">
         <div class="d-flex justify-content-end">
-            <a href="/collections" class="btn btn-success nav-btn">Back to categories</a>
+            <a href="/collections" class="btn btn-success nav-btn">Back to collections</a>
         </div>
         
         <h2>You can {{ action }} here.</h2>
@@ -16,6 +16,7 @@
 
                 <label>New collection</label>
                 {{ form_row(form.name, { 'attr' : { 'placeholder': 'Enter name' } }) }}
+                {{ form_row(form.description, { 'attr' : { 'placeholder': 'Enter description' } }) }}
                 <button type="submit" class="btn btn-lg btn-primary" id="btn-create-category">Create</button>
 
                 {{ form_rest(form) }}

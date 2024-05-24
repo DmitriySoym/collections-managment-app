@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit collection{% endblock %}
+
+{% block body %}
+    <div class="container pt-5">
+        <div class="d-flex justify-content-end gap-3">
+            <a href="/collections" class="btn btn-success nav-btn">Back to collections</a>
+            <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
+            {% if app.user == '' %}
+                <a href="/login" class="btn btn-success nav-btn"><span class="desctop__btn">Sign in </span><i class="fa-solid fa-right-to-bracket"></i></a>
+                <a href="/register" class="btn btn-primary nav-btn"><span class="desctop__btn">Sign up</span> <i class="fa-solid fa-user-plus"></i></a>
+            {% endif %}
+        </div>
+        
+        <h2 class="pb-3 pt-3">Collection owner: <b>{{category.getAuthor.username}}</b></h2>
+        <div><span>Collection updated {{category.updated|date('d M Y H:i:s')}}</span></div>
+
+        <div method="post" class="category__form">
+            <div class="collection__title">
+                <p class="collection__title-value active"><b>{{ category.name }}</b></p>
+                <p class="collection__title-value active">{{ category.description }}</p>
+            </div>
+            {% if app.user %}
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="/collection/edit/{{category.getId()}}" class="btn btn-success">Edit <i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="/collection/{{category.getId()}}/item/create" class="btn btn-primary">Add item <i class="fa-solid fa-plus"></i></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+

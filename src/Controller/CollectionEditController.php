@@ -19,6 +19,12 @@ class CollectionEditController extends AbstractController
     #[Route('/collection/edit/{id}', name: 'app_category_edit', methods: ['GET'])]
     public function index(int $id): Response
     {
+        if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
+            $this->addFlash('danger', "Only admins and collection owner can edit collections");
+            
+            return $this->redirectToRoute('app_category_info', ['id' => $id]);
+        }
+
         $category = $this->cr->find($id);
         return $this->render('collection_edit/index.html.twig', [
             'category' => $category,
@@ -28,30 +34,18 @@ class CollectionEditController extends AbstractController
     #[Route('/collection/edit/{id}', name: 'app_category_edit_save', methods: ['POST'])]
     public function update(int $id, ?Request $request)
     {
-        if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
-            $this->addFlash('danger', "Only admins and collection owner can edit collections");
-            return $this->redirectToRoute('app_category_edit', ['id' => $id]);
-        }
-
         $oldCategoryName  = $this->cr->findOneBy(['id' => $id])->getName();
         $this->cr->editCategoryName($id, $request, $this->em);
         $this->addFlash('success', "Collection $oldCategoryName updated successfully");
 
-        return $this->render('collection_edit/index.html.twig', [
-            'category' => $this->cr->findOneBy(['id' => $id]),
-        ]);
+        return $this->redirect('/collection/info/' . $id);
+
     }
 
     
     #[Route('/collection/delete/{id}', name: 'app_category_remove', methods: ['GET'])]
     public function remove(int $id)
     {
-
-        if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
-            $this->addFlash('danger', "Only admins and collection owner can delete collections");
-            
-            return $this->redirectToRoute('app_category_edit', ['id' => $id]);
-        }
 
         $deletedCategoryName  = $this->cr->findOneBy(['id' => $id])->getName();
         $this->cr->deleteCategory($id);

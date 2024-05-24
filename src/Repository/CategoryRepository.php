@@ -52,7 +52,10 @@ class CategoryRepository extends ServiceEntityRepository
     {
         $category = $this->find($id);
         $newCategoryName = $request->get('collectionnewname');
+        $newcategorydescription = $request->get('collectionnewdescription');
         $category->setName($newCategoryName);
+        $category->setDescription($newcategorydescription);
+        $category->setUpdated(new \DateTime());
         $this->em->flush();
     }
 

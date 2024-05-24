@@ -6,6 +6,7 @@ use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -27,6 +28,9 @@ class CategoryType extends AbstractType
                         'maxMessage' => 'Your collection name should be at most {{ limit }} characters',
                     ]),
                 ],
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => false,
             ])
             // ->add('create', SubmitType::class)
         ;

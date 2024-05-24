@@ -17,6 +17,7 @@ class FormSubmit extends AbstractController
     {
 
             $category->setAuthor($this->getUser());
+            $category->setUpdated(new \DateTime());
             $this->em->persist($category);
             $this->em->flush();
             $categoryName = $category->getName();

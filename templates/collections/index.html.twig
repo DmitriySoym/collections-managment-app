@@ -25,8 +25,14 @@
         <ul class="collections">
             {% for collection in categories %}
                 <li class="collections__item d-flex flex-wrap gap-3">
-                    <a href="/collection/edit/{{collection.id}}">{{collection.name}}</a>
-                    <p class="collections__item-owner">collection owner: <b>{{collection.getAuthor.username}}</b></p>
+                    <a href="/collection/info/{{collection.id}}">{{collection.name}}</a>
+                    {% if collection.description %}
+                        <p>{{collection.description}}</p>
+                    {% endif %}
+                    <p class="collections__item-owner">owner: <b>{{collection.getAuthor.username}}</b></p>
+                    {% if collection.getUpdated %}
+                        <p class="collections__item-owner">updated: <b>{{collection.updated|date('d M Y H:i:s')}}</b></p>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
