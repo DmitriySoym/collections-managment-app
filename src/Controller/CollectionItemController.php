@@ -46,7 +46,7 @@ class CollectionItemController extends AbstractController
             $this->formSubmit->submitCategoryItem($itemCollection, $id);
 
             $category = $this->cr->find($id);
-            return $this->redirectToRoute('app_category_edit', [
+            return $this->redirectToRoute('app_category_info', [
                 'category' => $category,
                 'id' => $id
             ]);

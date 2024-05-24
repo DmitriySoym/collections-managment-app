@@ -19,6 +19,7 @@ class CategoryRepository extends ServiceEntityRepository
     public function __construct(
         ManagerRegistry $registry,
         private EntityManagerInterface $em,
+        private CategoryTypeRepository $ctRepository
 
         )
     {
@@ -53,6 +54,8 @@ class CategoryRepository extends ServiceEntityRepository
         $category = $this->find($id);
         $newCategoryName = $request->get('collectionnewname');
         $newcategorydescription = $request->get('collectionnewdescription');
+        $newCategoryType= $request->get('collectionnewtype');
+        $category->setCatygoryType($this->ctRepository->find($newCategoryType));
         $category->setName($newCategoryName);
         $category->setDescription($newcategorydescription);
         $category->setUpdated(new \DateTime());

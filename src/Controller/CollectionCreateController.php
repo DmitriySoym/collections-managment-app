@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Form\CollectionCreateType;
 use App\Serviсes\FormSubmit;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -28,7 +29,7 @@ class CollectionCreateController extends AbstractController
 
         $category = new Category();
 
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(CollectionCreateType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -17,6 +17,7 @@
                 <label>New collection</label>
                 {{ form_row(form.name, { 'attr' : { 'placeholder': 'Enter name' } }) }}
                 {{ form_row(form.description, { 'attr' : { 'placeholder': 'Enter description' } }) }}
+                {{ form_row(form.catygoryType) }}
                 <button type="submit" class="btn btn-lg btn-primary" id="btn-create-category">Create</button>
 
                 {{ form_rest(form) }}
