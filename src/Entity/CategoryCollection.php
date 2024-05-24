@@ -26,10 +26,6 @@ class CategoryCollection
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    // #[ORM\OneToOne(inversedBy: 'categoryCollection', cascade: ['persist', 'remove'])]
-    // #[ORM\JoinColumn(nullable: false)]
-    // private ?User $userId = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created = null;
 
@@ -87,18 +83,6 @@ class CategoryCollection
 
         return $this;
     }
-
-    // public function getUserId(): ?User
-    // {
-    //     return $this->userId;
-    // }
-
-    // public function setUserId(User $userId): static
-    // {
-    //     $this->userId = $userId;
-
-    //     return $this;
-    // }
 
     public function getCreated(): ?\DateTimeInterface
     {

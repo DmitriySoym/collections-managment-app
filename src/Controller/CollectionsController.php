@@ -26,8 +26,6 @@ class CollectionsController extends AbstractController
             'categories' => $categories,
             'categoryAmount' => $categoryAmount,
             'searchfor' => $searchfor,
-            'limit' => $limit,
-            'test' => $test
         ]);
     }
 }

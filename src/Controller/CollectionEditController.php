@@ -21,7 +21,6 @@ class CollectionEditController extends AbstractController
     {
         $category = $this->cr->find($id);
         return $this->render('collection_edit/index.html.twig', [
-            'action' => 'Edit collection',
             'category' => $category,
         ]);
     }

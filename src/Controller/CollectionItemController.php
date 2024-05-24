@@ -10,12 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CategoryRepository;
+use App\Serviсes\FormSubmit;
 
 class CollectionItemController extends AbstractController
 {
         public function __construct(
         private EntityManagerInterface $em,
-        private CategoryRepository $cr
+        private CategoryRepository $cr,
+        private FormSubmit $formSubmit
     ) {}
 
     #[Route('/collection/{id}/item/{{itemId}}', name: 'app_collection_item')]
@@ -35,32 +37,22 @@ class CollectionItemController extends AbstractController
             return $this->redirectToRoute('app_category_edit', ['id' => $id]);
         }
 
-        $user = $this->getUser();
-        
         $itemCollection = new CategoryCollection();
         $form = $this->createForm(CategoryItemType::class, $itemCollection);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            //saving data
-            // $itemCollection->setUserId($user);
-            $itemCollection->setCreated(new \DateTime());
-            $itemCollection->setUpdated(new \DateTime());
-            $itemCollection->setCategotyId($this->cr->find($id));
-            $this->em->persist($itemCollection);
-            $this->em->flush();
 
-            $itemCollectionName = $itemCollection->getName();
+            $this->formSubmit->submitCategoryItem($itemCollection, $id);
 
-            $this->addFlash('success', "Collection $itemCollectionName created successfully");
-
+            $category = $this->cr->find($id);
             return $this->redirectToRoute('app_category_edit', [
-                'id' => $id,
+                'category' => $category,
+                'id' => $id
             ]);
         }
 
         return $this->render('collection_item/form.html.twig', [
-            // 'form' => $form->createView()
             'form' => $form,
             'id' => $id
         ]);

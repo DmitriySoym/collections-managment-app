@@ -8,12 +8,14 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Serviсes\FormSubmit;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CollectionCreateController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $em,
+        private FormSubmit $formSubmit
     ) {}
 
     #[Route('/collection/create', name: 'app_collection_create')]
@@ -30,16 +32,10 @@ class CollectionCreateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //saving data
-            $category->setAuthor($this->getUser());
-            $this->em->persist($category);
-            $this->em->flush();
-            $categoryName = $category->getName();
-
-            $this->addFlash('success', "Collection $categoryName created successfully");
-
-            return $this->redirectToRoute('app_collections');
+            $this->formSubmit->submitCategory($category);
+            return $this->redirect('/collections');
         }
+
         return $this->render('collection_create/index.html.twig', [
             'action' => 'Create category',
             'form' => $form,
