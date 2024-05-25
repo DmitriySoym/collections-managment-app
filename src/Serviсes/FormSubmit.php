@@ -22,7 +22,7 @@ class FormSubmit extends AbstractController
             $this->em->flush();
             $categoryName = $category->getName();
 
-            $this->addFlash('success', "Collection $categoryName created successfully");
+            // $this->addFlash('success', "Collection $categoryName created successfully");
     }
 
     public function submitCategoryItem(CategoryCollection $itemCollection, int $id)

@@ -11,7 +11,7 @@
         
         <h2 class="pb-3 pt-3">Collection owner: <b>{{category.getAuthor.username}}</b></h2>
 
-        <form method="post" class="category__form">
+        {# <form method="post" class="category__form">
             <div class="collection__title">
                 <div class="collection__title-edit">
                     <label>Collection name</label>
@@ -32,18 +32,37 @@
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-    <script>
-        const textarea = document.getElementById("collectionnewdescription").innerText = '{{category.description}}';
+        </form> #}
 
-        const options = document.querySelectorAll("option");
-        if(options) {
-            options.forEach(item => {
-                if(item.value == '{{category.catygoryType.id}}') {
-                    item.setAttribute('selected', '');
-                }
-            });
-        }
-    </script>
+        <div class="m-0 m-auto pt-5">
+            {{ form_start(form, { 'attr' : { 'class': 'category__form' } }) }}
+                {{ form_errors(form) }}
+
+                <label>New collection</label>
+                {{ form_row(form.name, { 'attr' : { 'placeholder': 'Enter name' } }) }}
+                {{ form_row(form.description, { 'attr' : { 'placeholder': 'Enter description', 'rows': '5' } }) }}
+                {{ form_row(form.catygoryType) }}
+
+                <div
+                    data-index="{{ form.customAttributes|length > 0 ? form.customAttributes|last.vars.name + 1 : 0 }}"
+                    data-prototype="{{ form_widget(form.customAttributes.vars.prototype)|e('html_attr') }}"
+                    id="custom-attributes-wrapper"
+                >
+                    {% for customAttribute in form.customAttributes %}
+                        <div class="item">
+                            {{form_row(customAttribute)}}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <a id="add-custom-attribute" class="btn btn-primary" href="#">Add attribute <i class="fa-solid fa-plus"></i></a>
+                <div class="collection__title-btn">
+                    <button type="submit" class="btn btn-primary" id="btn-create-category">Update</button>
+                    <a class="btn btn-danger collection__btn-delete" href="/collection/delete/{{category.getId()}}">Delete <i class="fa-solid fa-trash-can"></i></a>
+                </div>
+                {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
 {% endblock %}

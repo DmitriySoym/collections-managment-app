@@ -18,10 +18,37 @@ window.onload = function () {
     }, 500);
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-    const formCreate = document.getElementById("btn-create-category");
-    const createInput = document.getElementById("category_name");
+function addFormToCollection(e) {
+    const collectionHolder = document.querySelector("#custom-attributes-wrapper");
 
+    const item = document.createElement("div");
+
+    item.className = "item";
+
+    item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
+
+    collectionHolder.appendChild(item);
+
+    collectionHolder.dataset.index++;
+
+    addRemoveAttributeBtn(item);
+}
+
+function addRemoveAttributeBtn(item) {
+    const removeFormButton = document.createElement("a");
+
+    removeFormButton.href = "javascript:void(0);";
+    removeFormButton.className = "btn btn-danger";
+    removeFormButton.innerHTML = `Delete attribute <i class="fa-solid fa-trash-can"></i>`;
+    item.append(removeFormButton);
+
+    removeFormButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        item.remove();
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
     let pageNumbers = document.querySelectorAll(".page-item");
     const activePage = location.href.split("/").slice(-1)[0];
 
@@ -116,37 +143,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function addFormToCollection(e) {
-        const collectionHolder = document.querySelector("#custom-attributes-wrapper");
-
-        const item = document.createElement("div");
-        item.classList.add("form__custom-item");
-
-        item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
-
-        collectionHolder.appendChild(item);
-
-        collectionHolder.dataset.index++;
-
-        addRemoveAttributeBtn(item);
-    }
-
-    function addRemoveAttributeBtn(item) {
-        const removeFormButton = document.createElement("a");
-
-        removeFormButton.href = "javascript:void(0);";
-        removeFormButton.className = "btn btn-danger";
-        removeFormButton.innerHTML = `Delete attribute <i class="fa-solid fa-trash-can"></i>`;
-        item.append(removeFormButton);
-
-        removeFormButton.addEventListener("click", (e) => {
-            e.preventDefault();
-            item.remove();
-        });
-    }
-
-    // document.querySelectorAll("#custom-attributes-wrapper div.form__custom-item").forEach((row) => {
-    //     console.log(row);
-    //     addRemoveAttributeBtn(row);
-    // });
+    document.querySelectorAll("#custom-attributes-wrapper div.item").forEach((row) => {
+        console.log(row);
+        addRemoveAttributeBtn(row);
+    });
 });

@@ -43,12 +43,12 @@ class CustomAttribute
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?CustomAttributeType
     {
         return $this->type;
     }
 
-    public function setType(string $type): static
+    public function setType(CustomAttributeType $type): static
     {
         $this->type = $type;
 

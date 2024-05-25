@@ -49,19 +49,6 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
 
-    public function editCategoryName(int $id, Request $request): void
-    {
-        $category = $this->find($id);
-        $newCategoryName = $request->get('collectionnewname');
-        $newcategorydescription = $request->get('collectionnewdescription');
-        $newCategoryType= $request->get('collectionnewtype');
-        $category->setCatygoryType($this->ctRepository->find($newCategoryType));
-        $category->setName($newCategoryName);
-        $category->setDescription($newcategorydescription);
-        $category->setUpdated(new \DateTime());
-        $this->em->flush();
-    }
-
     public function deleteCategory(int $id): void
     {
         $category = $this->find($id);

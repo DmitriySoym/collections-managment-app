@@ -34,11 +34,12 @@ class CollectionCreateController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->formSubmit->submitCategory($category);
+            $categoryName = $category->getName();
+            $this->addFlash('success', "Collection $categoryName created successfully");
             return $this->redirect('/collections');
         }
 
         return $this->render('collection_create/index.html.twig', [
-            'action' => 'Create category',
             'form' => $form,
         ]);
     }

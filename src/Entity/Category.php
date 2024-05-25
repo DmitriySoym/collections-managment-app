@@ -45,7 +45,7 @@ class Category
     /**
      * @var Collection<int, CustomAttribute>
      */
-    #[ORM\OneToMany(targetEntity: CustomAttribute::class, mappedBy: 'category', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: CustomAttribute::class, mappedBy: 'category', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $customAttributes;
 
     public function __construct()

@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\CategoryType;
-use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType; //правильный тип данных
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,13 +39,17 @@ class CollectionCreateType extends AbstractType
             // ->add('updated', null, [
             //     'widget' => 'single_text'
             // ])
-            // ->add('author', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'id',
-            // ])
             ->add('catygoryType', EntityType::class, [
                 'class' => CategoryType::class,
                 'choice_label' => 'name',
+            ])
+            ->add('customAttributes', CollectionType::class, [
+                'entry_type' => CustomAttributeType::class,
+                'entry_options' => ['label' => false],
+                'label' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ])
         ;
     }

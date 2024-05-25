@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Form\CollectionCreateType;
+use App\Serviсes\FormSubmit;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,11 +16,12 @@ class CollectionEditController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $em,
-        private CategoryRepository $cr
+        private CategoryRepository $cr,
+        private FormSubmit $formSubmit
     ) {}
 
-    #[Route('/collection/edit/{id}', name: 'app_category_edit', methods: ['GET'])]
-    public function index(int $id): Response
+    #[Route('/collection/edit/{id}', name: 'app_category_edit', methods: ['GET', 'POST'])]
+    public function index(int $id, Request $request, Category $category): Response
     {
         if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
             $this->addFlash('danger', "Only admins and collection owner can edit collections");
@@ -25,24 +29,22 @@ class CollectionEditController extends AbstractController
             return $this->redirectToRoute('app_category_info', ['id' => $id]);
         }
 
-        $category = $this->cr->find($id);
+        $form = $this->createForm(CollectionCreateType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->formSubmit->submitCategory($category);
+            $categoryName = $category->getName();
+            $this->addFlash('success', "Collection $categoryName updated successfully");
+            return $this->redirect('/collection/info/' . $id);
+        }
+
         return $this->render('collection_edit/index.html.twig', [
             'category' => $category,
+            'form' => $form,
         ]);
     }
 
-    #[Route('/collection/edit/{id}', name: 'app_category_edit_save', methods: ['POST'])]
-    public function update(int $id, ?Request $request)
-    {
-        $oldCategoryName  = $this->cr->findOneBy(['id' => $id])->getName();
-        $this->cr->editCategoryName($id, $request, $this->em);
-        $this->addFlash('success', "Collection $oldCategoryName updated successfully");
-
-        return $this->redirect('/collection/info/' . $id);
-
-    }
-
-    
     #[Route('/collection/delete/{id}', name: 'app_category_remove', methods: ['GET'])]
     public function remove(int $id)
     {

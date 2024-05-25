@@ -8,7 +8,7 @@
             <a href="/collections" class="btn btn-success nav-btn">Back to collections</a>
         </div>
         
-        <h2>You can {{ action }} here.</h2>
+        <h2>You can create collection here.</h2>
 
         <div class="m-0 m-auto pt-5">
             {{ form_start(form, { 'attr' : { 'class': 'category__form' } }) }}
@@ -16,8 +16,23 @@
 
                 <label>New collection</label>
                 {{ form_row(form.name, { 'attr' : { 'placeholder': 'Enter name' } }) }}
-                {{ form_row(form.description, { 'attr' : { 'placeholder': 'Enter description' } }) }}
+                {{ form_row(form.description, { 'attr' : { 'placeholder': 'Enter description', 'rows': '5' } }) }}
                 {{ form_row(form.catygoryType) }}
+
+                <div
+                    data-index="{{ form.customAttributes|length > 0 ? form.customAttributes|last.vars.name + 1 : 0 }}"
+                    data-prototype="{{ form_widget(form.customAttributes.vars.prototype)|e('html_attr') }}"
+                    id="custom-attributes-wrapper"
+                >
+                    {% for customAttribute in form.customAttributes %}
+                        <div class="item">
+                            {{form_row(customAttribute)}}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <a id="add-custom-attribute" class="btn btn-primary" href="#">Add attribute <i class="fa-solid fa-plus"></i></a>
+
                 <button type="submit" class="btn btn-lg btn-primary" id="btn-create-category">Create</button>
 
                 {{ form_rest(form) }}
