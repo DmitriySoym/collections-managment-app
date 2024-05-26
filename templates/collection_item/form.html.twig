@@ -3,7 +3,7 @@
 {% block title %}Create item in collection{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container pt-5">
         <div class="d-flex justify-content-end">
             <a href="/collection/info/{{id}}" class="btn btn-success nav-btn">Back to collection</a>
         </div>
@@ -17,7 +17,7 @@
             {{ form_row(form.description, { 'attr' : { 'placeholder': 'description' } }) }}
 
             {{ form_rest(form) }}
-            <button type="submit" class="btn btn-lg btn-primary" id="btn-create-category-item">Create</button>
+            <button type="submit" class="btn btn-primary" id="btn-create-category-item">Create</button>
         {{ form_end(form) }}
 
     </div>

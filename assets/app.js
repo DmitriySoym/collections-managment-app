@@ -38,7 +38,7 @@ function addRemoveAttributeBtn(item) {
     const removeFormButton = document.createElement("a");
 
     removeFormButton.href = "javascript:void(0);";
-    removeFormButton.className = "btn btn-danger";
+    removeFormButton.className = "btn btn-danger mt-2";
     removeFormButton.innerHTML = `Delete attribute <i class="fa-solid fa-trash-can"></i>`;
     item.append(removeFormButton);
 

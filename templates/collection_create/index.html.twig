@@ -10,7 +10,7 @@
         
         <h2>You can create collection here.</h2>
 
-        <div class="m-0 m-auto pt-5">
+        <div class="m-0 m-auto">
             {{ form_start(form, { 'attr' : { 'class': 'category__form' } }) }}
                 {{ form_errors(form) }}
 
@@ -33,7 +33,7 @@
 
                 <a id="add-custom-attribute" class="btn btn-primary" href="#">Add attribute <i class="fa-solid fa-plus"></i></a>
 
-                <button type="submit" class="btn btn-lg btn-primary" id="btn-create-category" formnovalidate>Create</button>
+                <button type="submit" class="btn btn-primary" id="btn-create-category" formnovalidate>Create</button>
 
                 {{ form_rest(form) }}
             {{ form_end(form) }}

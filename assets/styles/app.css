@@ -117,10 +117,6 @@ body {
     text-align: left;
 }
 
-.category__form div {
-    width: 100%;
-}
-
 .category__form label {
     font-size: 1rem;
 }
@@ -173,7 +169,7 @@ body {
 
 .collections__text {
     font-size: calc(1.325rem + 0.5vw);
-    margin: 0.5rem 0;
+    margin: 1rem 0;
 }
 
 .collections {
@@ -208,6 +204,7 @@ body {
 
 .collection__title {
     display: flex;
+    text-align: center;
     align-items: center;
     justify-content: space-between;
     align-items: start;
@@ -234,12 +231,26 @@ body {
     align-self: center;
 }
 
-.collection__title-value,
-.collection__title-value.active {
-    display: block;
+.collection__description {
+    margin: 1rem 0;
     font-size: 1.5rem;
 }
 
+.collection__description span {
+    font-size: 1rem;
+}
+
+.collection__update {
+    margin-bottom: 1rem;
+}
+
+#custom-attributes-wrapper .item {
+    margin-bottom: 1rem;
+}
+
+#custom-attributes-wrapper .item input {
+    margin-bottom: 0.5rem;
+}
 @media screen and (max-width: 1200px) {
     .login {
         background-image: none;
@@ -260,12 +271,19 @@ body {
         display: none;
     }
 
-    .collection__title-value,
-    .collection__title-value.active {
-        font-size: 1rem;
+    .nav-btn {
+        font-size: 0.8rem;
     }
 
-    .nav-btn {
+    .category__form {
+        padding: 20px;
+    }
+
+    .collection__description {
+        font-size: 1.2rem;
+    }
+
+    .collection__description span {
         font-size: 0.8rem;
     }
 }

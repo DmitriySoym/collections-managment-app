@@ -14,12 +14,13 @@
         </div>
         
         <h2 class="pb-3 pt-3">Collection owner: <b>{{category.getAuthor.username}}</b></h2>
-        <div><span>Collection updated {{category.updated|date('d M Y H:i:s')}}</span></div>
+        <div class="collection__update">
+            <span>Collection updated {{category.updated|date('d M Y H:i:s')}}</span>
+        </div>
 
-        <div method="post" class="category__form">
+        <div class="category__form">
             <div class="collection__title">
-                <p class="collection__title-value active"><b>{{ category.name }}</b></p>
-                <p class="collection__title-value active">{{ category.description }}</p>
+                <h3>{{ category.name }}</h3>
             </div>
             {% if app.user %}
                 <div class="d-flex justify-content-center gap-3">
@@ -28,6 +29,16 @@
                 </div>
             {% endif %}
         </div>
+        {% if category.description %}
+            <p class="collection__description"><span>Collection description</span>: {{ category.description }}</p>
+        {% else %}
+            <p class="collection__description"><span>There are no description yet</span></p>
+        {% endif %}
+        {% if customAttributes|length > 0 %}
+            {% for item in customAttributes %}
+                <span>{{item.name}}</span>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
 
