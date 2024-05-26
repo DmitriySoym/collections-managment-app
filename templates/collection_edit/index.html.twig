@@ -57,7 +57,7 @@
 
                 <a id="add-custom-attribute" class="btn btn-primary" href="#">Add attribute <i class="fa-solid fa-plus"></i></a>
                 <div class="collection__title-btn">
-                    <button type="submit" class="btn btn-primary" id="btn-create-category">Update</button>
+                    <button type="submit" class="btn btn-primary" id="btn-create-category" formnovalidate>Update</button>
                     <a class="btn btn-danger collection__btn-delete" href="/collection/delete/{{category.getId()}}">Delete <i class="fa-solid fa-trash-can"></i></a>
                 </div>
                 {{ form_rest(form) }}

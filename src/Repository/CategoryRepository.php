@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -40,7 +39,7 @@ class CategoryRepository extends ServiceEntityRepository
     public function paginatedCategories(int $page, int $limit, string $searchfor): array
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('LOWER(c.name) LIKE :val')
+            ->andWhere('LOWER(c.name) LIKE LOWER(:val)')
             ->setParameter('val', '%'.$searchfor.'%')
             ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit)

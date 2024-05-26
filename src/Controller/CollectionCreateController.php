@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Category;
-use App\Form\CategoryType;
 use App\Form\CollectionCreateType;
 use App\Serviсes\FormSubmit;
 use Doctrine\ORM\EntityManagerInterface;

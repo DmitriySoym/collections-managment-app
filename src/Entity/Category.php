@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use App\Validator\CollectionCustomAttribute;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -46,6 +47,7 @@ class Category
      * @var Collection<int, CustomAttribute>
      */
     #[ORM\OneToMany(targetEntity: CustomAttribute::class, mappedBy: 'category', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[CollectionCustomAttribute()]
     private Collection $customAttributes;
 
     public function __construct()

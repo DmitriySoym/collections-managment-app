@@ -144,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.querySelectorAll("#custom-attributes-wrapper div.item").forEach((row) => {
-        console.log(row);
         addRemoveAttributeBtn(row);
     });
 });

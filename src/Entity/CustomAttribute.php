@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CustomAttributeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enum\CustomAttributeType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CustomAttributeRepository::class)]
 class CustomAttribute
@@ -15,10 +16,10 @@ class CustomAttribute
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min:3,max: 255)]
     private ?string $name = null;
 
-    // #[ORM\Column(length: 30)]
-    // private ?string $type = null;
     #[ORM\Column(length: 10, enumType: CustomAttributeType::class)]
     private ?CustomAttributeType $type = null;
 
