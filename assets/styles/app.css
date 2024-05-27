@@ -18,7 +18,7 @@ p {
 
 body {
     height: 100%;
-    background-color: #f6f8fe;
+    background-color: #fff;
 }
 
 .active__user {
@@ -177,15 +177,28 @@ body {
     flex-direction: column;
     gap: 1.5rem;
     flex-wrap: wrap;
-    padding: 0;
+    padding: 1rem;
+    margin-bottom: 1rem;
     height: calc(100vh - 233px);
+    background-color: #f6f8fe;
+    overflow-y: auto;
+}
+
+.collections .row {
+    padding: 0;
 }
 
 .collections__item {
     font-weight: 400;
     font-size: calc(1.325rem + 0.5vw);
     list-style: none;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     color: #2b2d42;
+}
+
+.collections__item div {
+    height: 200px;
 }
 
 .collections__item-owner {
@@ -241,7 +254,7 @@ body {
 }
 
 .collection__update {
-    margin-bottom: 1rem;
+    margin: 1rem 0;
 }
 
 #custom-attributes-wrapper .item {

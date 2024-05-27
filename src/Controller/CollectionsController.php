@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CollectionsController extends AbstractController
 {
     #[Route('/collections/{page}', name: 'app_collections')]
-    public function index(CategoryRepository $cr, int $page = 1, int $limit = 15, ?Request $request=null): Response
+    public function index(CategoryRepository $cr, int $page = 1, int $limit = 6, ?Request $request=null): Response
     {
         $this->getUser() ? $username = $this->getUser()->getUserIdentifier() : $username = 'Guest';
         $searchfor = $request->query->get('searchfor') ?? '';

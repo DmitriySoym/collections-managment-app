@@ -22,20 +22,27 @@
     {% if searchfor != '' %}
         <p class="collections__text">Search result for <b>"{{searchfor}}"</b></p>
     {% endif %}
-        <ul class="collections">
-            {% for collection in categories %}
-                <li class="collections__item d-flex flex-wrap gap-3">
-                    <a href="/collection/info/{{collection.id}}">{{collection.name}}</a>
-                    {% if collection.description %}
-                        <p>{{collection.description}}</p>
-                    {% endif %}
-                    <p class="collections__item-owner">owner: <b>{{collection.getAuthor.username}}</b></p>
-                    {% if collection.getUpdated %}
-                        <p class="collections__item-owner">updated: <b>{{collection.updated|date('d M Y H:i:s')}}</b></p>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
+        <div class="collections">
+            <ul class="row">
+                {% for collection in categories %}
+                    <li class="col-xl-6 collections__item">
+                        <div class="card gap-3 p-1">
+                            <a href="/collection/info/{{collection.id}}">{{collection.name}}</a>
+                            {% if collection.description %}
+                                <p>{{collection.description}}</p>
+                            {% else %}
+                                <p>No collection description yet</p>
+                            {% endif %}
+                            <p class="collections__item-owner">owner: <b>{{collection.getAuthor.username}}</b></p>
+                            <p class="collections__item-owner">category: <b>{{collection.getCatygoryType.name}}</b></p>
+                            {% if collection.getUpdated %}
+                                <p class="collections__item-owner">updated: <i>{{collection.updated|date('d M Y H:i:s')}}</i></p>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
     <nav aria-label="Page navigation example" class="app-pagination">
         <ul class="pagination">

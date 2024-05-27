@@ -14,9 +14,6 @@
         </div>
         
         <h2 class="pb-3 pt-3">Collection owner: <b>{{category.getAuthor.username}}</b></h2>
-        <div class="collection__update">
-            <span>Collection updated {{category.updated|date('d M Y H:i:s')}}</span>
-        </div>
 
         <div class="category__form">
             <div class="collection__title">
@@ -28,6 +25,9 @@
                     <a href="/collection/{{category.getId()}}/item/create" class="btn btn-primary">Add item <i class="fa-solid fa-plus"></i></a>
                 </div>
             {% endif %}
+        </div>
+        <div class="collection__update">
+            <span>Collection updated {{category.updated|date('d M Y H:i:s')}}</span>
         </div>
         {% if category.description %}
             <p class="collection__description"><span>Collection description</span>: {{ category.description }}</p>
