@@ -34,7 +34,7 @@ class CollectionItemController extends AbstractController
 
         if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
             $this->addFlash('danger', "Only admins and collection owner can add collection items");
-            return $this->redirectToRoute('app_category_edit', ['id' => $id]);
+            return $this->redirectToRoute('app_category_info', ['id' => $id]);
         }
 
         $itemCollection = new CategoryCollection();

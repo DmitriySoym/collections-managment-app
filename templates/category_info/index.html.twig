@@ -36,7 +36,8 @@
         {% endif %}
         {% if customAttributes|length > 0 %}
             {% for item in customAttributes %}
-                <span>{{item.name}}</span>
+                <span>{{item.name}} - {{item.type.name}}</span>
+                <input type="{{item.type.name}}"/>
             {% endfor %}
         {% endif %}
     </div>
