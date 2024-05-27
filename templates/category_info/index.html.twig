@@ -2,16 +2,19 @@
 
 {% block title %}Edit collection{% endblock %}
 
+{% block header %}
+    <div class="d-flex justify-content-end gap-3">
+        <a href="/collections" class="btn btn-success nav-btn">Back to collections</a>
+        <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
+        {% if app.user == '' %}
+            <a href="/login" class="btn btn-success nav-btn"><span class="desctop__btn">Sign in </span><i class="fa-solid fa-right-to-bracket"></i></a>
+            <a href="/register" class="btn btn-primary nav-btn"><span class="desctop__btn">Sign up</span> <i class="fa-solid fa-user-plus"></i></a>
+        {% endif %}
+    </div>
+{% endblock %}
+
 {% block body %}
     <div class="container pt-5">
-        <div class="d-flex justify-content-end gap-3">
-            <a href="/collections" class="btn btn-success nav-btn">Back to collections</a>
-            <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
-            {% if app.user == '' %}
-                <a href="/login" class="btn btn-success nav-btn"><span class="desctop__btn">Sign in </span><i class="fa-solid fa-right-to-bracket"></i></a>
-                <a href="/register" class="btn btn-primary nav-btn"><span class="desctop__btn">Sign up</span> <i class="fa-solid fa-user-plus"></i></a>
-            {% endif %}
-        </div>
         
         <h2 class="pb-3 pt-3">Collection owner: <b>{{category.getAuthor.username}}</b></h2>
 

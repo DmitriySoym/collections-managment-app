@@ -21,14 +21,18 @@ body {
     background-color: #fff;
 }
 
-.active__user {
-    position: absolute;
-    top: 1rem;
-    left: 2rem;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
 }
 
+.nav-user {
+    font-size: 1.2rem;
+}
 .main {
-    height: 100%;
+    height: 90%;
     background-image: url(../images/form-bg.png);
     background-repeat: no-repeat;
     background-position-x: 50%;
@@ -119,20 +123,6 @@ body {
 
 .category__form label {
     font-size: 1rem;
-}
-
-.login__back {
-    position: absolute;
-    right: 2rem;
-    top: 2rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-}
-
-.btn__login {
-    position: absolute;
-    right: 14rem;
-    top: 2rem;
 }
 
 .login__form input {

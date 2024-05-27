@@ -2,9 +2,15 @@
 
 {% block title %}Sign in{% endblock %}
 
+{% block header %}
+    <div class="d-flex justify-content-end gap-3">
+        <a class="btn btn-success nav-btn" href="/">{{'nav.back_main_page'|trans}}</a>
+        <a href="/register" class="btn btn-primary nav-btn"><span class="desctop__btn">{{'nav.sign_up'|trans}}</span> <i class="fa-solid fa-user-plus"></i></a>
+    </div>
+{% endblock %}
+
 {% block body %}
 <div class="container login">
-    <a class="btn btn-success login__back" href="/">Back to main page</a>
     <form method="post" class="container pt-5 login__form">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -16,10 +22,10 @@
             </div>
         {% endif %}
     
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputUsername">Username</label>
+        <h1 class="h3 mb-3 font-weight-normal">{{'login.please_sign_in'|trans}}</h1>
+        <label for="inputUsername">{{'login.username'|trans}}</label>
         <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-        <label for="inputPassword">Password</label>
+        <label for="inputPassword">{{'login.password'|trans}}</label>
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
     
         <input type="hidden" name="_csrf_token"
@@ -28,12 +34,12 @@
     
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" name="_remember_me"> Remember me
+                <input type="checkbox" name="_remember_me"> {{'login.remember_me'|trans}}
             </label>
         </div>
     
         <button class="btn btn-primary" type="submit">
-            Sign in
+            {{'nav.sign_in'|trans}}
         </button>
     </form>
 </div>
