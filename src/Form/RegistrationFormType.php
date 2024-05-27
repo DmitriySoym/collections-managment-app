@@ -13,25 +13,40 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use  Symfony\Component\Validator\Constraints\Email;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationFormType extends AbstractType
 {
+
+    public function __construct(
+        private TranslatorInterface $translator
+    ) {}
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $agreeTerms = $this->translator->trans('register.agreeTerms');
+        $agreeTermsWarning = $this->translator->trans('register.shouldAgreeTerms');
+        $translatedWarning = $this->translator->trans('register.enterCorrectEmail');
+        $translatedEnterPassword = $this->translator->trans('register.enterPassword');
+
+        $transPassLength = $this->translator->trans('register.passwordMinLength');
+
         $builder
-            ->add('username')
+            ->add('username', null, [
+                'label' => false,
+            ])
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new Email([
-                        'message' => 'Please enter correct email',
+                        'message' => $translatedWarning,
                     ])
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                                'mapped' => false,
+                'mapped' => false,
+                'label' => $agreeTerms,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => $agreeTermsWarning,
                     ]),
                 ],
             ])
@@ -39,14 +54,15 @@ class RegistrationFormType extends AbstractType
                                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+                'label' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => $translatedEnterPassword,
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => $transPassLength,
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
