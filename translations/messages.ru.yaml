@@ -61,3 +61,16 @@ createCollection:
 createCollectionItem:
     newCollectionItem: "Создай новый элемент коллекции"
     newItem: " Новый элемент коллекции"
+users:
+    userName: "Имя пользователя"
+    registrationDate: "Дата регистрации"
+    lastLoginDate: "Последнее время входа"
+    status: "Статус"
+    deleteUser: "Удалить пользователя"
+    blockUser: "Заблокировать"
+    activateUser: "Разблокировать"
+    makeAdmin: "Сделать администратором"
+    makeNotAdmin: "Убрать из администраторов"
+    blocked: "Заблокирован"
+    admin: "Администратор"
+    user: "Пользователь"

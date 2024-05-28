@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CategoryRepository;
 use App\Serviсes\FormSubmit;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Repository\CategoryCollectionRepository;
 
 #[Route('/{_locale<%app.supported_locales%>}')]
 class CollectionItemController extends AbstractController
@@ -19,19 +20,21 @@ class CollectionItemController extends AbstractController
         public function __construct(
         private EntityManagerInterface $em,
         private CategoryRepository $cr,
+        private CategoryCollectionRepository $ccr,
         private FormSubmit $formSubmit,
         private TranslatorInterface $translator
     ) {}
 
     #[Route('/collection/{id}/item/{itemId}', name: 'app_collection_item')]
-    public function index(int $id, int $itemId): Response
+    public function index(int $id, int $itemId = 1): Response
     {
+        $itemId = $this->ccr->find($itemId);
         return $this->render('collection_item/index.html.twig', [
             'controller_name' => 'ColectionItemController',
         ]);
     }
 
-    #[Route('/collection/{id}/item/create', name: 'app_collection_item_create', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[Route('/collection/{id}/create/create', name: 'app_collection_item_create', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function create(Request $request, int $id): Response
     {
 

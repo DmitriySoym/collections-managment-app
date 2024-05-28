@@ -60,3 +60,16 @@ createCollection:
 createCollectionItem:
     newCollectionItem: "Create new collection item"
     newItem: "New collection item"
+users:
+    userName: "User name"
+    registrationDate: "Registration date"
+    lastLoginDate: "Last login date"
+    status: "Status"
+    deleteUser: "Delete user"
+    blockUser: "Block"
+    activateUser: "Activate"
+    makeAdmin: "Make admin"
+    makeNotAdmin: "Make not admin"
+    blocked: "Blocked"
+    admin: "Admin"
+    user: "User"

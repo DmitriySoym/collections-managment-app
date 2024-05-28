@@ -5,32 +5,34 @@
 {% block header %}
     <div class="d-flex justify-content-end gap-3 mt-3">
         <a href="{{ path('app_collections') }}" class="btn btn-success nav-btn">{{'nav.openCollections'|trans}}</a>
-        <a href="{{ path('app_main') }}" class="btn btn-success nav-btn">>{{'nav.mainPage'|trans}}</a>
+        <a href="{{ path('app_main') }}" class="btn btn-success nav-btn">{{'nav.mainPage'|trans}}</a>
     </div>
 {% endblock %}
 
 {% block body %}
 <div class="container pt-5">
-    <h1 data-is-autheuser={{ app.user.getId }} class="active-user">Hello, {{ app.user.userIdentifier }}!</h1>
 
     <div class="container pb-3 pt-3">
-        <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <span class="fs-4">Here you can manage users in App</span>
-            <div class="">
-                <button class="btn mr-5 btn-danger" id="delete-user">
-                    delete <i title="delete user" class="fas fa fa-trash-alt"></i>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <form class="d-flex" method="get">
+                <input class="form-control me-2" type="search" name="searchUser" placeholder="{{'nav.search'|trans}}" aria-label="Search" value="{{searchUser}}"/>
+                <button class="btn btn-outline-success" type="submit">{{'nav.search'|trans}}</button>
+            </form>
+            <div>
+                <button class="btn mr-5 mb-1 btn-danger" id="delete-user">
+                    <span class="users__managment-btn">{{'users.deleteUser'|trans}}</span> <i title="delete user" class="fas fa fa-trash-alt"></i>
                 </button>
-                <button class="btn mr-5 btn-primary" id="block-user">
-                    block <i title="block user" class="fa-solid fa-user-lock"></i>
+                <button class="btn mr-5 mb-1 btn-primary" id="block-user">
+                    <span class="users__managment-btn">{{'users.blockUser'|trans}}</span> <i title="block user" class="fa-solid fa-user-lock"></i>
                 </button>
-                <button class="btn btn-success" id="unblock-user">
-                    activate <i title="unblock user" class="fa-solid fa-lock-open"></i>
+                <button class="btn mb-1 btn-success" id="unblock-user">
+                    <span class="users__managment-btn">{{'users.activateUser'|trans}}</span> <i title="unblock user" class="fa-solid fa-lock-open"></i>
                 </button>
-                <button class="btn btn-success" id="make-user-admin">
-                    make admin <i title="make user admin" class="fa-solid fa-user-tie"></i>
+                <button class="btn mb-1 btn-success" id="make-user-admin">
+                    <span class="users__managment-btn">{{'users.makeAdmin'|trans}}</span> <i title="make user admin" class="fa-solid fa-user-tie"></i>
                 </button>
-                <button class="btn mr-5 btn-danger" id="make-user-notadmin">
-                    make not admin <i title="make user not admin" class="fa-solid fa-user-minus"></i>
+                <button class="btn mb-1 mr-5 btn-danger" id="make-user-notadmin">
+                    <span class="users__managment-btn">{{'users.makeNotAdmin'|trans}}</span> <i title="make user not admin" class="fa-solid fa-user-minus"></i>
                 </button>
             </div>
         </div>
@@ -41,11 +43,11 @@
             <tr>
                 <th><input id="select-all" type="checkbox"></th>
                 {# <th>User Id</th> #}
-                <th>User name</th>
-                <th>User email</th>
-                <th>Registration Date</th>
-                <th>Last Login Date</th>
-                <th>Status</th>
+                <th>{{'users.userName'|trans}}</th>
+                <th>Email</th>
+                <th>{{'users.registrationDate'|trans}}</th>
+                <th>{{'users.lastLoginDate'|trans}}</th>
+                <th>{{'users.status'|trans}}</th>
             </tr>
             </thead>
             <tbody>
@@ -58,11 +60,11 @@
                     <td>{{ user.getLastLogin|date('d M Y H:i:s') }}</td>
                     <td>
                         {% if user.getRoles[0] == 'ROLE_BLOCKED' %}
-                            <span style="color: red"><b>blocked</b></span>
+                            <span style="color: red"><b>{{'users.blocked'|trans}}</b></span>
                         {% elseif user.getRoles[0] == 'ROLE_ADMIN' %}
-                            <span style="color: green"><b>admin</b></span>
+                            <span style="color: green"><b>{{'users.admin'|trans}}</b></span>
                         {% else %}
-                            <span style="color: blue"><b>user</b></span>
+                            <span style="color: blue"><b>{{'users.user'|trans}}</b></span>
                         {% endif %}
                     </td>
                 </tr>

@@ -31,6 +31,7 @@ header {
 .nav-user {
     font-size: 1.2rem;
 }
+
 .main {
     height: 90%;
     background-image: url(../images/form-bg.png);
@@ -296,6 +297,10 @@ header {
 
     .collection__description span {
         font-size: 0.8rem;
+    }
+
+    .users__managment-btn {
+        display: none;
     }
 }
 

@@ -85,7 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateUserStatus(userStatus) {
         const selectedIds = Array.from(document.querySelectorAll(".user-checkbox:checked")).map((item) => item.value);
 
-        fetch("/user/managment/update", {
+        let url = window.location.pathname;
+
+        fetch(`${url}/update`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

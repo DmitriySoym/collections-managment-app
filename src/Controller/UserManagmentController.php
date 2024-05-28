@@ -20,7 +20,7 @@ class UserManagmentController extends AbstractController
     ) {}
 
     #[Route('/user/managment', name: 'app_user_managment')]
-    public function index(UserRepository $ur): Response
+    public function index(UserRepository $ur, Request $request): Response
     {
         $messageAccsess = $this->translator->trans('mainPage.OnlyAdminsAccess');
 
@@ -29,10 +29,14 @@ class UserManagmentController extends AbstractController
             return $this->redirectToRoute('app_main');
         }
 
-        $users = $ur->findAll();
+        $searchUser = $request->query->get('searchUser') ?? '';
+
+        $users = $ur->getAllUsers($searchUser);
+
 
         return $this->render('user_managment/index.html.twig', [
             'users' => $users,
+            'searchUser' => $searchUser
         ]);
     }
 
