@@ -2,22 +2,25 @@
 
 {% block title %}Create collection{% endblock %}
 
+{% block header %}
+    <div class="d-flex justify-content-end gap-3">
+        <a href="{{ path('app_collections') }}" class="btn btn-success nav-btn">{{'collection.backToCollections'|trans}}</a>
+    </div>
+{% endblock %}
+
 {% block body %}
     <div class="container pt-5">
-        <div class="d-flex justify-content-end">
-            <a href="/collections" class="btn btn-success nav-btn">Back to collections</a>
-        </div>
         
-        <h2>You can create collection here.</h2>
+        <h2>{{'createCollection.canCreateCollection'|trans}}</h2>
 
         <div class="m-0 m-auto">
             {{ form_start(form, { 'attr' : { 'class': 'category__form' } }) }}
                 {{ form_errors(form) }}
 
-                <label>New collection</label>
-                {{ form_row(form.name, { 'attr' : { 'placeholder': 'Enter name' } }) }}
-                {{ form_row(form.description, { 'attr' : { 'placeholder': 'Enter description', 'rows': '5' } }) }}
-                {{ form_row(form.catygoryType) }}
+                <label>{{'createCollection.newCollection'|trans}}</label>
+                {{ form_row(form.name) }}
+                {{ form_row(form.description, { 'attr' : { 'rows': '5' } }) }}
+                {{ form_row(form.catygoryType, { 'attr' : { 'class': 'collection__edit-type' } }) }}
 
                 <div
                     data-index="{{ form.customAttributes|length > 0 ? form.customAttributes|last.vars.name + 1 : 0 }}"
@@ -31,12 +34,60 @@
                     {% endfor %}
                 </div>
 
-                <a id="add-custom-attribute" class="btn btn-primary" href="#">Add attribute <i class="fa-solid fa-plus"></i></a>
+                <a id="add-custom-attribute" class="btn btn-primary" href="#">{{'createCollection.addAttribute'|trans}} <i class="fa-solid fa-plus"></i></a>
 
-                <button type="submit" class="btn btn-primary" id="btn-create-category" formnovalidate>Create</button>
+                <button type="submit" class="btn btn-primary" id="btn-create-category" formnovalidate>{{'createCollection.create'|trans}}</button>
 
                 {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>
     </div>
+
+    <script>
+        function addFormToCollection(e) {
+            const collectionHolder = document.querySelector("#custom-attributes-wrapper");
+
+            const item = document.createElement("div");
+
+            item.className = "item";
+
+            item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
+
+            collectionHolder.appendChild(item);
+
+            collectionHolder.dataset.index++;
+
+            addRemoveAttributeBtn(item);
+        }
+
+        function addRemoveAttributeBtn(item) {
+            const removeFormButton = document.createElement("a");
+
+            removeFormButton.href = "javascript:void(0);";
+            removeFormButton.className = "btn btn-danger mt-2";
+            removeFormButton.innerHTML = `{{'createCollection.delete'|trans}} <i class="fa-solid fa-trash-can"></i>`;
+            item.append(removeFormButton);
+
+            removeFormButton.addEventListener("click", (e) => {
+                e.preventDefault();
+                item.remove();
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const btnAddCustomAttribute = document.getElementById("add-custom-attribute");
+                if (btnAddCustomAttribute) {
+                    btnAddCustomAttribute.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    addFormToCollection();
+                });
+            }
+
+            document.querySelectorAll("#custom-attributes-wrapper div.item").forEach((row) => {
+                addRemoveAttributeBtn(row);
+            });
+        });
+    </script>
 {% endblock %}

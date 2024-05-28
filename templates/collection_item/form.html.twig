@@ -1,23 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create item in collection{% endblock %}
+{% block title %}New collection item{% endblock %}
+
+{% block header %}
+    <div class="d-flex justify-content-end gap-3">
+        <a href="{{ path('app_category_info', {id: id}) }}" class="btn btn-success nav-btn">{{'collection.backToCollection'|trans}}</a>
+    </div>
+{% endblock %}
 
 {% block body %}
     <div class="container pt-5">
-        <div class="d-flex justify-content-end">
-            <a href="/collection/info/{{id}}" class="btn btn-success nav-btn">Back to collection</a>
-        </div>
 
-        <h1>Item create for collection</h1>
+        <h1>{{'createCollectionItem.newCollectionItem'|trans}}</h1>
         {{ form_start(form, { 'attr' : { 'class': 'category__form' } }) }}
             {{ form_errors(form) }}
             
-            <label>New collection item</label>
-            {{ form_row(form.name, { 'attr' : { 'placeholder': 'name' } }) }}
-            {{ form_row(form.description, { 'attr' : { 'placeholder': 'description' } }) }}
+            <label>{{'createCollectionItem.newItem'|trans}}</label>
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
 
             {{ form_rest(form) }}
-            <button type="submit" class="btn btn-primary" id="btn-create-category-item">Create</button>
+            <button type="submit" class="btn btn-primary" id="btn-create-category-item">{{'createCollection.create'|trans}}</button>
         {{ form_end(form) }}
 
     </div>

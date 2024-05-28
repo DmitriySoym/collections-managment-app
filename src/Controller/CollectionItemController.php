@@ -11,16 +11,19 @@ use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CategoryRepository;
 use App\Serviсes\FormSubmit;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[Route('/{_locale<%app.supported_locales%>}')]
 class CollectionItemController extends AbstractController
 {
         public function __construct(
         private EntityManagerInterface $em,
         private CategoryRepository $cr,
-        private FormSubmit $formSubmit
+        private FormSubmit $formSubmit,
+        private TranslatorInterface $translator
     ) {}
 
-    #[Route('/collection/{id}/item/{{itemId}}', name: 'app_collection_item')]
+    #[Route('/collection/{id}/item/{itemId}', name: 'app_collection_item')]
     public function index(int $id, int $itemId): Response
     {
         return $this->render('collection_item/index.html.twig', [
@@ -32,8 +35,10 @@ class CollectionItemController extends AbstractController
     public function create(Request $request, int $id): Response
     {
 
+        $messageAccsess = $this->translator->trans('collection.canAddCollectionItems');
+
         if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
-            $this->addFlash('danger', "Only admins and collection owner can add collection items");
+            $this->addFlash('danger', $messageAccsess);
             return $this->redirectToRoute('app_category_info', ['id' => $id]);
         }
 

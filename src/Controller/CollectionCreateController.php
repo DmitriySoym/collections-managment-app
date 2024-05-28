@@ -10,19 +10,24 @@ use App\Entity\Category;
 use App\Form\CollectionCreateType;
 use App\Serviсes\FormSubmit;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[Route('/{_locale<%app.supported_locales%>}')]
 class CollectionCreateController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $em,
-        private FormSubmit $formSubmit
+        private FormSubmit $formSubmit,
+        private TranslatorInterface $translator
     ) {}
 
     #[Route('/collection/create', name: 'app_collection_create')]
     public function index(Request $request): Response
     {
+        $messageSignIn = $this->translator->trans('collection.signInToCreate');
+
         if(!$this->isGranted('ROLE_USER')) {
-            $this->addFlash('danger', "Sign in to create a collection");
+            $this->addFlash('danger', $messageSignIn);
             return $this->redirectToRoute('app_collections');
         }
 
@@ -34,8 +39,9 @@ class CollectionCreateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->formSubmit->submitCategory($category);
             $categoryName = $category->getName();
-            $this->addFlash('success', "Collection $categoryName created successfully");
-            return $this->redirect('/collections');
+            $messageCreated = $this->translator->trans('createCollection.collectionNameCreated', ['%name%' => $categoryName]);
+            $this->addFlash('success', $messageCreated);
+            return $this->redirectToRoute('app_collections');
         }
 
         return $this->render('collection_create/index.html.twig', [

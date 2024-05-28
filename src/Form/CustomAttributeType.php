@@ -12,11 +12,19 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CustomAttributeType extends AbstractType
 {
+
+    public function __construct(
+        private TranslatorInterface $translator
+    ) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $translatedType = $this->translator->trans('createCollection.type');
+
         $builder
             ->add('name', null, [
                 'label' => false,
@@ -34,6 +42,7 @@ class CustomAttributeType extends AbstractType
             ])
             ->add('type', EnumType::class, [
                 'class' => CustomAttributeEnum::class,
+                'label' => $translatedType,
                 // 'choice_label' => 'name',
             ])
         ;

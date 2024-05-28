@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\CategoryRepository;
 use App\Repository\CustomAttributeRepository;
 
+#[Route('/{_locale<%app.supported_locales%>}')]
 class CategoryInfoController extends AbstractController
 {
         public function __construct(

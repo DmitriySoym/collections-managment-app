@@ -4,11 +4,11 @@
 
 {% block header %}
     <div class="d-flex justify-content-end gap-3">
-        <a href="/collections" class="btn btn-success nav-btn">Back to collections</a>
-        <a href="/collection/create" class="btn btn-primary nav-btn">Create collection</a>
+        <a href="{{ path('app_collections') }}" class="btn btn-success nav-btn">{{'collection.backToCollections'|trans}}</a>
+        <a href="{{ path('app_collection_create') }}" class="btn btn-primary nav-btn">{{'collection.createCollection'|trans}}</a>
         {% if app.user == '' %}
-            <a href="/login" class="btn btn-success nav-btn"><span class="desctop__btn">Sign in </span><i class="fa-solid fa-right-to-bracket"></i></a>
-            <a href="/register" class="btn btn-primary nav-btn"><span class="desctop__btn">Sign up</span> <i class="fa-solid fa-user-plus"></i></a>
+            <a href="{{ path('app_login') }}" class="btn btn-success nav-btn"><span class="desctop__btn">{{'nav.signIn'|trans}} </span><i class="fa-solid fa-right-to-bracket"></i></a>
+            <a href="{{ path('app_register') }}" class="btn btn-primary nav-btn"><span class="desctop__btn">{{'nav.signUp'|trans}}</span> <i class="fa-solid fa-user-plus"></i></a>
         {% endif %}
     </div>
 {% endblock %}
@@ -16,7 +16,7 @@
 {% block body %}
     <div class="container pt-5">
         
-        <h2 class="pb-3 pt-3">Collection owner: <b>{{category.getAuthor.username}}</b></h2>
+        <h2 class="pb-3 pt-3">{{'collection.collectionOwner'|trans}}: <b>{{category.getAuthor.username}}</b></h2>
 
         <div class="category__form">
             <div class="collection__title">
@@ -24,18 +24,18 @@
             </div>
             {% if app.user %}
                 <div class="d-flex justify-content-center gap-3">
-                    <a href="/collection/edit/{{category.getId()}}" class="btn btn-success">Edit <i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href="/collection/{{category.getId()}}/item/create" class="btn btn-primary">Add item <i class="fa-solid fa-plus"></i></a>
+                    <a href="{{ path('app_category_edit', {id: category.getId()}) }}" class="btn btn-success">{{'collection.edit'|trans}} <i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="{{ path('app_collection_item_create', {id: category.getId()}) }}" class="btn btn-primary">{{'collection.addItem'|trans}} <i class="fa-solid fa-plus"></i></a>
                 </div>
             {% endif %}
         </div>
         <div class="collection__update">
-            <span>Collection updated {{category.updated|date('d M Y H:i:s')}}</span>
+            <span>{{'mainPage.updated'|trans}} {{category.updated|date('d m Y H:i:s')}}</span>
         </div>
         {% if category.description %}
-            <p class="collection__description"><span>Collection description</span>: {{ category.description }}</p>
+            <p class="collection__description"><span>{{'collection.collectionDescription'|trans}}</span>: {{ category.description }}</p>
         {% else %}
-            <p class="collection__description"><span>There are no description yet</span></p>
+            <p class="collection__description"><span>{{'mainPage.NoDescription'|trans}}</span></p>
         {% endif %}
         {% if customAttributes|length > 0 %}
             {% for item in customAttributes %}

@@ -12,14 +12,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CollectionCreateType extends AbstractType
 {
+        public function __construct(
+        private TranslatorInterface $translator
+    ) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $translatedType = $this->translator->trans('createCollection.catygoryType');
+        $translatedName = $this->translator->trans('createCollection.collectionName');
+        $translatedDescription = $this->translator->trans('collection.collectionDescription');
         $builder
-            ->add('name', null, [
+            ->add('name', TextType::class, [
                 'label' => false,
+                'attr' => [
+                    'placeholder' =>  $translatedName,
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter collection name',
@@ -33,7 +45,11 @@ class CollectionCreateType extends AbstractType
                 ],
             ])
             ->add('description', TextareaType::class, [
+                'attr' => [
+                    'placeholder' =>  $translatedDescription,
+                ],
                 'label' => false,
+                
             ])
             // ->add('imageUrl')
             // ->add('updated', null, [
@@ -41,6 +57,7 @@ class CollectionCreateType extends AbstractType
             // ])
             ->add('catygoryType', EntityType::class, [
                 'class' => CategoryType::class,
+                'label' => $translatedType,
                 'choice_label' => 'name',
             ])
             ->add('customAttributes', CollectionType::class, [

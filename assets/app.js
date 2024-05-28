@@ -18,36 +18,6 @@ window.onload = function () {
     }, 500);
 };
 
-function addFormToCollection(e) {
-    const collectionHolder = document.querySelector("#custom-attributes-wrapper");
-
-    const item = document.createElement("div");
-
-    item.className = "item";
-
-    item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
-
-    collectionHolder.appendChild(item);
-
-    collectionHolder.dataset.index++;
-
-    addRemoveAttributeBtn(item);
-}
-
-function addRemoveAttributeBtn(item) {
-    const removeFormButton = document.createElement("a");
-
-    removeFormButton.href = "javascript:void(0);";
-    removeFormButton.className = "btn btn-danger mt-2";
-    removeFormButton.innerHTML = `Delete attribute <i class="fa-solid fa-trash-can"></i>`;
-    item.append(removeFormButton);
-
-    removeFormButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        item.remove();
-    });
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     let pageNumbers = document.querySelectorAll(".page-item");
     const activePage = location.href.split("/").slice(-1)[0];
@@ -132,18 +102,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    //create collection item
-    const btnAddCustomAttribute = document.getElementById("add-custom-attribute");
-    if (btnAddCustomAttribute) {
-        btnAddCustomAttribute.addEventListener("click", (e) => {
-            e.preventDefault();
-
-            addFormToCollection();
-        });
-    }
-
-    document.querySelectorAll("#custom-attributes-wrapper div.item").forEach((row) => {
-        addRemoveAttributeBtn(row);
-    });
 });

@@ -78,7 +78,7 @@ header {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    max-width: 400px;
+    max-width: 435px;
     margin: 0 auto;
     border-radius: 40px;
     border: 1px solid rgba(141, 153, 174, 0.4);
@@ -246,8 +246,16 @@ header {
 .collection__update {
     margin: 1rem 0;
 }
+.item {
+    margin-bottom: 0.5rem;
+}
 
-#custom-attributes-wrapper .item {
+.item select,
+.collection__edit-type {
+    margin-left: 10px;
+}
+
+.item select #custom-attributes-wrapper .item {
     margin-bottom: 1rem;
 }
 

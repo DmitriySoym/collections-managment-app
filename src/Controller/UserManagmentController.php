@@ -10,14 +10,22 @@ use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[Route('/{_locale<%app.supported_locales%>}')]
 class UserManagmentController extends AbstractController
 {
+    public function __construct(
+        private TranslatorInterface $translator
+    ) {}
+
     #[Route('/user/managment', name: 'app_user_managment')]
     public function index(UserRepository $ur): Response
     {
+        $messageAccsess = $this->translator->trans('mainPage.OnlyAdminsAccess');
+
         if(!$this->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('danger', "Only admins have access to this page");
+            $this->addFlash('danger', $messageAccsess);
             return $this->redirectToRoute('app_main');
         }
 
