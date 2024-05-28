@@ -11,6 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CategoryCollectionRepository::class)]
 class CategoryCollection
 {
+
+    public function __construct(Category $collection)
+    {
+        $this->categotyId = $collection;
+    }
+    //  entity for collection item
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

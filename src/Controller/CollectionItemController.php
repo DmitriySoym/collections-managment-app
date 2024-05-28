@@ -13,6 +13,7 @@ use App\Repository\CategoryRepository;
 use App\Serviсes\FormSubmit;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Repository\CategoryCollectionRepository;
+use App\Entity\Category;
 
 #[Route('/{_locale<%app.supported_locales%>}')]
 class CollectionItemController extends AbstractController
@@ -34,8 +35,8 @@ class CollectionItemController extends AbstractController
         ]);
     }
 
-    #[Route('/collection/{id}/create/create', name: 'app_collection_item_create', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function create(Request $request, int $id): Response
+    #[Route('/collection/{id}/createitem', name: 'app_collection_item_create', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    public function create(Request $request, int $id, Category $collection): Response
     {
 
         $messageAccsess = $this->translator->trans('collection.canAddCollectionItems');
@@ -45,7 +46,7 @@ class CollectionItemController extends AbstractController
             return $this->redirectToRoute('app_category_info', ['id' => $id]);
         }
 
-        $itemCollection = new CategoryCollection();
+        $itemCollection = new CategoryCollection($collection);
         $form = $this->createForm(CategoryItemType::class, $itemCollection);
         $form->handleRequest($request);
 
