@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New collection item{% endblock %}
+{% block title %}Update collection item{% endblock %}
 
 {% block header %}
     <div class="d-flex justify-content-end gap-3">
@@ -11,7 +11,7 @@
 {% block body %}
     <div class="container pt-5">
 
-        <h1>{{'createCollectionItem.newCollectionItem'|trans({'%name%': category.name})}}</h1>
+        <h1>{{'createCollectionItem.collectionItemEdit'|trans({'%name%': category.name})}}</h1>
         {{ form_start(form, { 'attr' : { 'class': 'category__form' } }) }}
             {{ form_errors(form) }}
             
@@ -19,8 +19,16 @@
             {{ form_row(form.name) }}
             {{ form_row(form.description) }}
 
+            {% for attribute in form %}
+                {% if attribute.vars.name starts with 'custom_' %}
+                    <div class="mb-3">
+                        {{ form_label(attribute) }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
             {{ form_rest(form) }}
-            <button type="submit" class="btn btn-primary" id="btn-create-category-item">{{'createCollection.create'|trans}}</button>
+            <button type="submit" class="btn btn-primary" id="btn-create-category-item">{{'createCollection.update'|trans}}</button>
         {{ form_end(form) }}
 
     </div>

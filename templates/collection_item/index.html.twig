@@ -2,13 +2,35 @@
 
 {% block title %}Item Collection{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block header %}
+    <div class="d-flex justify-content-end gap-3">
+        <a href="{{ path('app_category_info', {id: category.getId()}) }}" class="btn btn-success nav-btn">{{'collection.backToCollection'|trans}}</a>
+    </div>
+{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-</div>
+{% block body %}
+    <div class="container pt-5">
+        <h3>{{'itemCollection.collectionItemName'|trans({'%name%': itemCollection.name})}} </h3>
+
+        <div class="category__form">
+                <div class="collection__title">
+                    <h3>{{ itemCollection.name }}</h3>
+                </div>
+                {% if app.user %}
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{{ path('app_collection_edit_item', {id: category.getId(), itemId: itemCollection.id}) }}" class="btn btn-success">{{'collection.edit'|trans}} <i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="btn btn-danger collection__btn-delete" href="{{ path('app_collection_item_delete', {id: category.getId(), itemId: itemCollection.id}) }}">{{'createCollection.deleteCollection'|trans}} <i class="fa-solid fa-trash-can"></i></a>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <ul>
+                {# {% for item in customAttributes %}
+                    <li>
+                        <span>{{item.attribute.name}}</span>
+                        <span>{{item.value}}</span>
+                    </li>
+                {% endfor %} #}
+            </ul>
+    </div>
 {% endblock %}

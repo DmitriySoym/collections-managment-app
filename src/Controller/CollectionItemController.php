@@ -30,11 +30,19 @@ class CollectionItemController extends AbstractController
     ) {}
 
     #[Route('/collection/{id}/item/{itemId}', name: 'app_collection_item')]
-    public function index(int $id, int $itemId = 1): Response
+    public function index(int $id, int $itemId): Response
     {
-        $itemId = $this->ccr->find($itemId);
+        // $itemId = $this->ccr->find($itemId);
+
+        $category = $this->cr->find($id);
+        $itemCollection = $this->ccr->find($this->ccr->find($itemId));
+        $customAttributes = $itemCollection->getItemAttributeStringFields();
+
         return $this->render('collection_item/index.html.twig', [
             'controller_name' => 'ColectionItemController',
+            'itemCollection' => $itemCollection,
+            'category' => $category,
+            'customAttributes' => $customAttributes
         ]);
     }
 
@@ -53,14 +61,15 @@ class CollectionItemController extends AbstractController
         }
 
         $item = $this->setItemCustomAttributes($collection, $itemId = null);
-        // $itemCollection = new CategoryCollection($collection);
+        // $action = $this->translator->trans('createCollection.create');
+
         $form = $this->createForm(CategoryItemType::class, $item);
         $form->handleRequest($request);
+        $category = $this->cr->find($id);
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->formSubmit->submitCategoryItem($item, $id);
 
-            $category = $this->cr->find($id);
             return $this->redirectToRoute('app_category_info', [
                 'category' => $category,
                 'id' => $id
@@ -69,11 +78,12 @@ class CollectionItemController extends AbstractController
 
         return $this->render('collection_item/form.html.twig', [
             'form' => $form,
-            'id' => $id
+            'id' => $id,
+            'category' => $category
         ]);
     }
 
-    #[Route('/collection/{id}/updateitem/{itemId}', name: 'app_collection_item_update', methods: ['GET','POST'])]
+    #[Route('/collection/{id}/edititem/{itemId}', name: 'app_collection_edit_item', methods: ['GET','POST'])]
     public function update(
         Category $collection, 
         Request $request, 
@@ -82,6 +92,7 @@ class CollectionItemController extends AbstractController
     {
 
         $messageAccsess = $this->translator->trans('collection.canAddCollectionItems');
+        $action = $this->translator->trans('createCollection.update');
 
         if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
             $this->addFlash('danger', $messageAccsess);
@@ -91,20 +102,40 @@ class CollectionItemController extends AbstractController
         $itemCollection = $this->ccr->find($itemId);
         $form = $this->createForm(CategoryItemType::class, $itemCollection);
         $form->handleRequest($request);
+        $category = $this->cr->find($id);
 
         if($form->isSubmitted() && $form->isValid()) {
 
             $this->formSubmit->submitCategoryItem($itemCollection, $id);
-
-            $category = $this->cr->find($id);
-            return $this->redirectToRoute('app_category_info', [
+            return $this->redirectToRoute('app_collection_item', [
                 'category' => $category,
-                'id' => $id
+                'id' => $id,
+                'itemId' => $itemId
             ]);
         }
 
-        return $this->render('collection_item/form.html.twig', [
+        return $this->render('collection_item/form_update.html.twig', [
             'form' => $form,
+            'id' => $id,
+            'category' => $category
+        ]);
+    }
+
+    #[Route('/collection/{id}/deleteitem/{itemId}', name: 'app_collection_item_delete', methods: ['GET'])]
+    public function delete(int $id, int $itemId): Response
+    {
+        $messageAccsess = $this->translator->trans('createCollection.canEditCollections');
+        if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
+            $this->addFlash('danger', $messageAccsess);
+            return $this->redirectToRoute('app_category_info', ['id' => $id]);
+        }
+
+        $itemCollection = $this->ccr->find($itemId);
+        $category = $this->cr->find($id);
+        $this->em->remove($itemCollection);
+        $this->em->flush();
+        return $this->redirectToRoute('app_collection_item', [
+            'category' => $category,
             'id' => $id
         ]);
     }

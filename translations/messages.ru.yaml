@@ -42,6 +42,7 @@ collection:
     NewCollectionName: "Новое имя коллекции"
     signInToCreate: "Войдите, чтобы создать коллекцию"
     canAddCollectionItems: "Только владелец коллекции и администратор могут добавлять элементы в коллекцию"
+    listCollectionInstances: "Здесь находится список экземпляров коллекции."
 createCollection:
     catygoryType: "Категория"
     type: "Тип"
@@ -59,8 +60,13 @@ createCollection:
     canEditCollections: "Только владелец коллекции и администратор могут редактировать коллекции"
     collectionNameCreated: "Коллекция %name% была успешно создана"
 createCollectionItem:
-    newCollectionItem: "Создай новый элемент коллекции"
-    newItem: " Новый элемент коллекции"
+    newCollectionItem: "Создай новый элемент для коллекции %name%"
+    collectionItemEdit: "Редактируй элемент коллекции %name%"
+    newItem: "Новый элемент коллекции"
+    itemName: "Название элемента"
+    itemDescription: "Описание элемента"
+    itemUpdatedsuccessfully: "Элемент %name% был успешно обновлен"
+    itemCreatedsuccessfully: "Элемент %name% был успешно создан"
 users:
     userName: "Имя пользователя"
     registrationDate: "Дата регистрации"
@@ -74,3 +80,5 @@ users:
     blocked: "Заблокирован"
     admin: "Администратор"
     user: "Пользователь"
+itemCollection:
+    collectionItemName: "Название элемента коллекции '%name%'"

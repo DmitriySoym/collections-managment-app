@@ -37,12 +37,19 @@
         {% else %}
             <p class="collection__description"><span>{{'mainPage.NoDescription'|trans}}</span></p>
         {% endif %}
-        {% if customAttributes|length > 0 %}
-            {% for item in customAttributes %}
-                <span>{{item.name}} - {{item.type.name}}</span>
-                <input type="{{item.type.name}}"/>
-            {% endfor %}
-        {% endif %}
+        <span>{{'collection.listCollectionInstances'|trans}}</span>
+        <ul>
+            {% if collectionItems|length > 0 %}
+                {% for item in collectionItems %}
+                    <li>
+                        <a href="{{ path('app_collection_item', {id: category.id,  itemId: item.id }) }}">
+                            <span>{{item.name}}</span>
+                        </a>
+                        <span>{{item.description}}</span>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
     </div>
 {% endblock %}
 
