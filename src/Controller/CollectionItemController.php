@@ -132,11 +132,12 @@ class CollectionItemController extends AbstractController
 
         $itemCollection = $this->ccr->find($itemId);
         $category = $this->cr->find($id);
+
         $this->em->remove($itemCollection);
         $this->em->flush();
-        return $this->redirectToRoute('app_collection_item', [
+        return $this->redirectToRoute('app_category_info', [
             'category' => $category,
-            'id' => $id
+            'id' => $id,
         ]);
     }
 
