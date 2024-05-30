@@ -15,13 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Repository\CategoryCollectionRepository;
 use App\Entity\Category;
 use App\Serviсes\CustomAttributeService;
-use App\Entity\CustomAttribute;
-use App\Entity\ItemAttributeBooleanField;
-use App\Entity\ItemAttributeDateField;
-use App\Entity\ItemAttributeIntegerField;
-use App\Entity\ItemAttributeStringField;
-use App\Entity\ItemAttributeTextField;
-use App\Enum\CustomAttributeType;
+
 
 #[Route('/{_locale<%app.supported_locales%>}')]
 class CollectionItemController extends AbstractController

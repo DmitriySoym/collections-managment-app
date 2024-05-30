@@ -37,7 +37,7 @@
     <div class="nav-user d-flex align-items-center gap-3">
         {% if app.user %}
             <div class="active__user">
-                {{'nav.user'|trans}}: <b>{{ app.user.userIdentifier }}</b>, <a href="{{ path('app_logout') }}">Logout</a>
+                <a href="{{ path('app_user_account', {userName: app.user.username}) }}" class="btn btn-success nav-btn">{{ app.user.userIdentifier }}</a>  <a href="{{ path('app_logout') }}">Logout</a>
             </div>
         {% else %}
             <div class="active__user">

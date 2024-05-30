@@ -86,3 +86,5 @@ itemCollection:
     itemDescription: "Описание элемента"
     tags: "Теги"
     noTags: "Нет тегов"
+user:
+    userAccountTitle: "Личный кабинет пользователя: '%name%'"

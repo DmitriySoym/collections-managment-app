@@ -49,6 +49,21 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
 
+    public function usersCollection(int $userId, string $searchfor, int $page, int $limit): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('LOWER(c.name) LIKE LOWER(:val)')
+            ->andWhere('c.author = :author')
+            ->setParameter('author', $userId)
+            ->setParameter('val', '%'.$searchfor.'%')
+            ->orderBy('c.name', 'ASC')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function deleteCategory(int $id): void
     {
         $category = $this->find($id);

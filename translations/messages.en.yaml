@@ -85,3 +85,5 @@ itemCollection:
     itemDescription: "Item description"
     tags: "Tags"
     noTags: "No tags"
+user:
+    userAccountTitle: "User's personal account: '%name%'"
