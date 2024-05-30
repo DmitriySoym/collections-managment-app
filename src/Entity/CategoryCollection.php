@@ -12,9 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 class CategoryCollection
 {
 
-    public function __construct(Category $collection)
+    public function __construct()
     {
-        $this->categotyId = $collection;
+        // $this->categotyId = $collection;
+        $this->itemAttributeStringFields = new ArrayCollection();
     }
     //  entity for collection item
     #[ORM\Id]
@@ -37,6 +38,12 @@ class CategoryCollection
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated = null;
+
+    /**
+     * @var Collection<int, ItemAttributeStringField>
+     */
+    #[ORM\OneToMany(targetEntity: ItemAttributeStringField::class, mappedBy: 'item', orphanRemoval: true)]
+    private Collection $itemAttributeStringFields;
 
     public function getId(): ?int
     {
@@ -99,6 +106,36 @@ class CategoryCollection
     public function setUpdated(?\DateTimeInterface $updated): static
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ItemAttributeStringField>
+     */
+    public function getItemAttributeStringFields(): Collection
+    {
+        return $this->itemAttributeStringFields;
+    }
+
+    public function addItemAttributeStringField(ItemAttributeStringField $itemAttributeStringField): static
+    {
+        if (!$this->itemAttributeStringFields->contains($itemAttributeStringField)) {
+            $this->itemAttributeStringFields->add($itemAttributeStringField);
+            $itemAttributeStringField->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAttributeStringField(ItemAttributeStringField $itemAttributeStringField): static
+    {
+        if ($this->itemAttributeStringFields->removeElement($itemAttributeStringField)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAttributeStringField->getItem() === $this) {
+                $itemAttributeStringField->setItem(null);
+            }
+        }
 
         return $this;
     }

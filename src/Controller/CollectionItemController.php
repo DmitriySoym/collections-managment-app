@@ -14,6 +14,9 @@ use App\Serviсes\FormSubmit;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Repository\CategoryCollectionRepository;
 use App\Entity\Category;
+use App\Entity\CustomAttribute;
+use App\Entity\ItemAttributeStringField;
+use App\Enum\CustomAttributeType;
 
 #[Route('/{_locale<%app.supported_locales%>}')]
 class CollectionItemController extends AbstractController
@@ -36,7 +39,10 @@ class CollectionItemController extends AbstractController
     }
 
     #[Route('/collection/{id}/createitem', name: 'app_collection_item_create', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function create(Request $request, int $id, Category $collection): Response
+    public function create(
+        Request $request, 
+        Category $collection, 
+        int $id): Response
     {
 
         $messageAccsess = $this->translator->trans('collection.canAddCollectionItems');
@@ -46,7 +52,43 @@ class CollectionItemController extends AbstractController
             return $this->redirectToRoute('app_category_info', ['id' => $id]);
         }
 
-        $itemCollection = new CategoryCollection($collection);
+        $item = $this->setItemCustomAttributes($collection, $itemId = null);
+        // $itemCollection = new CategoryCollection($collection);
+        $form = $this->createForm(CategoryItemType::class, $item);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->formSubmit->submitCategoryItem($item, $id);
+
+            $category = $this->cr->find($id);
+            return $this->redirectToRoute('app_category_info', [
+                'category' => $category,
+                'id' => $id
+            ]);
+        }
+
+        return $this->render('collection_item/form.html.twig', [
+            'form' => $form,
+            'id' => $id
+        ]);
+    }
+
+    #[Route('/collection/{id}/updateitem/{itemId}', name: 'app_collection_item_update', methods: ['GET','POST'])]
+    public function update(
+        Category $collection, 
+        Request $request, 
+        int $id,
+        int $itemId): Response
+    {
+
+        $messageAccsess = $this->translator->trans('collection.canAddCollectionItems');
+
+        if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
+            $this->addFlash('danger', $messageAccsess);
+            return $this->redirectToRoute('app_category_info', ['id' => $id]);
+        }
+
+        $itemCollection = $this->ccr->find($itemId);
         $form = $this->createForm(CategoryItemType::class, $itemCollection);
         $form->handleRequest($request);
 
@@ -65,5 +107,50 @@ class CollectionItemController extends AbstractController
             'form' => $form,
             'id' => $id
         ]);
+    }
+
+    private function setItemCustomAttributes(Category $itemsCollection, int|null $itemId): CategoryCollection {
+        $item = $itemId ? $this->ccr->find($itemId) : new CategoryCollection();
+        // $item = new CategoryCollection();
+        $customAttributes = $itemsCollection->getCustomAttributes()->getValues();
+        foreach ($customAttributes as $customAttribute) {
+            switch ($customAttribute->getType())
+            {
+                case CustomAttributeType::String:
+                    $item = $this->setStringAttributes($item, $customAttribute);
+                    break;
+                // case CustomAttributeType::Integer:
+                //     $item = $this->setIntegerAttributes($item, $customAttributeValue);
+                //     break;
+                // case CustomAttributeType::Text:
+                //     $item = $this->setTextAttributes($item, $customAttributeValue);
+                //     break;
+                // case CustomAttributeType::Boolean:
+                //     $item = $this->setBooleanAttributes($item, $customAttributeValue);
+                //     break;
+                // case CustomAttributeType::Date:
+                //     $item = $this->setDateAttributes($item, $customAttributeValue);
+                //     break;
+            }
+        }
+        return $item;
+    }
+
+    // private function setIntegerAttributes(CategoryCollection $item, CustomAttribute $customAttributeValue): CategoryCollection{
+    //     $itemAttributeInteger = new ItemAttributeIntegerField();
+    //     $itemAttributeInteger->setCustomItemAttribute($customAttributeValue);
+    //     $item->addItemAttributeIntegerField($itemAttributeInteger);
+    //     $this->entityManager->persist($itemAttributeInteger);
+
+    //     return $item;
+    // }
+
+    private function setStringAttributes(CategoryCollection $item, CustomAttribute $customAttributeValue): CategoryCollection{
+        $itemAttributeString = new ItemAttributeStringField();
+        $itemAttributeString->setCustomItemAttribute($customAttributeValue);
+        $item->addItemAttributeStringField($itemAttributeString);
+        $this->em->persist($itemAttributeString);
+
+        return $item;
     }
 }

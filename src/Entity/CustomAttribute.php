@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CustomAttributeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enum\CustomAttributeType;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,6 +28,17 @@ class CustomAttribute
     #[ORM\ManyToOne(inversedBy: 'customAttributes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    /**
+     * @var Collection<int, ItemAttributeStringField>
+     */
+    #[ORM\OneToMany(targetEntity: ItemAttributeStringField::class, mappedBy: 'customItemAttribute')]
+    private Collection $itemAttributeStringFields;
+
+    public function __construct()
+    {
+        $this->itemAttributeStringFields = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,6 +77,36 @@ class CustomAttribute
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ItemAttributeStringField>
+     */
+    public function getItemAttributeStringFields(): Collection
+    {
+        return $this->itemAttributeStringFields;
+    }
+
+    public function addItemAttributeStringField(ItemAttributeStringField $itemAttributeStringField): static
+    {
+        if (!$this->itemAttributeStringFields->contains($itemAttributeStringField)) {
+            $this->itemAttributeStringFields->add($itemAttributeStringField);
+            $itemAttributeStringField->setCustomItemAttribute($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAttributeStringField(ItemAttributeStringField $itemAttributeStringField): static
+    {
+        if ($this->itemAttributeStringFields->removeElement($itemAttributeStringField)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAttributeStringField->getCustomItemAttribute() === $this) {
+                $itemAttributeStringField->setCustomItemAttribute(null);
+            }
+        }
 
         return $this;
     }
