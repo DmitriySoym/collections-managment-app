@@ -15,6 +15,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Repository\CategoryCollectionRepository;
 use App\Entity\Category;
 use App\Entity\CustomAttribute;
+use App\Entity\ItemAttributeBooleanField;
+use App\Entity\ItemAttributeDateField;
 use App\Entity\ItemAttributeStringField;
 use App\Enum\CustomAttributeType;
 
@@ -60,15 +62,14 @@ class CollectionItemController extends AbstractController
             return $this->redirectToRoute('app_category_info', ['id' => $id]);
         }
 
-        $item = $this->setItemCustomAttributes($collection, $itemId = null);
-        // $action = $this->translator->trans('createCollection.create');
+        $itemCollection = $this->setItemCustomAttributes($collection, $itemId = null);
 
-        $form = $this->createForm(CategoryItemType::class, $item);
+        $form = $this->createForm(CategoryItemType::class, $itemCollection);
         $form->handleRequest($request);
         $category = $this->cr->find($id);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $this->formSubmit->submitCategoryItem($item, $id);
+            $this->formSubmit->submitCategoryItem($itemCollection, $id);
 
             return $this->redirectToRoute('app_category_info', [
                 'category' => $category,
@@ -92,7 +93,6 @@ class CollectionItemController extends AbstractController
     {
 
         $messageAccsess = $this->translator->trans('collection.canAddCollectionItems');
-        $action = $this->translator->trans('createCollection.update');
 
         if(!$this->isGranted('ROLE_ADMIN') && !$this->cr->checkUserAccess($this->getUser(), $id)) {
             $this->addFlash('danger', $messageAccsess);
@@ -157,12 +157,12 @@ class CollectionItemController extends AbstractController
                 // case CustomAttributeType::Text:
                 //     $item = $this->setTextAttributes($item, $customAttributeValue);
                 //     break;
-                // case CustomAttributeType::Boolean:
-                //     $item = $this->setBooleanAttributes($item, $customAttributeValue);
-                //     break;
-                // case CustomAttributeType::Date:
-                //     $item = $this->setDateAttributes($item, $customAttributeValue);
-                //     break;
+                case CustomAttributeType::Boolean:
+                    $item = $this->setBooleanAttributes($item, $customAttribute);
+                    break;
+                case CustomAttributeType::Date:
+                    $item = $this->setDateAttributes($item, $customAttribute);
+                    break;
             }
         }
         return $item;
@@ -182,6 +182,25 @@ class CollectionItemController extends AbstractController
         $itemAttributeString->setCustomItemAttribute($customAttributeValue);
         $item->addItemAttributeStringField($itemAttributeString);
         $this->em->persist($itemAttributeString);
+
+        return $item;
+    }
+
+    private function setBooleanAttributes(CategoryCollection $item, CustomAttribute $customAttributeValue): CategoryCollection{
+        $itemAttributeBoolean = new ItemAttributeBooleanField();
+        $itemAttributeBoolean->setCustomItemAttribute($customAttributeValue);
+        $item->addItemAttributeBooleanField($itemAttributeBoolean);
+        $this->em->persist($itemAttributeBoolean);
+
+        return $item;
+    }
+
+    private function setDateAttributes(CategoryCollection $item, CustomAttribute $customAttributeValue): CategoryCollection{
+        $itemAttributeDate = new ItemAttributeDateField();
+        $itemAttributeDate->setCustomItemAttribute($customAttributeValue);
+        $itemAttributeDate->setValue(new \DateTime());
+        $item->addItemAttributeDateField($itemAttributeDate);
+        $this->em->persist($itemAttributeDate);
 
         return $item;
     }

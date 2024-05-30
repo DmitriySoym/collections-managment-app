@@ -32,6 +32,10 @@ header {
     font-size: 1.2rem;
 }
 
+.navbar-nav .dropdown-menu {
+    position: absolute;
+}
+
 .main {
     height: 90%;
     background-image: url(../images/form-bg.png);
@@ -89,7 +93,6 @@ header {
 }
 
 .category__form input {
-    width: 100%;
     border-radius: 8px;
     font-size: 1.5rem;
     color: #2b2d42;
@@ -97,8 +100,13 @@ header {
     background: #edf2f466;
 }
 
+.category__form input::placeholder,
+.category__form textarea::placeholder {
+    font-size: 1rem;
+}
+
 .category__form textarea {
-    width: 100%;
+    /* width: 100%; */
     border-radius: 8px;
     font-size: 1.5rem;
     color: #2b2d42;

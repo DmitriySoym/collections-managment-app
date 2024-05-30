@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-// use Symfony\Component\Form\Extension\Core\Type\CollectionType as CustomCollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType as CustomCollectionType;
 
 
 class CategoryItemType extends AbstractType
@@ -32,8 +32,20 @@ class CategoryItemType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => false,
             ])
-            ->add('itemAttributeStringFields', CollectionType::class, [
+            ->add('itemAttributeStringFields', CustomCollectionType::class, [
                 'entry_type' => AitemAttributeStringFieldType::class,
+                'entry_options' => ['label' => false],
+                'label' => false,
+                'by_reference' => false,
+            ])
+            ->add('itemAttributeBooleanFields', CustomCollectionType::class, [
+                'entry_type' => ItemAttributeBooleanFieldRepositoryType::class,
+                'entry_options' => ['label' => false],
+                'label' => false,
+                'by_reference' => false,
+            ])
+            ->add('itemAttributeDateFields', CustomCollectionType::class, [
+                'entry_type' => ItemAttributeDateType::class,
                 'entry_options' => ['label' => false],
                 'label' => false,
                 'by_reference' => false,

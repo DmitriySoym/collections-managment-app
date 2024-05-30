@@ -35,9 +35,23 @@ class CustomAttribute
     #[ORM\OneToMany(targetEntity: ItemAttributeStringField::class, mappedBy: 'customItemAttribute')]
     private Collection $itemAttributeStringFields;
 
+    /**
+     * @var Collection<int, ItemAttributeBooleanField>
+     */
+    #[ORM\OneToMany(targetEntity: ItemAttributeBooleanField::class, mappedBy: 'customItemAttribute', orphanRemoval: true)]
+    private Collection $itemAttributeBooleanFields;
+
+    /**
+     * @var Collection<int, ItemAttributeDateField>
+     */
+    #[ORM\OneToMany(targetEntity: ItemAttributeDateField::class, mappedBy: 'customItemAttribute', orphanRemoval: true)]
+    private Collection $itemAttributeDateFields;
+
     public function __construct()
     {
         $this->itemAttributeStringFields = new ArrayCollection();
+        $this->itemAttributeBooleanFields = new ArrayCollection();
+        $this->itemAttributeDateFields = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,6 +119,66 @@ class CustomAttribute
             // set the owning side to null (unless already changed)
             if ($itemAttributeStringField->getCustomItemAttribute() === $this) {
                 $itemAttributeStringField->setCustomItemAttribute(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ItemAttributeBooleanField>
+     */
+    public function getItemAttributeBooleanFields(): Collection
+    {
+        return $this->itemAttributeBooleanFields;
+    }
+
+    public function addItemAttributeBooleanField(ItemAttributeBooleanField $itemAttributeBooleanField): static
+    {
+        if (!$this->itemAttributeBooleanFields->contains($itemAttributeBooleanField)) {
+            $this->itemAttributeBooleanFields->add($itemAttributeBooleanField);
+            $itemAttributeBooleanField->setCustomItemAttribute($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAttributeBooleanField(ItemAttributeBooleanField $itemAttributeBooleanField): static
+    {
+        if ($this->itemAttributeBooleanFields->removeElement($itemAttributeBooleanField)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAttributeBooleanField->getCustomItemAttribute() === $this) {
+                $itemAttributeBooleanField->setCustomItemAttribute(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ItemAttributeDateField>
+     */
+    public function getItemAttributeDateFields(): Collection
+    {
+        return $this->itemAttributeDateFields;
+    }
+
+    public function addItemAttributeDateField(ItemAttributeDateField $itemAttributeDateField): static
+    {
+        if (!$this->itemAttributeDateFields->contains($itemAttributeDateField)) {
+            $this->itemAttributeDateFields->add($itemAttributeDateField);
+            $itemAttributeDateField->setCustomItemAttribute($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAttributeDateField(ItemAttributeDateField $itemAttributeDateField): static
+    {
+        if ($this->itemAttributeDateFields->removeElement($itemAttributeDateField)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAttributeDateField->getCustomItemAttribute() === $this) {
+                $itemAttributeDateField->setCustomItemAttribute(null);
             }
         }
 

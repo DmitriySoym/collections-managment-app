@@ -16,6 +16,8 @@ class CategoryCollection
     {
         // $this->categotyId = $collection;
         $this->itemAttributeStringFields = new ArrayCollection();
+        $this->itemAttributeBooleanFields = new ArrayCollection();
+        $this->itemAttributeDateFields = new ArrayCollection();
     }
     //  entity for collection item
     #[ORM\Id]
@@ -44,6 +46,18 @@ class CategoryCollection
      */
     #[ORM\OneToMany(targetEntity: ItemAttributeStringField::class, mappedBy: 'item', orphanRemoval: true)]
     private Collection $itemAttributeStringFields;
+
+    /**
+     * @var Collection<int, ItemAttributeBooleanField>
+     */
+    #[ORM\OneToMany(targetEntity: ItemAttributeBooleanField::class, mappedBy: 'item', orphanRemoval: true)]
+    private Collection $itemAttributeBooleanFields;
+
+    /**
+     * @var Collection<int, ItemAttributeDateField>
+     */
+    #[ORM\OneToMany(targetEntity: ItemAttributeDateField::class, mappedBy: 'item', orphanRemoval: true)]
+    private Collection $itemAttributeDateFields;
 
     public function getId(): ?int
     {
@@ -134,6 +148,66 @@ class CategoryCollection
             // set the owning side to null (unless already changed)
             if ($itemAttributeStringField->getItem() === $this) {
                 $itemAttributeStringField->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ItemAttributeBooleanField>
+     */
+    public function getItemAttributeBooleanFields(): Collection
+    {
+        return $this->itemAttributeBooleanFields;
+    }
+
+    public function addItemAttributeBooleanField(ItemAttributeBooleanField $itemAttributeBooleanField): static
+    {
+        if (!$this->itemAttributeBooleanFields->contains($itemAttributeBooleanField)) {
+            $this->itemAttributeBooleanFields->add($itemAttributeBooleanField);
+            $itemAttributeBooleanField->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAttributeBooleanField(ItemAttributeBooleanField $itemAttributeBooleanField): static
+    {
+        if ($this->itemAttributeBooleanFields->removeElement($itemAttributeBooleanField)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAttributeBooleanField->getItem() === $this) {
+                $itemAttributeBooleanField->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ItemAttributeDateField>
+     */
+    public function getItemAttributeDateFields(): Collection
+    {
+        return $this->itemAttributeDateFields;
+    }
+
+    public function addItemAttributeDateField(ItemAttributeDateField $itemAttributeDateField): static
+    {
+        if (!$this->itemAttributeDateFields->contains($itemAttributeDateField)) {
+            $this->itemAttributeDateFields->add($itemAttributeDateField);
+            $itemAttributeDateField->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAttributeDateField(ItemAttributeDateField $itemAttributeDateField): static
+    {
+        if ($this->itemAttributeDateFields->removeElement($itemAttributeDateField)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAttributeDateField->getItem() === $this) {
+                $itemAttributeDateField->setItem(null);
             }
         }
 
