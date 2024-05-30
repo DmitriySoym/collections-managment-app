@@ -283,6 +283,13 @@ header {
 }
 
 @media screen and (max-width: 768px) {
+    header.container {
+        flex-direction: column-reverse;
+    }
+
+    header .nav-user {
+        flex-direction: row-reverse;
+    }
     .main {
         background-size: contain;
     }

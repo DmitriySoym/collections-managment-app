@@ -23,7 +23,7 @@ class CategoryInfoController extends AbstractController
     {
         $category = $this->cr->find($id);
         $collectionItems = $this->ccr->findBy(['categotyId' => $id]);
-        
+
         return $this->render('category_info/index.html.twig', [
             'category' => $category,
             'collectionItems' => $collectionItems

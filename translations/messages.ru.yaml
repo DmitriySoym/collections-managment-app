@@ -82,3 +82,7 @@ users:
     user: "Пользователь"
 itemCollection:
     collectionItemName: "Название элемента коллекции '%name%'"
+    itemName: "Название элемента"
+    itemDescription: "Описание элемента"
+    tags: "Теги"
+    noTags: "Нет тегов"

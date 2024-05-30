@@ -50,6 +50,18 @@ class CategoryItemType extends AbstractType
                 'label' => false,
                 'by_reference' => false,
             ])
+            ->add('itemAttributeIntegerFields', CustomCollectionType::class, [
+                'entry_type' => ItemAttributeIntegerType::class,
+                'entry_options' => ['label' => false],
+                'label' => false,
+                'by_reference' => false,
+            ])
+            ->add('itemAttributeTextFields', CustomCollectionType::class, [
+                'entry_type' => ItemAttributeTextType::class,
+                'entry_options' => ['label' => false],
+                'label' => false,
+                'by_reference' => false,
+            ])
         ;
     }
 

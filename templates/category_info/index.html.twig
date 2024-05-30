@@ -37,19 +37,42 @@
         {% else %}
             <p class="collection__description"><span>{{'mainPage.NoDescription'|trans}}</span></p>
         {% endif %}
-        <span>{{'collection.listCollectionInstances'|trans}}</span>
-        <ul>
-            {% if collectionItems|length > 0 %}
-                {% for item in collectionItems %}
-                    <li>
-                        <a href="{{ path('app_collection_item', {id: category.id,  itemId: item.id }) }}">
-                            <span>{{item.name}}</span>
-                        </a>
-                        <span>{{item.description}}</span>
-                    </li>
-                {% endfor %}
-            {% endif %}
-        </ul>
+        <p class="mb-3">{{'collection.listCollectionInstances'|trans}}</p>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>{{'itemCollection.itemName'|trans}}</th>
+                    <th>{{'itemCollection.itemDescription'|trans}}</th>
+                    <th>{{'itemCollection.tags'|trans}}</th>
+                    {# <th>User</th> #}
+                </tr>
+                </thead>
+                <tbody>
+                {% if collectionItems|length > 0 %}
+                    {% for item in collectionItems %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('app_collection_item', {id: category.id,  itemId: item.id }) }}">
+                                    <span>{{item.name}}</span>
+                                </a>
+                            </td>
+                            <td><span>{{item.description}}</span></td>
+                            <td>
+                                {% if item.name == 1 %}
+                                    <span>{{item.tags}}</span>
+                                {% else %}
+                                    <span>{{'itemCollection.noTags'|trans}}</span>
+                                {% endif %}
+                            </td>
+                            {# <td>test</td> #}
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+    </div>
     </div>
 {% endblock %}
 

@@ -47,11 +47,25 @@ class CustomAttribute
     #[ORM\OneToMany(targetEntity: ItemAttributeDateField::class, mappedBy: 'customItemAttribute', orphanRemoval: true)]
     private Collection $itemAttributeDateFields;
 
+    /**
+     * @var Collection<int, ItemAttributeIntegerField>
+     */
+    #[ORM\OneToMany(targetEntity: ItemAttributeIntegerField::class, mappedBy: 'customItemAttribute', orphanRemoval: true)]
+    private Collection $itemAttributeIntegerFields;
+
+    /**
+     * @var Collection<int, ItemAttributeTextField>
+     */
+    #[ORM\OneToMany(targetEntity: ItemAttributeTextField::class, mappedBy: 'customItemAttribute', orphanRemoval: true)]
+    private Collection $itemAttributeTextFields;
+
     public function __construct()
     {
         $this->itemAttributeStringFields = new ArrayCollection();
         $this->itemAttributeBooleanFields = new ArrayCollection();
         $this->itemAttributeDateFields = new ArrayCollection();
+        $this->itemAttributeIntegerFields = new ArrayCollection();
+        $this->itemAttributeTextFields = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,6 +193,66 @@ class CustomAttribute
             // set the owning side to null (unless already changed)
             if ($itemAttributeDateField->getCustomItemAttribute() === $this) {
                 $itemAttributeDateField->setCustomItemAttribute(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ItemAttributeIntegerField>
+     */
+    public function getItemAttributeIntegerFields(): Collection
+    {
+        return $this->itemAttributeIntegerFields;
+    }
+
+    public function addItemAttributeIntegerField(ItemAttributeIntegerField $itemAttributeIntegerField): static
+    {
+        if (!$this->itemAttributeIntegerFields->contains($itemAttributeIntegerField)) {
+            $this->itemAttributeIntegerFields->add($itemAttributeIntegerField);
+            $itemAttributeIntegerField->setCustomItemAttribute($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAttributeIntegerField(ItemAttributeIntegerField $itemAttributeIntegerField): static
+    {
+        if ($this->itemAttributeIntegerFields->removeElement($itemAttributeIntegerField)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAttributeIntegerField->getCustomItemAttribute() === $this) {
+                $itemAttributeIntegerField->setCustomItemAttribute(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ItemAttributeTextField>
+     */
+    public function getItemAttributeTextFields(): Collection
+    {
+        return $this->itemAttributeTextFields;
+    }
+
+    public function addItemAttributeTextField(ItemAttributeTextField $itemAttributeTextField): static
+    {
+        if (!$this->itemAttributeTextFields->contains($itemAttributeTextField)) {
+            $this->itemAttributeTextFields->add($itemAttributeTextField);
+            $itemAttributeTextField->setCustomItemAttribute($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAttributeTextField(ItemAttributeTextField $itemAttributeTextField): static
+    {
+        if ($this->itemAttributeTextFields->removeElement($itemAttributeTextField)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAttributeTextField->getCustomItemAttribute() === $this) {
+                $itemAttributeTextField->setCustomItemAttribute(null);
             }
         }
 

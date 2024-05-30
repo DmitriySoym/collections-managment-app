@@ -81,3 +81,7 @@ users:
     user: "User"
 itemCollection:
     collectionItemName: "Collection item name is '%name%'"
+    itemName: "Item name"
+    itemDescription: "Item description"
+    tags: "Tags"
+    noTags: "No tags"
