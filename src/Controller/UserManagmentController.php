@@ -40,7 +40,7 @@ class UserManagmentController extends AbstractController
         ]);
     }
 
-    #[Route('/user/managment/update', name: 'app_user_managment_update', methods: ['POST'])]
+    #[Route('/users/managment/update', name: 'app_user_managment_update', methods: ['POST'])]
     public function updateUsersStatus(Request $request, EntityManagerInterface $em, UserRepository $ur): JsonResponse
     {
 
