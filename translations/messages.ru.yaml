@@ -1,5 +1,6 @@
 title:
     mainPage: "Добро пожаловать в приложение для управления коллекциями"
+    lastAdded: "Последние добавленные коллекции"
 nav:
     user: "Пользователь"
     guest: "Гость"
@@ -33,7 +34,7 @@ mainPage:
     OnlyAdminsAccess: "Только администраторы имеют доступ к этой странице"
 collection:
     createCollection: "Создать коллекцию"
-    backToCollections: "Назад к списку коллекций"
+    backToCollections: "К коллекцииям"
     collectionOwner: "Владелец коллекции"
     edit: "Редактировать"
     addItem: "Добавить в коллекцию"

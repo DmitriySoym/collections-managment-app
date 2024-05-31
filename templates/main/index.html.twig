@@ -16,5 +16,13 @@
 {% block body %}
     <div class="container main pt-5">
         <h1 class="text-center">{{'title.mainPage'|trans}}</h1>
+        <h5>{{'title.lastAdded'|trans}}</h5>
+        <ul>
+            {% for collection in collections %}
+                <li class="collection__main-page">
+                    <a href="{{  path('app_category_info', {id: collection.id}) }}">{{collection.name}}</a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}

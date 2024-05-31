@@ -1,5 +1,6 @@
 title:
     mainPage: "Welcom to collections managment app"
+    lastAdded: "Last added collections"
 nav:
     user: "User"
     guest: "Guest"
