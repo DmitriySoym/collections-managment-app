@@ -19,7 +19,7 @@ class UserManagmentController extends AbstractController
         private TranslatorInterface $translator
     ) {}
 
-    #[Route('/user/managment', name: 'app_user_managment')]
+    #[Route('/users/managment', name: 'app_user_managment')]
     public function index(UserRepository $ur, Request $request): Response
     {
         $messageAccsess = $this->translator->trans('mainPage.OnlyAdminsAccess');
