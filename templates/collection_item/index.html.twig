@@ -12,26 +12,68 @@
     <div class="container pt-5">
         <h3>{{'itemCollection.collectionItemName'|trans({'%name%': itemCollection.name})}} </h3>
 
-        <div class="category__form mt-4">
+        <div class="category__form mt-4 mb-4">
                 <div class="collection__title">
                     <h3>{{ itemCollection.name }}</h3>
                 </div>
                 {% if app.user %}
                     <div class="d-flex justify-content-center gap-3">
-                        <a href="{{ path('app_collection_edit_item', {id: category.getId(), itemId: itemCollection.id}) }}" class="btn btn-success">{{'collection.edit'|trans}} <i class="fa-solid fa-pen-to-square"></i></a>
-                        <a class="btn btn-danger collection__btn-delete" href="{{ path('app_collection_item_delete', {id: category.getId(), itemId: itemCollection.id}) }}">{{'createCollection.deleteCollection'|trans}} <i class="fa-solid fa-trash-can"></i></a>
+                        <a href="{{ path('app_collection_edit_item', {id: category.getId(), itemId: itemCollection.id}) }}" class="btn btn-success"><span class="btn-text">{{'collection.edit'|trans}}</span> <i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="btn btn-danger collection__btn-delete" href="{{ path('app_collection_item_delete', {id: category.getId(), itemId: itemCollection.id}) }}"><span class="btn-text">{{'createCollection.deleteCollection'|trans}}</span> <i class="fa-solid fa-trash-can"></i></a>
                     </div>
                 {% endif %}
             </div>
-            
-            <ul>
-                {# {% for item in customAttributes %}
-                    <li>
-                        <span>{{item.attribute.name}}</span>
-                        <span>{{item.value}}</span>
-                    </li>
-                {% endfor %} #}
-            </ul>
+
+                <div class="custom-attribute">
+                    <div class="custom-attribute_row">
+                        {% for attribute in itemCollection.getItemAttributeStringFields %}
+                            <span class="attribute-title">{{ attribute.getCustomItemAttribute.getName}}:</span>
+                            <div class="attribute-content">{{ attribute.getValue }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="custom-attribute">
+                    <div class="custom-attribute_row">
+                        {% for attribute in itemCollection.getItemAttributeTextFields %}
+                            <span class="attribute-title">{{ attribute.getCustomItemAttribute.getName}}:</span>
+                            <div class="attribute-content">{{ attribute.getValue }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="custom-attribute">
+                    <div class="custom-attribute_row">
+                        {% for attribute in itemCollection.getItemAttributeIntegerFields %}
+                            <span class="attribute-title">{{ attribute.getCustomItemAttribute.getName}}:</span>
+                            <div class="attribute-content">{{ attribute.getValue }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="custom-attribute">
+                    <div class="custom-attribute_row">
+                        {% for attribute in itemCollection.getItemAttributeBooleanFields %}
+                            <span class="attribute-title">
+                                {{ attribute.getCustomItemAttribute.getName}}
+                            </span>
+                            <div class="lead text-primary fs-4">
+                                {% if attribute.isValue == 1  %}
+                                    <i class="fa-solid fa-square-check"></i>
+                                {% else %}
+                                    <i class="fa-solid fa-minus"></i>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="custom-attribute">
+                    <div class="custom-attribute_row">
+                        {% for attribute in itemCollection.getItemAttributeDateFields %}
+                            <span class="attribute-title">{{ attribute.getCustomItemAttribute.getName}}:</span>
+                            <div class="attribute-content">{{ attribute.getValue|date("d.m.Y") }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
         <div class="comments">
             {% block comments %}
                 {{ include('collection_item/comments/list.html.twig') }}

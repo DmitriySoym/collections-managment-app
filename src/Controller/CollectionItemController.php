@@ -47,18 +47,11 @@ class CollectionItemController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-
         if ($request->isMethod('POST') && $form->isValid() && $form->isSubmitted() ) {
-            $comment = $form->getData();
-            $comment->setUser($this->getUser());
-            $comment->setItem($itemCollection);
-            $comment->setCreated(new \DateTime());
-            $this->em->persist($comment);
-            $this->em->flush();
+            $this->formSubmit->addComment($form, $itemCollection);
             return $this->redirectToRoute('app_collection_item', ['id' => $id, 'itemId' => $itemId]);
         }
         return $this->render('collection_item/index.html.twig', [
-            'controller_name' => 'ColectionItemController',
             'itemCollection' => $itemCollection,
             'category' => $category,
             'customAttributes' => $customAttributes,

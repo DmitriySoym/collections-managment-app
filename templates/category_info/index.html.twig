@@ -24,8 +24,8 @@
             </div>
             {% if app.user %}
                 <div class="d-flex justify-content-center gap-3">
-                    <a href="{{ path('app_category_edit', {id: category.getId()}) }}" class="btn btn-success">{{'collection.edit'|trans}} <i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href="{{ path('app_collection_item_create', {id: category.getId()}) }}" class="btn btn-primary">{{'collection.addItem'|trans}} <i class="fa-solid fa-plus"></i></a>
+                    <a href="{{ path('app_category_edit', {id: category.getId()}) }}" class="btn btn-success"><span class="btn-text">{{'collection.edit'|trans}}</span> <i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="{{ path('app_collection_item_create', {id: category.getId()}) }}" class="btn btn-primary"><span class="btn-text">{{'collection.addItem'|trans}}</span> <i class="fa-solid fa-plus"></i></a>
                 </div>
             {% endif %}
         </div>
@@ -46,7 +46,6 @@
                     <th>{{'itemCollection.itemName'|trans}}</th>
                     <th>{{'itemCollection.itemDescription'|trans}}</th>
                     <th>{{'itemCollection.tags'|trans}}</th>
-                    {# <th>User</th> #}
                 </tr>
                 </thead>
                 <tbody>

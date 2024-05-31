@@ -275,6 +275,24 @@ header {
 .comment-text {
     font-size: 1.2rem;
 }
+
+.custom-attribute_row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.attribute-title {
+    font-size: 1.2rem;
+    text-decoration: underline;
+    color: #146c43;
+}
+
+.attribute-content {
+    font-size: 1.5rem;
+}
+
 @media screen and (max-width: 1200px) {
     .login {
         background-image: none;
@@ -293,6 +311,8 @@ header {
 
     header .nav-user {
         flex-direction: row-reverse;
+        justify-content: space-between;
+        width: 100%;
     }
     .main {
         background-size: contain;
@@ -319,6 +339,10 @@ header {
     }
 
     .users__managment-btn {
+        display: none;
+    }
+
+    .btn-text {
         display: none;
     }
 }

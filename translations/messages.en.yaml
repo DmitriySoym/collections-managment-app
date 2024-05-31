@@ -91,3 +91,4 @@ user:
     userPosted: "user"
     wrote: "wrote "
     addNewComment: "Add new comment"
+    commentsLeft: "Comments left"

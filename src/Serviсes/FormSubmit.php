@@ -37,4 +37,14 @@ class FormSubmit extends AbstractController
 
             $this->addFlash('success', "Collection $itemCollectionName created successfully");
     }
+
+    public function addComment($form, $itemCollection) 
+    {
+            $comment = $form->getData();
+            $comment->setUser($this->getUser());
+            $comment->setItem($itemCollection);
+            $comment->setCreated(new \DateTime());
+            $this->em->persist($comment);
+            $this->em->flush();
+    }
 } 
