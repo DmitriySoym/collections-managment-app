@@ -12,7 +12,7 @@
     <div class="container pt-5">
         <h3>{{'itemCollection.collectionItemName'|trans({'%name%': itemCollection.name})}} </h3>
 
-        <div class="category__form">
+        <div class="category__form mt-4">
                 <div class="collection__title">
                     <h3>{{ itemCollection.name }}</h3>
                 </div>
@@ -32,5 +32,11 @@
                     </li>
                 {% endfor %} #}
             </ul>
+        <div class="comments">
+            {% block comments %}
+                {{ include('collection_item/comments/list.html.twig') }}
+                {{ include('collection_item/comments/form.html.twig') }}
+            {% endblock %}
+        </div>
     </div>
 {% endblock %}

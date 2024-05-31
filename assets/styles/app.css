@@ -271,6 +271,10 @@ header {
 #custom-attributes-wrapper .item input {
     margin-bottom: 0.5rem;
 }
+
+.comment-text {
+    font-size: 1.2rem;
+}
 @media screen and (max-width: 1200px) {
     .login {
         background-image: none;

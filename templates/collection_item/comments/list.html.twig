@@ -1,0 +1,12 @@
+    <div class="comments-vew">
+        {% for comment in comments %}
+            <div class="comment my-2 p-2 rounded">
+                <div class="container-fluid px-0">
+                    <div class="col-12 d-flex justify-content-end">
+                        <p class="lead">{{'user.userPosted'|trans}} : <b>{{ comment.user.username }}</b> {{'user.wrote'|trans}} {{ comment.getCreated|date("d.m.Y")}}</p>
+                    </div>
+                </div>
+                <p class="comment-text">{{ comment.getContent}}</p>
+            </div>
+        {% endfor %}
+    </div>

@@ -1,0 +1,15 @@
+<div>
+    <div class="mt-4">
+        {% if app.user %}
+            {{ form_start(form) }}
+            <h5>{{'user.addNewComment'|trans}}</h5>
+            {{ form_errors(form) }}
+            {{ form_row(form.content) }}
+            {{ form_rest(form) }}
+            <div>
+                <button type="submit" class="btn btn-primary add-comment">Send</button>
+            </div>
+        {{ form_end(form) }}
+        {% endif %}
+    </div>
+</div>

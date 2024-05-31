@@ -20,6 +20,7 @@ class CategoryCollection
         $this->itemAttributeDateFields = new ArrayCollection();
         $this->itemAttributeIntegerFields = new ArrayCollection();
         $this->itemAttributeTextFields = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
     //  entity for collection item
     #[ORM\Id]
@@ -72,6 +73,12 @@ class CategoryCollection
      */
     #[ORM\OneToMany(targetEntity: ItemAttributeTextField::class, mappedBy: 'item', orphanRemoval: true)]
     private Collection $itemAttributeTextFields;
+
+    /**
+     * @var Collection<int, Comments>
+     */
+    #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'item', orphanRemoval: true)]
+    private Collection $comments;
 
     public function getId(): ?int
     {
@@ -282,6 +289,36 @@ class CategoryCollection
             // set the owning side to null (unless already changed)
             if ($itemAttributeTextField->getItem() === $this) {
                 $itemAttributeTextField->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comments>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getItem() === $this) {
+                $comment->setItem(null);
             }
         }
 

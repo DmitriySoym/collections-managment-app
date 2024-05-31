@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\CategoryCollection;
+use App\Entity\Comments;
 use App\Form\CategoryItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,10 @@ use App\Repository\CategoryRepository;
 use App\Serviсes\FormSubmit;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Repository\CategoryCollectionRepository;
+use App\Repository\CommentsRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Category;
+use App\Form\CommentType;
 use App\Serviсes\CustomAttributeService;
 
 
@@ -23,25 +26,44 @@ class CollectionItemController extends AbstractController
         public function __construct(
         private EntityManagerInterface $em,
         private CategoryRepository $cr,
+        private CommentsRepository $comments,
         private CategoryCollectionRepository $ccr,
         private FormSubmit $formSubmit,
         private TranslatorInterface $translator,
         private CustomAttributeService $customAttributeService
     ) {}
 
-    #[Route('/collection/{id}/item/{itemId}', name: 'app_collection_item')]
-    public function index(int $id, int $itemId): Response
+    #[Route('/collection/{id}/item/{itemId}', name: 'app_collection_item', methods: ['GET', 'POST'])]
+    public function index(int $id, int $itemId, Request $request): Response
     {
 
         $category = $this->cr->find($id);
-        $itemCollection = $this->ccr->find($this->ccr->find($itemId));
+        $itemCollection = $this->ccr->find($itemId);
         $customAttributes = $itemCollection->getItemAttributeStringFields();
 
+
+        $comments = $this->comments->findBy(['item' => $itemCollection->getId()]);
+        $comment = new Comments();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+
+        if ($request->isMethod('POST') && $form->isValid() && $form->isSubmitted() ) {
+            $comment = $form->getData();
+            $comment->setUser($this->getUser());
+            $comment->setItem($itemCollection);
+            $comment->setCreated(new \DateTime());
+            $this->em->persist($comment);
+            $this->em->flush();
+            return $this->redirectToRoute('app_collection_item', ['id' => $id, 'itemId' => $itemId]);
+        }
         return $this->render('collection_item/index.html.twig', [
             'controller_name' => 'ColectionItemController',
             'itemCollection' => $itemCollection,
             'category' => $category,
-            'customAttributes' => $customAttributes
+            'customAttributes' => $customAttributes,
+            'comments' => $comments,
+            'form' => $form,
         ]);
     }
 
@@ -137,5 +159,4 @@ class CollectionItemController extends AbstractController
             'id' => $id,
         ]);
     }
-
 }

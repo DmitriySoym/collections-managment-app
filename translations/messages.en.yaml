@@ -85,5 +85,9 @@ itemCollection:
     itemDescription: "Item description"
     tags: "Tags"
     noTags: "No tags"
+    addComment: "Add a comment..."
 user:
     userAccountTitle: "User's personal account: '%name%'"
+    userPosted: "user"
+    wrote: "wrote "
+    addNewComment: "Add new comment"
