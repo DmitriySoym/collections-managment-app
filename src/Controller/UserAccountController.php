@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\CategoryRepository;
-use App\Entity\User;
 
 #[Route('/{_locale<%app.supported_locales%>}')]
 class UserAccountController extends AbstractController
@@ -18,7 +17,7 @@ class UserAccountController extends AbstractController
         private CategoryRepository $cr
     ) {}
 
-    #[Route('/user/{userName}/{page}', name: 'app_user_account')]
+    #[Route('/user/{userName}/{!page}', name: 'app_user_account')]
     public function index(Request $request, string $userName, int $page = 1): Response
     {
         $user = $this->getUser();
@@ -32,10 +31,10 @@ class UserAccountController extends AbstractController
         }
 
         $searchfor = $request->query->get('searchfor') ?? '';
+        $userId = $this->getUser()->getId();
 
-        // $collections = $this->cr->findBy(['author' => $user->getId()], ['name' => 'ASC'], 6, 0, $searchfor);
         $collections = $this->cr->usersCollection($user->getId(), $searchfor, $page, $limit);
-        $categoryAmount = ceil(count($collections) / $limit);
+        $categoryAmount = ceil(count($this->cr->usersCollectionAmount($userId ,$searchfor)) / $limit);
 
         return $this->render('user_account/index.html.twig', [
             'searchfor' => $searchfor,

@@ -6,8 +6,6 @@ use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
-
-use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\User as AppUser;
 
 /**
@@ -49,6 +47,17 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
 
+    public function categoriesAmount(string $searchfor): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('LOWER(c.name) LIKE LOWER(:val)')
+            ->setParameter('val', '%'.$searchfor.'%')
+            ->orderBy('c.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function usersCollection(int $userId, string $searchfor, int $page, int $limit): array
     {
         return $this->createQueryBuilder('c')
@@ -59,6 +68,19 @@ class CategoryRepository extends ServiceEntityRepository
             ->orderBy('c.name', 'ASC')
             ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function usersCollectionAmount(int $userId, string $searchfor): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('LOWER(c.name) LIKE LOWER(:val)')
+            ->andWhere('c.author = :author')
+            ->setParameter('val', '%'.$searchfor.'%')
+            ->setParameter('author', $userId)
+            ->orderBy('c.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;

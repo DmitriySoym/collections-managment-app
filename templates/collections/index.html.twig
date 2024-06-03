@@ -4,7 +4,7 @@
 
 {% block header %}
     <div class="d-flex justify-content-end flex-wrap gap-3">
-        <form class="d-flex" method="get">
+        <form class="d-flex serch-collections" method="get">
             <input class="form-control me-2" type="search" name="searchfor" placeholder="{{'nav.search'|trans}}" aria-label="Search" value="{{searchfor}}"/>
             <button class="btn btn-outline-success" type="submit">{{'nav.search'|trans}}</button>
         </form>
@@ -21,9 +21,10 @@
 
 {% block body %}
 <div class="container pt-5">
-    <p class="collections__text">{{'mainPage.title'|trans}}</p>
     {% if searchfor != '' %}
         <p class="collections__text">Search result for <b>"{{searchfor}}"</b></p>
+    {% else %}
+        <p class="collections__text">{{'mainPage.title'|trans}}</p>
     {% endif %}
         <div class="collections">
             <ul class="row">
@@ -49,9 +50,18 @@
 
     <nav aria-label="Page navigation example" class="app-pagination">
         <ul class="pagination">
+            {% if searchfor != '' and categoryAmount > 0 %}
+                {% for i in 1..categoryAmount %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('app_collections', {page: i, searchfor: searchfor}) }}">{{i}}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
             {% if searchfor == '' and categoryAmount > 0 %}
                 {% for i in 1..categoryAmount %}
-                    <li class="page-item"><a class="page-link" href="{{ path('app_collections') }}/{{i}}">{{i}}</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('app_collections', {page: i}) }}">{{i}}</a>
+                    </li>
                 {% endfor %}
             {% endif %}
         </ul>

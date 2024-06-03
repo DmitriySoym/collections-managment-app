@@ -20,7 +20,11 @@ window.onload = function () {
 
 document.addEventListener("DOMContentLoaded", () => {
     let pageNumbers = document.querySelectorAll(".page-item");
-    const activePage = location.href.split("/").slice(-1)[0];
+    let activePage = location.href.split("/").slice(-1)[0];
+
+    if (activePage.indexOf("?") > 0) {
+        activePage = location.href.split("/").slice(-1)[0].slice(0, activePage.indexOf("?"));
+    }
 
     for (const item of pageNumbers) {
         if (item.innerText == activePage) {
@@ -29,6 +33,47 @@ document.addEventListener("DOMContentLoaded", () => {
         if (activePage == "collections") {
             pageNumbers[0].classList.add("activepage");
         }
+    }
+
+    //redirect on submit to first page
+    const searchCollectionsForm = document.querySelector(".serch-collections");
+    const searchAccountCollectionsForm = document.querySelector(".search-account-collections");
+
+    function redirect(form, url) {
+        let locale;
+        if (location.href.split("/").includes("ru")) {
+            locale = "ru";
+        } else {
+            locale = "en";
+        }
+
+        if (form) {
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const search = formData.get("searchfor");
+                if (location.href.split("/").includes("user")) {
+                    let userName = location.href.split("/").slice(-2)[0];
+                    url = `user/${userName}`;
+                } else {
+                    url = "collections";
+                }
+
+                if (search != "" && search != null) {
+                    window.location.href = `/${locale}/${url}/1?searchfor=${search}`;
+                } else {
+                    window.location.href = `/${locale}/${url}/1`;
+                }
+            });
+        }
+    }
+
+    if (searchCollectionsForm) {
+        redirect(searchCollectionsForm);
+    }
+
+    if (searchAccountCollectionsForm) {
+        redirect(searchAccountCollectionsForm);
     }
 
     // user management

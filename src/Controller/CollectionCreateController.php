@@ -28,7 +28,7 @@ class CollectionCreateController extends AbstractController
 
         if(!$this->isGranted('ROLE_USER')) {
             $this->addFlash('danger', $messageSignIn);
-            return $this->redirectToRoute('app_collections');
+            return $this->redirectToRoute('app_collections', ['page' => 1]);
         }
 
         $category = new Category();
@@ -41,7 +41,7 @@ class CollectionCreateController extends AbstractController
             $categoryName = $category->getName();
             $messageCreated = $this->translator->trans('createCollection.collectionNameCreated', ['%name%' => $categoryName]);
             $this->addFlash('success', $messageCreated);
-            return $this->redirectToRoute('app_collections');
+            return $this->redirectToRoute('app_collections', ['page' => 1]);
         }
 
         return $this->render('collection_create/index.html.twig', [

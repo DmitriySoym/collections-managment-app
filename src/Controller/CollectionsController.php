@@ -10,13 +10,13 @@ use Symfony\Component\HttpFoundation\Request;
 #[Route('/{_locale<%app.supported_locales%>}')]
 class CollectionsController extends AbstractController
 {
-    #[Route('/collections/{page}', name: 'app_collections')]
+    #[Route('/collections/{!page}', name: 'app_collections')]
     public function index(CategoryRepository $cr, int $page = 1, int $limit = 6, ?Request $request=null): Response
     {
         $this->getUser() ? $username = $this->getUser()->getUserIdentifier() : $username = 'Guest';
         $searchfor = $request->query->get('searchfor') ?? '';
         $categories = $cr->paginatedCategories($page, $limit, $searchfor);
-        $categoryAmount = ceil($cr->count() / $limit);
+        $categoryAmount = ceil(count($cr->categoriesAmount($searchfor)) / $limit);
 
         return $this->render('collections/index.html.twig', [
             'username' => $username,

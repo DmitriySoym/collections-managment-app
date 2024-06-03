@@ -61,6 +61,6 @@ class CollectionEditController extends AbstractController
 
         $this->addFlash('success', $messageSuccess);
 
-        return $this->redirectToRoute('app_collections');
+        return $this->redirectToRoute('app_collections', ['page' => 1]);
     }
 }

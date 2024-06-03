@@ -4,7 +4,7 @@
 
 {% block header %}
     <div class="d-flex justify-content-end flex-wrap gap-3">
-        <a href="{{ path('app_collections') }}" class="btn btn-success nav-btn">{{'nav.openCollections'|trans}}</a>
+        <a href="{{ path('app_collections', {page: 1}) }}" class="btn btn-success nav-btn">{{'nav.openCollections'|trans}}</a>
         <a href="{{ path('app_user_managment') }}" class="btn btn-success nav-btn">{{'nav.users'|trans}}</a>
     {% if app.user == '' %}
         <a href="{{ path('app_login') }}" class="btn btn-success nav-btn"><span class="desctop__btn">{{'nav.signIn'|trans}} </span><i class="fa-solid fa-right-to-bracket"></i></a>

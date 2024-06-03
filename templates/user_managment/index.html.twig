@@ -4,7 +4,7 @@
 
 {% block header %}
     <div class="d-flex justify-content-end gap-3 mt-3">
-        <a href="{{ path('app_collections') }}" class="btn btn-success nav-btn">{{'nav.openCollections'|trans}}</a>
+        <a href="{{ path('app_collections', {page: 1}) }}" class="btn btn-success nav-btn">{{'nav.openCollections'|trans}}</a>
         <a href="{{ path('app_main') }}" class="btn btn-success nav-btn">{{'nav.mainPage'|trans}}</a>
     </div>
 {% endblock %}
