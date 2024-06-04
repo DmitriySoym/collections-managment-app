@@ -16,6 +16,20 @@ class CategoryCollectionRepository extends ServiceEntityRepository
         parent::__construct($registry, CategoryCollection::class);
     }
 
+    public function collectionItemsAmount(string $searchfor, int $catedoryId): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('LOWER(c.name) LIKE LOWER(:val)')
+            ->orWhere('LOWER(c.description) LIKE LOWER(:val)')
+            ->andWhere('c.categotyId = :category')
+            ->setParameter('val', '%'.$searchfor.'%')
+            ->setParameter('category', $catedoryId)
+            ->orderBy('c.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return CategoryCollecction[] Returns an array of CategoryCollection objects
 //     */

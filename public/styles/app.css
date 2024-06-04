@@ -176,6 +176,11 @@ header {
     margin: 1rem 0;
 }
 
+.collection__description-search {
+    font-size: calc(1rem + 0.5vw);
+    margin: 1rem 0;
+}
+
 .collections {
     display: flex;
     flex-direction: column;
@@ -322,6 +327,10 @@ header {
     header .nav-user {
         flex-direction: row-reverse;
         justify-content: space-between;
+        width: 100%;
+    }
+
+    .serch__collection-items {
         width: 100%;
     }
 
