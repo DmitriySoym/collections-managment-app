@@ -44,6 +44,7 @@ collection:
     signInToCreate: "Войдите, чтобы создать коллекцию"
     canAddCollectionItems: "Только владелец коллекции и администратор могут добавлять элементы в коллекцию"
     listCollectionInstances: "Здесь находится список экземпляров коллекции."
+    searchResults: "Результаты поиска для "
 createCollection:
     catygoryType: "Категория"
     type: "Тип"
@@ -68,6 +69,10 @@ createCollectionItem:
     itemDescription: "Описание элемента"
     itemUpdatedsuccessfully: "Элемент %name% был успешно обновлен"
     itemCreatedsuccessfully: "Элемент %name% был успешно создан"
+    enterItemDescription: "Пожалуйста, введите описание элемента"
+    enterItemName: "Пожалуйста, введите название элемента"
+    fillThisField: "Пожалуйста, заполните это поле."
+    descriptionLimit: "Описание должно содержать не менее %limit% символов."
 users:
     userName: "Имя пользователя"
     registrationDate: "Дата регистрации"

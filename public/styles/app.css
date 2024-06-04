@@ -112,7 +112,6 @@ header {
 }
 
 .category__form textarea {
-    /* width: 100%; */
     border-radius: 8px;
     font-size: 1.5rem;
     color: #2b2d42;
@@ -299,6 +298,11 @@ header {
     font-size: 1.5rem;
 }
 
+.collection__items {
+    height: 50vh;
+    overflow-y: auto;
+}
+
 @media screen and (max-width: 1200px) {
     .login {
         background-image: none;
@@ -320,6 +324,12 @@ header {
         justify-content: space-between;
         width: 100%;
     }
+
+    .serch-collections,
+    .search-account-collections {
+        width: 100%;
+    }
+
     .main {
         background-size: contain;
     }

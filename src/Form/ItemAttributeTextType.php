@@ -2,19 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\CategoryCollection;
-use App\Entity\CustomAttribute;
 use App\Entity\ItemAttributeTextField;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ItemAttributeTextType extends AbstractType
 {
+    public function __construct(
+        private TranslatorInterface $translator
+    ) {}
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -23,6 +25,11 @@ class ItemAttributeTextType extends AbstractType
             $form
                 ->add('value', TextareaType::class, [
                     'label' => $customItemAttributeName,
+                    'constraints' => [
+                    new NotBlank([
+                            'message' => $this->translator->trans('createCollectionItem.fillThisField'),
+                        ]),
+                    ],
                 ]);
         })
         ;

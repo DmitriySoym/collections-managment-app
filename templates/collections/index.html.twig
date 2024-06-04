@@ -20,9 +20,9 @@
 {% endblock %}
 
 {% block body %}
-<div class="container pt-5">
+<div class="container pt-4">
     {% if searchfor != '' %}
-        <p class="collections__text">Search result for <b>"{{searchfor}}"</b></p>
+        <p class="collections__text">{{'collection.searchResults'|trans}} <b>"{{searchfor}}"</b></p>
     {% else %}
         <p class="collections__text">{{'mainPage.title'|trans}}</p>
     {% endif %}

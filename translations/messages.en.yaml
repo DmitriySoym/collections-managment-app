@@ -43,6 +43,7 @@ collection:
     signInToCreate: "Sign in to create a collection"
     canAddCollectionItems: "Only admins and collection owner can add collection items"
     listCollectionInstances: "Here is a list of collection instances."
+    searchResults: "Search results for"
 createCollection:
     catygoryType: "Category"
     type: "Type"
@@ -67,6 +68,10 @@ createCollectionItem:
     itemDescription: "Description of item"
     itemUpdatedsuccessfully: "Item %name% has been updated successfully"
     itemCreatedsuccessfully: "Item %name% has been created successfully"
+    enterItemDescription: "Please enter item description"
+    enterItemName: "Please enter item name"
+    fillThisField: "Please fill in this field."
+    descriptionLimit: "Description must be at least %limit% characters."
 users:
     userName: "User name"
     registrationDate: "Registration date"

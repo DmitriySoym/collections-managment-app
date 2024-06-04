@@ -39,6 +39,7 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->andWhere('LOWER(c.name) LIKE LOWER(:val)')
             ->setParameter('val', '%'.$searchfor.'%')
+            ->orWhere('LOWER(c.description) LIKE LOWER(:val)')
             ->orderBy('c.name', 'ASC')
             ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit)
@@ -62,6 +63,7 @@ class CategoryRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->andWhere('LOWER(c.name) LIKE LOWER(:val)')
+            ->orWhere('LOWER(c.description) LIKE LOWER(:val)')
             ->andWhere('c.author = :author')
             ->setParameter('author', $userId)
             ->setParameter('val', '%'.$searchfor.'%')

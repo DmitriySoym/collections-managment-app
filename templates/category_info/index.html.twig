@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container pt-5">
+    <div class="container pt-4">
         
         <h2 class="pb-3 pt-3">{{'collection.collectionOwner'|trans}}: <b>{{category.getAuthor.username}}</b></h2>
 
@@ -38,7 +38,7 @@
             <p class="collection__description"><span>{{'mainPage.NoDescription'|trans}}</span></p>
         {% endif %}
         <p class="mb-3">{{'collection.listCollectionInstances'|trans}}</p>
-        <div class="table-responsive">
+        <div class="table-responsive collection__items">
             <table class="table table-bordered">
                 <thead>
                 <tr>
