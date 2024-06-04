@@ -26,7 +26,6 @@ RUN composer require symfony/maker-bundle
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/
-COPY --from=assets /app/public/build /var/www/public/build
 
 RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 
