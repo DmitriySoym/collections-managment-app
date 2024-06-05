@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liked Items{% endblock %}
+
+{% block header %}
+    <div class="d-flex justify-content-end gap-3 flex-wrap">
+        {# <form class="d-flex serch__collection-items" method="get">
+            <input class="form-control me-2" type="search" name="searchfor" placeholder="{{'nav.searchItems'|trans}}" aria-label="Search" value="{{searchfor}}"/>
+            <button class="btn btn-outline-success" type="submit">{{'nav.search'|trans}}</button>
+        </form> #}
+        <a href="{{ path('app_collections', {page: 1}) }}" class="btn btn-success nav-btn">{{'collection.backToCollections'|trans}}</a>
+        <a href="{{ path('app_collection_create') }}" class="btn btn-primary nav-btn">{{'collection.createCollection'|trans}}</a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="container pt-4">
+        {% if likedItems|length == 0 %}
+            <h2 class="pb-3 pt-3">{{'users.youDontHaveLikedItems'|trans}}</h2>
+        {% else %}
+            <h2 class="pb-3 pt-3">{{'users.youLikedItems'|trans}}</h2>
+        {% endif %}
+
+        <div class="table-responsive collection__items-liked">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>{{'itemCollection.itemName'|trans}}</th>
+                    <th>{{'itemCollection.itemDescription'|trans}}</th>
+                    <th>{{'itemCollection.tags'|trans}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if likedItems|length > 0 %}
+                    {% for item in likedItems %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('app_collection_item', {id: item.category.id,  itemId: item.item.id }) }}">
+                                    <span>{{item.item.name}}</span>
+                                </a>
+                            </td>
+                            <td><span>{{item.item.description}}</span></td>
+                            <td>
+                                {# {% if item.name == 1 %}
+                                    <span>{{item.tags}}</span>
+                                {% else %} #}
+                                    <span>{{'itemCollection.noTags'|trans}}</span>
+                                {# {% endif %} #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

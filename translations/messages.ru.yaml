@@ -89,6 +89,8 @@ users:
     blocked: "Заблокирован"
     admin: "Администратор"
     user: "Пользователь"
+    youDontHaveLikedItems: "Вы не лайкнули ни одного элемента"
+    youLikedItems: "Вы лайкнули элементы"
 itemCollection:
     collectionItemName: "Название элемента коллекции '%name%'"
     itemName: "Название элемента"

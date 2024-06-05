@@ -36,7 +36,7 @@ mainPage:
     OnlyAdminsAccess: "Only admins have access to this page"
 collection:
     createCollection: "Create collection"
-    backToCollections: "Back to collections"
+    backToCollections: "All collections"
     collectionOwner: "Collection owner"
     edit: "Edit"
     addItem: "Add item"
@@ -88,6 +88,8 @@ users:
     blocked: "Blocked"
     admin: "Admin"
     user: "User"
+    youDontHaveLikedItems: "You don't have any liked items"
+    youLikedItems: "You liked items"
 itemCollection:
     collectionItemName: "Collection item name is '%name%'"
     itemName: "Item name"
