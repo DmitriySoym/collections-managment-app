@@ -101,6 +101,16 @@ class CategoryRepository extends ServiceEntityRepository
 
         return $category->getAuthor()->getId() === $user->getId();
     }
+
+    public function mainPageCategories(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 //    /**
 //     * @return Category[] Returns an array of Category objects

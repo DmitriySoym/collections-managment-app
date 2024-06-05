@@ -5,7 +5,7 @@
 {% block header %}
     <div class="d-flex justify-content-end gap-3 flex-wrap">
         <form class="d-flex serch__collection-items" method="get">
-            <input class="form-control me-2" type="search" name="searchfor" placeholder="{{'nav.search'|trans}}" aria-label="Search" value="{{searchfor}}"/>
+            <input class="form-control me-2" type="search" name="searchfor" placeholder="{{'nav.searchItems'|trans}}" aria-label="Search" value="{{searchfor}}"/>
             <button class="btn btn-outline-success" type="submit">{{'nav.search'|trans}}</button>
         </form>
         <a href="{{ path('app_collections', {page: 1}) }}" class="btn btn-success nav-btn">{{'collection.backToCollections'|trans}}</a>
@@ -79,7 +79,7 @@
                 {% endif %}
                 </tbody>
             </table>
-    </div>
+        </div>
     </div>
 {% endblock %}
 

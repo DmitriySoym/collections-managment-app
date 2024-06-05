@@ -89,7 +89,7 @@ header {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    max-width: 435px;
+    max-width: 500px;
     margin: 0 auto;
     border-radius: 40px;
     border: 1px solid rgba(141, 153, 174, 0.4);
@@ -213,6 +213,10 @@ header {
 .collections__item-owner {
     font-size: calc(0.7rem + 0.5vw);
     align-content: end;
+}
+
+.btn-like i {
+    font-size: 1.5rem;
 }
 
 .app-pagination {

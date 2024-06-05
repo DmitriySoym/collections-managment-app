@@ -4,13 +4,16 @@ title:
 nav:
     user: "Пользователь"
     guest: "Гость"
-    openCollections: "Открыть список коллекций"
+    openCollections: "Список коллекций"
     users: "Пользователи"
     signIn: "Войти"
     signUp: "Зарегистрироваться"
     backMainPage: "На главную страницу"
     mainPage: "Главная страница"
     search: "Поиск"
+    searchCollections: "Поиск коллекций"
+    findUser: "Найти пользователя"
+    searchItems: "Поиск элементов"
 login:
     pleaseSignIn: "Пожалуйста, войдите в систему"
     username: "Имя пользователя"

@@ -2,6 +2,7 @@
 namespace App\Serviсes;
 use App\Entity\Category;
 use App\Entity\CategoryCollection;
+use App\Entity\Like;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,5 +47,15 @@ class FormSubmit extends AbstractController
             $comment->setCreated(new \DateTime());
             $this->em->persist($comment);
             $this->em->flush();
+    }
+
+    public function addNewLike(CategoryCollection $item)
+    {
+        $like = new Like();
+        $like->setUserLiked($this->getUser());
+        $like->setItem($item);
+        $like->setStatus(true);
+        $this->em->persist($like);
+        $this->em->flush();
     }
 } 

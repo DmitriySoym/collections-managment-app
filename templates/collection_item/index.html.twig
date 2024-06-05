@@ -20,6 +20,14 @@
                     <div class="d-flex justify-content-center gap-3">
                         <a href="{{ path('app_collection_edit_item', {id: category.getId(), itemId: itemCollection.id}) }}" class="btn btn-success"><span class="btn-text">{{'collection.edit'|trans}}</span> <i class="fa-solid fa-pen-to-square"></i></a>
                         <a class="btn btn-danger collection__btn-delete" href="{{ path('app_collection_item_delete', {id: category.getId(), itemId: itemCollection.id}) }}"><span class="btn-text">{{'createCollection.deleteCollection'|trans}}</span> <i class="fa-solid fa-trash-can"></i></a>
+                        <button class="btn btn-like">
+                            {% if likeStatus %}
+                                <i class="{{likeStatus.isStatus() ? 'fa-solid' : 'fa-regular'}} fa-heart" style="color:{{likeStatus.isStatus() ? '#dc3545' : 'unset'}}"></i>
+                            {% else %}
+                                <i class="fa-regular fa-heart" style="color:'unset'"></i>
+                            {% endif %}
+                            <span>{{likesCount|length}}</span>
+                        </button>
                     </div>
                 {% endif %}
             </div>
@@ -81,4 +89,40 @@
             {% endblock %}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        const btnLike = document.querySelector('.btn-like');
+
+        if(btnLike) {
+            const btnLikeIcon = btnLike.querySelector('i');
+            const likeAmount = btnLike.querySelector('span');
+            btnLike.addEventListener('click', async function() {
+                const itemId = {{itemCollection.id}};
+                try {
+                    const response = await fetch(`/api/like/item/${itemId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const data = await response.json();
+                    if (data.liked === true) {
+                            btnLikeIcon.classList.remove('fa-regular');
+                            btnLikeIcon.classList.add('fa-solid');
+                            btnLikeIcon.style.color = '#dc3545';
+                            likeAmount.innerText = parseInt(likeAmount.textContent) + 1;
+                        } else {
+                            btnLikeIcon.classList.remove('fa-solid');
+                            btnLikeIcon.classList.add('fa-regular');
+                            btnLikeIcon.style.color = 'unset';
+                            likeAmount.innerText = parseInt(likeAmount.textContent) - 1;
+                        }
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+        }
+
+    </script>
 {% endblock %}

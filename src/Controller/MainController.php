@@ -19,7 +19,7 @@ class MainController extends AbstractController
     public function index(?Request $request=null): Response
     {
         $searchfor = $request->query->get('searchfor') ?? '';
-        $collections = $this->cr->findBy([], ['updated' => 'ASC'], 5);
+        $collections = $this->cr->mainPageCategories();
 
         return $this->render('main/index.html.twig', [
             'collections' => $collections,

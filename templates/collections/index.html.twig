@@ -5,7 +5,7 @@
 {% block header %}
     <div class="d-flex justify-content-end flex-wrap gap-3">
         <form class="d-flex serch-collections" method="get">
-            <input class="form-control me-2" type="search" name="searchfor" placeholder="{{'nav.search'|trans}}" aria-label="Search" value="{{searchfor}}"/>
+            <input class="form-control me-2" type="search" name="searchfor" placeholder="{{'nav.searchCollections'|trans}}" aria-label="Search" value="{{searchfor}}"/>
             <button class="btn btn-outline-success" type="submit">{{'nav.search'|trans}}</button>
         </form>
         <a href="{{ path('app_main') }}" class="btn btn-success nav-btn">{{'nav.mainPage'|trans}}</a>

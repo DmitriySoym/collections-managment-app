@@ -11,6 +11,9 @@ nav:
     backMainPage: "Back to main page"
     mainPage: "Main page"
     search: "Search"
+    searchCollections: "Find collections"
+    findUser: "Find user"
+    searchItems: "Find items"
 login:
     pleaseSignIn: "Please sign in"
     username: "Username"
