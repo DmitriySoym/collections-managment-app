@@ -27,7 +27,7 @@
                                 <i class="fa-regular fa-heart" style="color:'unset'"></i>
                             {% endif %}
                             <span>{{likesCount|length}}</span>
-                            <div class="like-loading hidden"><div></div></div>
+                            {# <div class="like-loading hidden"><div></div></div> #}
                         </button>
                     </div>
                 {% endif %}
@@ -98,12 +98,12 @@
         if(btnLike) {
             const btnLikeIcon = btnLike.querySelector('i');
             const likeAmount = btnLike.querySelector('span');
-            const likeLoading = btnLike.querySelector('.like-loading');
+            // const likeLoading = btnLike.querySelector('.like-loading');
 
             btnLike.addEventListener('click', async function() {
                 const itemId = {{itemCollection.id}};
                 try {
-                    likeLoading.classList.remove('hidden');
+                    btnLikeIcon.classList.add('loading');
                     const response = await fetch(`/api/like/item/${itemId}`, {
                         method: 'POST',
                         headers: {
@@ -116,17 +116,17 @@
                             btnLikeIcon.classList.add('fa-solid');
                             btnLikeIcon.style.color = '#dc3545';
                             likeAmount.innerText = parseInt(likeAmount.textContent) + 1;
-                            likeLoading.classList.add('hidden');
+                            btnLikeIcon.classList.remove('loading');
                         } else {
                             btnLikeIcon.classList.remove('fa-solid');
                             btnLikeIcon.classList.add('fa-regular');
                             btnLikeIcon.style.color = 'unset';
                             likeAmount.innerText = parseInt(likeAmount.textContent) - 1;
-                            likeLoading.classList.add('hidden');
+                            btnLikeIcon.classList.remove('loading');
                         }
                 } catch (error) {
                     console.log(error);
-                    likeLoading.classList.add('hidden');
+                    btnLikeIcon.classList.remove('loading');
                 }
             })
         }

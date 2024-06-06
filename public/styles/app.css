@@ -219,46 +219,6 @@ header {
     position: relative;
 }
 
-.like-loading.hidden {
-    display: none;
-}
-
-.like-loading {
-    display: inline-block;
-    position: absolute;
-    left: -7px;
-    top: -10px;
-    width: 29px;
-    height: 29px;
-    transform: rotate(45deg);
-    transform-origin: 32px 32px;
-}
-.like-loading div {
-    top: 23px;
-    left: 19px;
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background: #dc3545;
-    animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-.like-loading div:after,
-.like-loading div:before {
-    content: " ";
-    position: absolute;
-    display: block;
-    width: 15px;
-    height: 15px;
-    background: crimson;
-}
-.like-loading div:before {
-    left: -14px;
-    border-radius: 50% 0 0 50%;
-}
-.like-loading div:after {
-    top: -14px;
-    border-radius: 50% 50% 0 0;
-}
 @keyframes lds-heart {
     0% {
         transform: scale(0.95);
@@ -283,6 +243,10 @@ header {
 .leked-items i,
 .btn-like i {
     font-size: 1.5rem;
+}
+
+.btn-like i.loading {
+    animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .app-pagination {
