@@ -17,8 +17,14 @@ p {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    background-color: #fff;
+    /* background-color: #fff; */
+}
+
+.flex-auto {
+    flex: auto;
 }
 
 header {
@@ -43,7 +49,7 @@ header {
 }
 
 .main {
-    height: 90%;
+    height: 85%;
     background-image: url(../images/form-bg.png);
     background-repeat: no-repeat;
     background-position-x: 50%;
@@ -78,7 +84,7 @@ header {
     margin: unset;
     border-radius: 40px;
     border: 1px solid rgba(141, 153, 174, 0.4);
-    background: #fff;
+    background: rgb(var(--bs-secondary-bg-rgb));
     box-shadow: 0 0 40px #8d99ae0d;
 }
 
@@ -93,7 +99,7 @@ header {
     margin: 0 auto;
     border-radius: 40px;
     border: 1px solid rgba(141, 153, 174, 0.4);
-    background: #fff;
+    background: rgb(var(--bs-secondary-bg-rgb));
     box-shadow: 0 0 40px #8d99ae0d;
     text-align: center;
 }
@@ -187,9 +193,10 @@ header {
     gap: 1.5rem;
     flex-wrap: wrap;
     padding: 1rem;
+    padding-bottom: 0;
     margin-bottom: 1rem;
-    height: calc(100vh - 233px);
-    background-color: #f6f8fe;
+    height: calc(100vh - 255px);
+    background-color: rgb(var(--bs-tertiary-bg-rgb));
     overflow-y: auto;
 }
 

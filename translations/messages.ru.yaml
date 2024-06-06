@@ -104,3 +104,7 @@ user:
     wrote: "написал"
     addNewComment: "Добавить новый комментарий"
     commentsLeft: "Оставленные комментарии"
+theme:
+    dark: "Темная"
+    light: "Светлая"
+    colorTheme: "Цветовая тема"

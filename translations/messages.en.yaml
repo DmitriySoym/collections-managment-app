@@ -103,3 +103,7 @@ user:
     wrote: "wrote "
     addNewComment: "Add new comment"
     commentsLeft: "Comments left"
+theme:
+    dark: "Dark"
+    light: "Light"
+    colorTheme: "Color theme"

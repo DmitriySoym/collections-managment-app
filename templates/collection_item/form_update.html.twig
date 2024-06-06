@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container pt-5">
+    <div class="container pt-5 flex-auto">
 
         <h1>{{'createCollectionItem.collectionItemEdit'|trans({'%name%': category.name})}}</h1>
         {{ form_start(form, { 'attr' : { 'class': 'category__form' } }) }}
