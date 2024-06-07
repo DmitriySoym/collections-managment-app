@@ -174,7 +174,14 @@ header {
 }
 
 .sign-up div input[type="checkbox"] {
-    margin-left: 5px;
+    margin: 0;
+}
+
+.sign-up .form-check {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
 }
 
 .collections__text {

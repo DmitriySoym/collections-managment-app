@@ -22,7 +22,7 @@
                 {{ form_row(registrationForm.plainPassword, {
                     'attr' : {'class' : 'form-control mb-3'} 
                 }) }}
-                {{ form_row(registrationForm.agreeTerms) }}
+                {{ form_row(registrationForm.agreeTerms, {'label_attr': {'class': ' mb-0'}}) }}
                 <button type="submit" class="btn btn-primary" formnovalidate>{{'register.send'|trans}}</button>
             {{ form_end(registrationForm) }}
         
