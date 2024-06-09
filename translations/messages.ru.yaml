@@ -108,3 +108,9 @@ theme:
     dark: "Темная"
     light: "Светлая"
     colorTheme: "Цветовая тема"
+help:
+    noTickets: "У вас нет открытых запросов."
+    newTicket: "Новый запрос"
+    ticketName: "Название запроса"
+    ticketLink: "Ссылка на тему запроса"
+    ticketDescription: "Описание запроса"

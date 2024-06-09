@@ -107,3 +107,9 @@ theme:
     dark: "Dark"
     light: "Light"
     colorTheme: "Color theme"
+help:
+    noTickets: "You have no open tickets."
+    newTicket: "New ticket"
+    ticketName: "Ticket name"
+    ticketLink: "Link to ticket subject"
+    ticketDescription: "Ticket description"

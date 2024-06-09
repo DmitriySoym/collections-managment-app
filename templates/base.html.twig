@@ -70,6 +70,13 @@
 {% block body %}{% endblock %}
 {% block footer %}
     <div class="container footer">
+    <div class="faq faq-visible">
+        {% if app.user %}
+            <a href="{{ path('app_help', {userName: app.user.username}) }}"><i class="far fa-question-circle"></i></a>
+        {% else %}
+            <a href="{{ path('app_login') }}"><i class="far fa-question-circle"></i></a>
+        {% endif %}
+    </div>
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
                 <span class="mb-md-0 text-muted">© 2024 All rights reserved</span>

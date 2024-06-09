@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hellp{% endblock %}
+{% block header %}
+    <div class="d-flex justify-content-end flex-wrap gap-3">
+        <form class="d-flex serch-collections" method="get">
+            <input class="form-control me-2" type="search" name="searchfor" placeholder="{{'nav.searchCollections'|trans}}" aria-label="Search" value="{{searchfor}}"/>
+            <button class="btn btn-outline-success" type="submit">{{'nav.search'|trans}}</button>
+        </form>
+        <a href="{{ path('app_collections', {page: 1}) }}" class="btn btn-success nav-btn">{{'nav.openCollections'|trans}}</a>
+        <a href="{{ path('app_user_managment') }}" class="btn btn-success nav-btn">{{'nav.users'|trans}}</a>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="container pt-5 flex-auto">
+        {% if tickets == null %}
+            <h2 class="pb-3 pt-3">{{'help.noTickets'|trans}}</h2>
+        {% else %}
+        {% endif %}
+
+        <form method="post" class="container pt-5 category__form">
+            <h4 class="mb-3 font-weight-normal">{{'help.newTicket'|trans}}</h4>
+            <label>{{'help.ticketName'|trans}}</label>
+            <input type="text" class="form-control" placeholder="{{'help.ticketName'|trans}}"/>
+
+            <label>{{'help.ticketLink'|trans}}</label>
+            <input type="text" class="form-control input-referrer" placeholder="{{'help.ticketLink'|trans}}"/>
+            
+            <label>{{'help.ticketDescription'|trans}}</label>
+            <textarea type="text" class="form-control input-referrer" placeholder="{{'help.ticketDescription'|trans}}"></textarea>
+
+            <button class="btn btn-primary" type="submit">
+                {{'createCollection.create'|trans}}
+            </button>
+        </form>
+    </div>
+    <script>
+        function linkReferrer() {
+            const inputReferrer = document.querySelector('.input-referrer');
+            inputReferrer.value = document.referrer;
+        }
+
+        linkReferrer();
+    </script>
+{% endblock %}

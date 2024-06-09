@@ -361,6 +361,18 @@ header {
     overflow-y: auto;
 }
 
+.footer {
+    position: relative;
+}
+
+.faq {
+    position: absolute;
+    top: -25%;
+    right: 0;
+    width: fit-content;
+    font-size: 2rem;
+}
+
 @media screen and (max-width: 1200px) {
     .login {
         background-image: none;
