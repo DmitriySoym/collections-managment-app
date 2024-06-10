@@ -373,6 +373,41 @@ header {
     font-size: 2rem;
 }
 
+.add-comment {
+    position: relative;
+}
+
+.add-comment__btn-text {
+    /* display: none; */
+}
+
+.loader {
+    display: none;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: calc(50% - 15px);
+    top: 5%;
+    border: 5px solid #6ebeff;
+    border-bottom-color: #337ab7;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.loader.active {
+    display: inline-block;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 @media screen and (max-width: 1200px) {
     .login {
         background-image: none;

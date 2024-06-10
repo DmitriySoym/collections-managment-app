@@ -97,6 +97,8 @@ itemCollection:
     tags: "Tags"
     noTags: "No tags"
     addComment: "Add a comment..."
+    enterComment: "Please enter comment"
+    send: "Send"
 user:
     userAccountTitle: "User's personal account: '%name%'"
     userPosted: "user"

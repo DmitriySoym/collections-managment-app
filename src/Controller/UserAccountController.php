@@ -24,9 +24,7 @@ class UserAccountController extends AbstractController
         $limit = 6;
 
 
-        $messageAccsess = $this->translator->trans('collection.canAddCollectionItems');
-        if(!$this->isGranted('ROLE_ADMIN') && $this->getUser()->getUserIdentifier() !== $userName) {
-            $this->addFlash('danger', $messageAccsess);
+        if($this->getUser() === null || !$this->isGranted('ROLE_ADMIN') && $this->getUser()->getUserIdentifier() !== $userName) {
             return $this->redirectToRoute('app_main');
         }
 

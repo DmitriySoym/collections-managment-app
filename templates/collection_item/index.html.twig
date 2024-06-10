@@ -27,7 +27,6 @@
                                 <i class="fa-regular fa-heart" style="color:'unset'"></i>
                             {% endif %}
                             <span>{{likesCount|length}}</span>
-                            {# <div class="like-loading hidden"><div></div></div> #}
                         </button>
                     </div>
                 {% endif %}
@@ -98,7 +97,6 @@
         if(btnLike) {
             const btnLikeIcon = btnLike.querySelector('i');
             const likeAmount = btnLike.querySelector('span');
-            // const likeLoading = btnLike.querySelector('.like-loading');
 
             btnLike.addEventListener('click', async function() {
                 const itemId = {{itemCollection.id}};

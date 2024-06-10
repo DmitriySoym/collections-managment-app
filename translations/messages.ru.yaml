@@ -98,6 +98,8 @@ itemCollection:
     tags: "Теги"
     noTags: "Нет тегов"
     addComment: "Добавить комментарий..."
+    enterComment: "Пожалуйста, введите комментарий"
+    send: "Отправить"
 user:
     userAccountTitle: "Личный кабинет пользователя: '%name%'"
     userPosted: "пользователь"
